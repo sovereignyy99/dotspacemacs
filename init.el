@@ -8,7 +8,7 @@ You should not put any user code in this function besides modifying the variable
 values."
   (setq-default
    ;; Base distribution to use. This is a layer contained in the directory
-   ;; `+distribution'. For now available distributions are `spacemacs-base'
+   ;; `+distribution'. For now available distributions are `spacemacs-ba
    ;; or `spacemacs'. (default 'spacemacs)
    dotspacemacs-distribution 'spacemacs
    ;; Lazy installation of layers (i.e. layers are installed only when a file
@@ -37,18 +37,53 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      helm
-     auto-completion
      better-defaults
+     ;; ranger
+     ;; emoji
      emacs-lisp
-     git
+     colors
+     ;; prodigy
+     ;; github
+     ;; search-engine
+     ;; graphviz
+     (git :variables
+          git-magit-status-fullscreen t
+          magit-push-always-verify nil
+          magit-save-repository-buffers 'dontask
+          magit-revert-buffers 'silent
+          magit-refs-show-commit-count 'all
+          magit-revision-show-gravatars nil)
+     ;; (ibuffer :variables ibuffer-group-buffers-by 'projects)
      markdown
-     org
+     (org :variables
+          org-want-todo-bindings t)
+     latex
+     ;; deft
      (shell :variables
-            shell-default-height 30
-            shell-default-position 'bottom)
-     spell-checking
-     syntax-checking
+            shell-default-shell 'ansi-term
+            shell-default-term-shell "~/bin/zsh")
+     (spell-checking :variables spell-checking-enable-by-default nil)
+     (syntax-checking :variables syntax-checking-enable-by-default nil
+                      syntax-checking-enable-tooltips nil)
+     ;; (vinegar :variables vinegar-reuse-dired-buffer t)
+      (spacemacs-layouts :variables layouts-enable-autosave nil
+                        layouts-autosave-delay 300)
+     (auto-completion :variables auto-completion-enable-sort-by-usage t
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-tab-key-behavior 'cycle
+                      :disabled-for org markdown)
+     html
+     ;; sunzhongyang
+     (chinese :variables chinese-default-input-method 'pinyin
+              chinese-enable-youdao-dict nil)
+     themes-megapack
+     ;; restclient
      ;; version-control
+     ;; mu4m
+     ;; gpu
+     ;; yaml
+     ;; react
+     
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -126,14 +161,19 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light)
+   dotspacemacs-themes '(
+						monokai
+                 		spacemacs-dark
+						solarized-dark
+						leuven                        			
+						zenburn
+						)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+                               :size 14 
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -227,7 +267,7 @@ values."
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-maximized-at-startup t
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
@@ -305,7 +345,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
 	   '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
 		("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
 		("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
-	  
+
+  ;; (setq term-char-mode-point-at-process-mark nil)
+
   )
 
 (defun dotspacemacs/user-config ()
@@ -315,7 +357,50 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  )
+
+  ;; 解决org表格中英文对齐的问题
+  (when (configuration-layer/layer-usedp 'chinese)
+    (when (and (spacemacs/system-is-mswindows) window-system)
+      (spacemacs//set-monospaced-font "Source Code Pro" "Microsoft YaHei" 14 16)))
+	  
+	  
+	  
+
+;; Setting Chinese Font
+;;(when (and (spacemacs/system-is-mswindows) window-system)
+;;  (setq ispell-program-name "aspell")
+;;  (setq w32-pass-alt-to-system nil)
+;;  (setq w32-apps-modifier 'super)
+;;  (dolist (charset '(kana han symbol cjk-misc bopomofo))
+;;    (set-fontset-font (frame-parameter nil 'font)
+;;                      charset
+;;                      (font-spec :family "Microsoft Yahei" :size 14))))
+					  
+;;(dolist (charset '(kana han cjk-misc bopomofo))
+;;    (set-fontset-font (frame-parameter nil 'font) charset
+;;                      (font-spec :family "微软雅黑" :size 16)))
+
+;; (fset 'evil-visual-update-x-selection 'ignore)
+
+;; force horizontal split window
+;; (setq split-width-threshold 120)
+;; (linum-relative-on)
+
+;; (spacemacs|add-company-backends :modes text-mode)
+
+(add-hook 'doc-view-mode-hook 'auto-revert-mode)
+
+;; temp fix for ivy-switch-buffer
+;; (spacemacs/set-leader-keys "bb" 'helm-mini)
+
+(global-hungry-delete-mode t)
+;; (spacemacs|diminish helm-gtags-mode)
+;; (spacemacs|diminish ggtags-mode)
+;; (spacemacs|diminish which-key-mode)
+;; (spacemacs|diminish spacemacs-whitespace-cleanup-mode)
+;; (spacemacs|diminish counsel-mode)
+)
+
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
