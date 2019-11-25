@@ -73,7 +73,7 @@ values."
                       auto-completion-tab-key-behavior 'cycle
                       :disabled-for org markdown)
      html
-     ;; sunzhongyang
+     sunzhongyang
      (chinese :variables chinese-default-input-method 'pinyin
               chinese-enable-youdao-dict nil)
      themes-megapack
@@ -136,7 +136,7 @@ values."
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
-   dotspacemacs-editing-style 'vim
+   dotspacemacs-editing-style 'hybrid
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading nil
    ;; Specify the startup banner. Default value is `official', it displays
