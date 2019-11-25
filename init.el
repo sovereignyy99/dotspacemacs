@@ -66,7 +66,7 @@ values."
      (syntax-checking :variables syntax-checking-enable-by-default nil
                       syntax-checking-enable-tooltips nil)
      ;; (vinegar :variables vinegar-reuse-dired-buffer t)
-      (spacemacs-layouts :variables layouts-enable-autosave nil
+     (spacemacs-layouts :variables layouts-enable-autosave nil
                         layouts-autosave-delay 300)
      (auto-completion :variables auto-completion-enable-sort-by-usage t
                       auto-completion-enable-snippets-in-popup t
@@ -83,7 +83,7 @@ values."
      ;; gpu
      ;; yaml
      ;; react
-     
+
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -162,18 +162,18 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-						monokai
-                 		spacemacs-dark
-						solarized-dark
-						leuven                        			
-						zenburn
-						)
+                         monokai
+                         spacemacs-dark
+                         solarized-dark
+                         leuven
+                         zenburn
+                         )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 14 
+                               :size 14
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -341,10 +341,10 @@ executes.
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
 
-	(setq configuration-layer--elpa-archives
-	   '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-		("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-		("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
+  (setq configuration-layer--elpa-archives
+        '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+          ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+          ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
 
   ;; (setq term-char-mode-point-at-process-mark nil)
 
@@ -362,44 +362,44 @@ you should place your code here."
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and (spacemacs/system-is-mswindows) window-system)
       (spacemacs//set-monospaced-font "Source Code Pro" "Microsoft YaHei" 14 16)))
-	  
-	  
-	  
 
-;; Setting Chinese Font
-;;(when (and (spacemacs/system-is-mswindows) window-system)
-;;  (setq ispell-program-name "aspell")
-;;  (setq w32-pass-alt-to-system nil)
-;;  (setq w32-apps-modifier 'super)
-;;  (dolist (charset '(kana han symbol cjk-misc bopomofo))
-;;    (set-fontset-font (frame-parameter nil 'font)
-;;                      charset
-;;                      (font-spec :family "Microsoft Yahei" :size 14))))
-					  
-;;(dolist (charset '(kana han cjk-misc bopomofo))
-;;    (set-fontset-font (frame-parameter nil 'font) charset
-;;                      (font-spec :family "微软雅黑" :size 16)))
 
-;; (fset 'evil-visual-update-x-selection 'ignore)
 
-;; force horizontal split window
-;; (setq split-width-threshold 120)
-;; (linum-relative-on)
 
-;; (spacemacs|add-company-backends :modes text-mode)
+  ;; Setting Chinese Font
+  ;;(when (and (spacemacs/system-is-mswindows) window-system)
+  ;;  (setq ispell-program-name "aspell")
+  ;;  (setq w32-pass-alt-to-system nil)
+  ;;  (setq w32-apps-modifier 'super)
+  ;;  (dolist (charset '(kana han symbol cjk-misc bopomofo))
+  ;;    (set-fontset-font (frame-parameter nil 'font)
+  ;;                      charset
+  ;;                      (font-spec :family "Microsoft Yahei" :size 14))))
 
-(add-hook 'doc-view-mode-hook 'auto-revert-mode)
+  ;;(dolist (charset '(kana han cjk-misc bopomofo))
+  ;;    (set-fontset-font (frame-parameter nil 'font) charset
+  ;;                      (font-spec :family "微软雅黑" :size 16)))
 
-;; temp fix for ivy-switch-buffer
-;; (spacemacs/set-leader-keys "bb" 'helm-mini)
+  ;; (fset 'evil-visual-update-x-selection 'ignore)
 
-(global-hungry-delete-mode t)
-;; (spacemacs|diminish helm-gtags-mode)
-;; (spacemacs|diminish ggtags-mode)
-;; (spacemacs|diminish which-key-mode)
-;; (spacemacs|diminish spacemacs-whitespace-cleanup-mode)
-;; (spacemacs|diminish counsel-mode)
-)
+  ;; force horizontal split window
+  ;; (setq split-width-threshold 120)
+  ;; (linum-relative-on)
+
+  ;; (spacemacs|add-company-backends :modes text-mode)
+
+  (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+
+  ;; temp fix for ivy-switch-buffer
+  ;; (spacemacs/set-leader-keys "bb" 'helm-mini)
+
+  (global-hungry-delete-mode t)
+  ;; (spacemacs|diminish helm-gtags-mode)
+  ;; (spacemacs|diminish ggtags-mode)
+  ;; (spacemacs|diminish which-key-mode)
+  ;; (spacemacs|diminish spacemacs-whitespace-cleanup-mode)
+  ;; (spacemacs|diminish counsel-mode)
+  )
 
 
 ;; Do not write anything past this comment. This is where Emacs will
