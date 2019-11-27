@@ -33,6 +33,7 @@
   '(
     ;; (org :location built-in)
     ;; org-mac-link
+    org-autolist
     ;; org-pomodoro
     ;; deft
     ;; sound-wav

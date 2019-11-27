@@ -1,4 +1,4 @@
-;; -*- mode: emacs-lisp -*-
+;; -*- mode: emacs-lisp; lexical-binding: t -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
@@ -36,60 +36,122 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     helm
-     better-defaults
-     ;; ranger
-     ;; emoji
+     
+     ;; languages layers
+     html
+     ;; (javascript :variables javascript-backend 'lsp)
+     ;; lsp
+     ;; c-c++
+     ;; cmake
      emacs-lisp
-     colors
+     ;; rust
+     ;; (python :variables
+     ;;     python-backend 'lsp
+     ;;     python-format-on-save nil
+     ;;     python-formatter 'black
+     ;;     python-fill-column 99)
+     ;; yaml
+     ;; shell-scripts
+     markdown
+     latex
+     ;; graphviz
+     ;; restructuredtext
+     ;; csv
+     ;; react
+     
+
+     ;; tools layers
+     ;; sphinx
+     ;; pandoc
+     (ranger :variables
+             ranger-show-preview t
+             ranger-ignored-extensions '("mkv" "iso" "mp4" "mov" "flv" "avi")
+             ranger-max-preview-size 10
+             ranger-enter-with-minus t
+             ranger-show-hidden nil)
+     (org :variables
+          org-want-todo-bindings t
+          ;;org-enable-org-journal-support t
+          ;;org-journal-dir "~/mydocs/org/journal/"
+          ;;org-journal-file-format "%Y-%m"
+          ;;org-journal-file-type 'monthly
+          )
+     ;; spacemacs-org
+     ;; (shell :variables
+     ;;    shell-default-height 50
+     ;;    shell-default-position 'bottom
+     ;;    shell-default-shell 'ansi-term
+     ;;    shell-default-term-shell "~/bin/zsh")
+     (spell-checking :variables
+                     spell-checking-enable-by-default nil
+                     enable-flyspell-auto-completion t)
+     (syntax-checking :variables
+                      syntax-checking-enable-by-default nil
+                      syntax-checking-enable-tooltips nil)
+     (colors :variables
+             colors-colorize-identifiers 'variables)
+     ;; emoji
+     ;; (ibuffer :variables ibuffer-group-buffers-by 'projects)
+     ;; deft
+     ;; (vinegar :variables vinegar-reuse-dired-buffer t)
+     ;; restclient
+     ;; mu4m
+     ;; gpu
      ;; prodigy
      ;; github
      ;; search-engine
-     ;; graphviz
+     
+     
+     ;; completion layers
+     ;; gtags
+     ;; dash ;; open and search docs with Zeal
+     helm
+     (auto-completion :variables
+                      auto-completion-return-key-behavior 'complete
+                      auto-completion-tab-key-behavior 'complete
+                      auto-completion-idle-delay 0.1
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-sort-by-usage t
+                      :disabled-for org markdown)
+
+     
+     ;; better config layers
+     better-defaults
+     (spacemacs-layouts :variables layouts-enable-autosave nil
+                        layouts-autosave-delay 300)
+     (chinese :variables chinese-default-input-method 'pinyin
+              chinese-enable-youdao-dict nil)
+
+
+     ;; vcs layers
      (git :variables
-          git-magit-status-fullscreen t
+          git-magit-status-fullscreen nil
           magit-push-always-verify nil
           magit-save-repository-buffers 'dontask
           magit-revert-buffers 'silent
           magit-refs-show-commit-count 'all
           magit-revision-show-gravatars nil)
-     ;; (ibuffer :variables ibuffer-group-buffers-by 'projects)
-     markdown
-     (org :variables
-          org-want-todo-bindings t)
-     latex
-     ;; deft
-     (shell :variables
-            shell-default-shell 'ansi-term
-            shell-default-term-shell "~/bin/zsh")
-     (spell-checking :variables spell-checking-enable-by-default nil)
-     (syntax-checking :variables syntax-checking-enable-by-default nil
-                      syntax-checking-enable-tooltips nil)
-     ;; (vinegar :variables vinegar-reuse-dired-buffer t)
-     (spacemacs-layouts :variables layouts-enable-autosave nil
-                        layouts-autosave-delay 300)
-     (auto-completion :variables auto-completion-enable-sort-by-usage t
-                      auto-completion-enable-snippets-in-popup t
-                      auto-completion-tab-key-behavior 'cycle
-                      :disabled-for org markdown)
-     html
-     sunzhongyang
-     (chinese :variables chinese-default-input-method 'pinyin
-              chinese-enable-youdao-dict nil)
-     themes-megapack
-     ;; restclient
      ;; version-control
-     ;; mu4m
-     ;; gpu
-     ;; yaml
-     ;; react
 
+
+     ;; themes layers
+     themes-megapack
+
+
+     ;; custom packet layers
+     sunzhongyang
+     
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(
+                                      ;; auto-dim-other-buffers
+                                      ;; (godot-gdscript :location local)  ;;game engine
+                                      beacon
+                                      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -152,12 +214,16 @@ values."
    ;; `recents' `bookmarks' `projects' `agenda' `todos'."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-   dotspacemacs-startup-lists '((recents . 5)
-                                (projects . 7))
+   dotspacemacs-startup-lists '(
+                                ;; (agenda . 5)
+                                ;; (todos . 5)
+                                (recents . 5)
+                                (projects . 7)
+                                )
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
-   dotspacemacs-scratch-mode 'text-mode
+   dotspacemacs-scratch-mode 'markdown-mode  ;; text-mode
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
@@ -165,6 +231,7 @@ values."
                          monokai
                          spacemacs-dark
                          solarized-dark
+                         dracula
                          leuven
                          zenburn
                          )
@@ -245,10 +312,10 @@ values."
    dotspacemacs-helm-use-fuzzy 'always
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content. (default nil)
-   dotspacemacs-enable-paste-transient-state nil
+   dotspacemacs-enable-paste-transient-state t
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
-   dotspacemacs-which-key-delay 0.4
+   dotspacemacs-which-key-delay 0.15
    ;; Which-key frame position. Possible values are `right', `bottom' and
    ;; `right-then-bottom'. right-then-bottom tries to display the frame to the
    ;; right; if there is insufficient space it displays it at the bottom.
@@ -260,14 +327,14 @@ values."
    dotspacemacs-loading-progress-bar t
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup nil
+   dotspacemacs-fullscreen-at-startup t
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
    dotspacemacs-fullscreen-use-non-native nil
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup t
+   dotspacemacs-maximized-at-startup nil
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
@@ -358,13 +425,58 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  ;; (require 'godot-gdscript "/home/gdquest/.emacs.d/private/local/godot-gdscript.el")
+  (require 'beacon)
+
+
+  ;; Appointments and notifications
+;;  (require 'notifications)
+;;  (require 'appt)
+;;  (defun appt-agenda-notify (minutes-to-appt time-current message)
+;;    "Display a notification before scheduled events registered in org-agenda"
+;;    (notifications-notify :title "Appointment"
+;;                          :body (format "In %s minutes:" minutes-to-appt) message
+;;                          :app-name "Emacs: Org"
+;;                          :urgency "normal"
+;;                          :sound-name "alarm-clock-elapsed")
+;;    )
+;;  (setq appt-message-warning-time 15
+;;        appt-display-mode-line t
+;;        appt-display-format 'window
+;;        appt-disp-window-function (function appt-agenda-notify))
+
+  ;; Update appointments automatically
+;;  (org-agenda-to-appt)
+;;  (run-at-time "12:00am" (* 24 3600) 'org-agenda-to-appt)
+;;  (add-hook 'after-save-hook
+;;            '(lambda ()
+;;               (if (seq-contains (org-agenda-files) (buffer-file-name))
+;;                   (org-agenda-to-appt))))
+;;  (appt-activate 1)
+;;  (display-time)
+
   ;; 解决org表格中英文对齐的问题
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and (spacemacs/system-is-mswindows) window-system)
       (spacemacs//set-monospaced-font "Source Code Pro" "Microsoft YaHei" 14 16)))
 
+  ;; Org mode settings
+;;  (setq org-directory "~/mydocs/org/")
+;;  (setq org-default-notes-file (concat org-directory "tasks.org"))
+;;  (setq org-todo-keywords '((sequence "TODO" "PROGRESS" "|" "DONE" "DELEGATED" "CANCELLED")))
+;;  (setq org-refile-targets
+;;        '((nil :maxlevel . 1)
+;;          (org-agenda-files :maxlevel . 1)))
 
-
+  (setq company-show-numbers t)
+  (setq flycheck-check-syntax-automatically '(new-line save))
+  (custom-set-faces
+   '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+   '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+  
+  ;; Major mode associations
+  ;; (add-to-list 'auto-mode-alist '("\\.tscn\\'" . toml-mode))
+  (setq spacemacs-large-file-modes-list '(archive-mode tar-mode jka-compr git-commit-mode image-mode doc-view-mode doc-view-mode-maybe ebrowse-tree-mode pdf-view-mode fundamental-mode ggtags-mode helm-gtags-mode tags-table-mode))
 
   ;; Setting Chinese Font
   ;;(when (and (spacemacs/system-is-mswindows) window-system)
@@ -418,3 +530,117 @@ you should place your code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
+ ;; '(auto-dim-other-buffers-mode nil)
+ '(compilation-message-face (quote default))
+ '(cua-global-mark-cursor-color "#2aa198")
+ '(cua-normal-cursor-color "#839496")
+ '(cua-overwrite-cursor-color "#b58900")
+ '(cua-read-only-cursor-color "#859900")
+ '(custom-safe-themes
+   (quote
+    ("a2cde79e4cc8dc9a03e7d9a42fabf8928720d420034b66aecc5b665bbf05d4e9" default)))
+ '(evil-want-Y-yank-to-eol nil)
+ '(fci-rule-color "#073642")
+ '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
+ '(highlight-symbol-colors
+   (--map
+    (solarized-color-blend it "#002b36" 0.25)
+    (quote
+     ("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2"))))
+ '(highlight-symbol-foreground-color "#93a1a1")
+ '(highlight-tail-colors
+   (quote
+    (("#073642" . 0)
+     ("#5b7300" . 20)
+     ("#007d76" . 30)
+     ("#0061a8" . 50)
+     ("#866300" . 60)
+     ("#992700" . 70)
+     ("#a00559" . 85)
+     ("#073642" . 100))))
+ '(hl-bg-colors
+   (quote
+    ("#866300" "#992700" "#a7020a" "#a00559" "#243e9b" "#0061a8" "#007d76" "#5b7300")))
+ '(hl-fg-colors
+   (quote
+    ("#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36")))
+ '(hl-todo-keyword-faces
+   (quote
+    (("HOLD" . "#d0bf8f")
+     ("TODO" . "#dc752f")
+     ("NEXT" . "#dc752f")
+     ("THEM" . "#dc8cc3")
+     ("PROG" . "#4f97d7")
+     ("OKAY" . "#4f97d7")
+     ("DONT" . "#f2241f")
+     ("FAIL" . "#f2241f")
+     ("DONE" . "#86dc2f")
+     ("NOTE" . "#b1951d")
+     ("KLUDGE" . "#d0bf8f")
+     ("HACK" . "#b1951d")
+     ("TEMP" . "#b1951d")
+     ("FIXME" . "#dc752f")
+     ("XXX+" . "#cc9393"))))
+ '(magit-diff-use-overlays nil)
+ '(nrepl-message-colors
+   (quote
+    ("#dc322f" "#cb4b16" "#b58900" "#5b7300" "#b3c34d" "#0061a8" "#2aa198" "#d33682" "#6c71c4")))
+ '(package-selected-packages
+   (quote
+    (xterm-color ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org spaceline powerline smeargle shell-pop restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox spinner orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-plus-contrib org-mime org-download org-bullets open-junk-file neotree mwim multi-term move-text mmm-mode markdown-toc markdown-mode magit-gitflow magit-popup macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-gitignore request helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit transient git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump f dash s diminish define-word company-statistics company column-enforce-mode clean-aindent-mode bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup)))
+ '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#292b2e")))
+ '(pos-tip-background-color "#073642")
+ '(pos-tip-foreground-color "#93a1a1")
+ '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
+ '(term-default-bg-color "#002b36")
+ '(term-default-fg-color "#839496")
+ '(vc-annotate-background nil)
+ '(vc-annotate-background-mode nil)
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#dc322f")
+     (40 . "#cb4366eb20b4")
+     (60 . "#c1167942154f")
+     (80 . "#b58900")
+     (100 . "#a6ae8f7c0000")
+     (120 . "#9ed892380000")
+     (140 . "#96be94cf0000")
+     (160 . "#8e5397440000")
+     (180 . "#859900")
+     (200 . "#77679bfc4635")
+     (220 . "#6d449d465bfd")
+     (240 . "#5fc09ea47092")
+     (260 . "#4c68a01784aa")
+     (280 . "#2aa198")
+     (300 . "#303498e7affc")
+     (320 . "#2fa1947cbb9b")
+     (340 . "#2c879008c736")
+     (360 . "#268bd2"))))
+ '(vc-annotate-very-old-color nil)
+ '(weechat-color-list
+   (quote
+    (unspecified "#002b36" "#073642" "#a7020a" "#dc322f" "#5b7300" "#859900" "#866300" "#b58900" "#0061a8" "#268bd2" "#a00559" "#d33682" "#007d76" "#2aa198" "#839496" "#657b83")))
+ '(xterm-color-names
+   ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#eee8d5"])
+ '(xterm-color-names-bright
+   ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1" "#fdf6e3"]))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+)
