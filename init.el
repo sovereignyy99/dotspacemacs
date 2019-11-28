@@ -140,7 +140,7 @@ values."
 
 
      ;; custom packet layers
-     sunzhongyang
+     ;; sunzhongyang
      
      )
    ;; List of additional packages that will be installed without being
@@ -228,10 +228,10 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
+                         dracula
                          monokai
                          spacemacs-dark
                          solarized-dark
-                         dracula
                          leuven
                          zenburn
                          )
@@ -412,6 +412,12 @@ before packages are loaded. If you are unsure, you should try in setting them in
         '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
           ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
           ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
+		  
+  ;;(setq-default configuration-layer-elpa-archives
+   ;;              '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
+   ;;                ("org-cn"   . "http://elpa.emacs-china.org/org/")
+
+  ;;                ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
 
   ;; (setq term-char-mode-point-at-process-mark nil)
 
@@ -427,6 +433,7 @@ you should place your code here."
 
   ;; (require 'godot-gdscript "/home/gdquest/.emacs.d/private/local/godot-gdscript.el")
   (require 'beacon)
+  (beacon-mode t)
 
 
   ;; Appointments and notifications
@@ -542,7 +549,8 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
- ;; '(auto-dim-other-buffers-mode nil)
+ '(company-quickhelp-color-background "#4F4F4F")
+ '(company-quickhelp-color-foreground "#DCDCCC")
  '(compilation-message-face (quote default))
  '(cua-global-mark-cursor-color "#2aa198")
  '(cua-normal-cursor-color "#839496")
@@ -550,7 +558,7 @@ This function is called at the very end of Spacemacs initialization."
  '(cua-read-only-cursor-color "#859900")
  '(custom-safe-themes
    (quote
-    ("a2cde79e4cc8dc9a03e7d9a42fabf8928720d420034b66aecc5b665bbf05d4e9" default)))
+    ("834cbeacb6837f3ddca4a1a7b19b1af3834f36a701e8b15b628cad3d85c970ff" "a2cde79e4cc8dc9a03e7d9a42fabf8928720d420034b66aecc5b665bbf05d4e9" default)))
  '(evil-want-Y-yank-to-eol nil)
  '(fci-rule-color "#073642")
  '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
