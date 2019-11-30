@@ -163,14 +163,14 @@ values."
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '(
-                                   ;; php-extras
-                                   ;; auto-highlight-symbol
-                                   ;; version-control
-                                   ;; yasnippet-snippets
-                                   ;; chinese-pyim
-                                   ;; pyim
-                                   ;; ace-pinyin
-                                   ;; go-eldoc
+                                    ;; php-extras
+                                    ;; auto-highlight-symbol
+                                    ;; version-control
+                                    ;; yasnippet-snippets
+                                    ;; chinese-pyim
+                                    ;; pyim
+                                    ;; ace-pinyin
+                                    ;; go-eldoc
                                     )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -433,6 +433,12 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;;              '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
   ;;                ("org-cn"   . "http://elpa.emacs-china.org/org/")
   ;;                ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
+
+  ;; (setq url-proxy-services
+  ;;   '(("no_proxy" . "^\\(localhost\\|10.*\\)")
+  ;;     ("http" . "127.0.0.1:8888")  ;; http 代理 proxy_host 换成代理的域名或 ip，port 换成代理的端口
+  ;;     ("https" . "127.0.0.1:8888") ;; https 代理
+  ;;     ))
 
   ;; (setq term-char-mode-point-at-process-mark nil)
 
