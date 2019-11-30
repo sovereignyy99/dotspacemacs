@@ -39,12 +39,20 @@ values."
 
      ;; languages layers
      html
+     ;; java
      ;; (javascript :variables javascript-backend 'lsp)
      ;; lsp
      ;; c-c++
      ;; cmake
      emacs-lisp
      ;; rust
+     ;; react
+     ;; sql
+     ;; dart
+     ;; lua
+     ;; php
+     ;; go
+     ;; windows-scripts
      ;; (python :variables
      ;;     python-backend 'lsp
      ;;     python-format-on-save nil
@@ -57,7 +65,6 @@ values."
      ;; graphviz
      ;; restructuredtext
      ;; csv
-     ;; react
 
 
      ;; tools layers
@@ -155,7 +162,16 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(
+                                   ;; php-extras
+                                   ;; auto-highlight-symbol
+                                   ;; version-control
+                                   ;; yasnippet-snippets
+                                   ;; chinese-pyim
+                                   ;; pyim
+                                   ;; ace-pinyin
+                                   ;; go-eldoc
+                                    )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -534,4 +550,4 @@ you should place your code here."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-)
+  )
