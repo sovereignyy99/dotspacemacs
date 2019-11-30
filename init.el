@@ -120,8 +120,11 @@ values."
      better-defaults
      (spacemacs-layouts :variables layouts-enable-autosave nil
                         layouts-autosave-delay 300)
-     (chinese :variables chinese-default-input-method 'pinyin
-              chinese-enable-youdao-dict nil)
+     (chinese :variables
+              chinese-default-input-method 'pinyin
+              ;; chinese-enable-fcitx t
+              chinese-enable-youdao-dict nil
+              )
 
 
      ;; vcs layers
@@ -534,4 +537,4 @@ you should place your code here."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-)
+  )
