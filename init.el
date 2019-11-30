@@ -127,8 +127,11 @@ values."
      better-defaults
      (spacemacs-layouts :variables layouts-enable-autosave nil
                         layouts-autosave-delay 300)
-     (chinese :variables chinese-default-input-method 'pinyin
-              chinese-enable-youdao-dict nil)
+     (chinese :variables
+              chinese-default-input-method 'pinyin
+              ;; chinese-enable-fcitx t
+              chinese-enable-youdao-dict nil
+              )
 
 
      ;; vcs layers
