@@ -126,7 +126,7 @@ values."
 
      ;; vcs layers
      (git :variables
-          git-magit-status-fullscreen nil
+          git-magit-status-fullscreen t  
           magit-push-always-verify nil
           magit-save-repository-buffers 'dontask
           magit-revert-buffers 'silent
@@ -327,15 +327,15 @@ values."
    dotspacemacs-loading-progress-bar t
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup nil
+   dotspacemacs-fullscreen-at-startup t
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
    dotspacemacs-fullscreen-use-non-native nil
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup nil
    ;; A value from the range (0..100), in increasing opacity, which describes
+   dotspacemacs-maximized-at-startup nil
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
    dotspacemacs-active-transparency 90
@@ -435,6 +435,10 @@ you should place your code here."
   (require 'beacon)
   (beacon-mode t)
 
+  (setq dired-recursive-deletes 'always)
+  (setq dired-recursive-copies 'always)
+  (put 'dired-find-alternate-file 'disabled nil)
+  (require 'dired-x)
 
   ;; Appointments and notifications
 ;;  (require 'notifications)
