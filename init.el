@@ -71,12 +71,22 @@ values."
              ranger-show-hidden nil)
      (org :variables
           org-want-todo-bindings t
-          ;;org-enable-org-journal-support t
-          ;;org-journal-dir "~/mydocs/org/journal/"
-          ;;org-journal-file-format "%Y-%m"
-          ;;org-journal-file-type 'monthly
+          org-enable-sticky-header t
+          ;;org-enable-epub-support t
+          ;;org-enable-github-support t
+          ;;org-enable-bootstrap-support t
+          ;;org-enable-reveal-js-support t
+          org-enable-org-journal-support t
+          org-journal-dir "~/mydocs/org/journal/"
+          org-journal-file-format "%Y-%m-%d"
+          org-journal-date-prefix "#+TITLE: "
+          org-journal-date-format "%A, %B %d %Y"
+          org-journal-time-prefix "* "
+          org-journal-time-format ""
+          org-projectile-file "TODOs.org"
           )
      ;; spacemacs-org
+     autohotkey
      ;; (shell :variables
      ;;    shell-default-height 50
      ;;    shell-default-position 'bottom
@@ -423,6 +433,19 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   ;; (setq term-char-mode-point-at-process-mark nil)
 
+  (setq term-char-mode-point-at-process-mark nil)
+
+  ;; https://github.com/syl20bnr/spacemacs/issues/2705
+  ;; (setq tramp-mode nil)
+  (setq tramp-ssh-controlmaster-options
+        "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
+
+  ;; ss proxy. But it will cause anacond-mode failed.
+  ;;  (setq socks-server '("Default server" "127.0.0.1" 1080 5))
+  ;;  (setq evil-shift-round nil)
+  ;;  (setq byte-compile-warnings '(not obsolete))
+  ;;  (setq warning-minimum-level :error)
+
   (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
   (load custom-file)
   ;; (load (expand-file-name "init-syntax-table.el" dotspacemacs-directory))
@@ -443,10 +466,29 @@ you should place your code here."
   (require 'beacon)
   (beacon-mode t)
 
-  (setq dired-recursive-deletes 'always)
-  (setq dired-recursive-copies 'always)
-  (put 'dired-find-alternate-file 'disabled nil)
-  (require 'dired-x)
+  ;; 解决org表格中英文对齐的问题
+  (when (configuration-layer/layer-usedp 'chinese)
+    (when (and (spacemacs/system-is-mswindows) window-system)
+      (spacemacs//set-monospaced-font "Source Code Pro" "Microsoft YaHei" 14 16)))
+
+  ;; Setting Chinese Font
+  ;;(when (and (spacemacs/system-is-mswindows) window-system)
+  ;;  (setq ispell-program-name "aspell")
+  ;;  (setq w32-pass-alt-to-system nil)
+  ;;  (setq w32-apps-modifier 'super)
+  ;;  (dolist (charset '(kana han symbol cjk-misc bopomofo))
+  ;;    (set-fontset-font (frame-parameter nil 'font)
+  ;;                      charset
+  ;;                      (font-spec :family "Microsoft Yahei" :size 14))))
+
+  (with-eval-after-load 'dired
+    ;; (setq dired-recursive-deletes 'always)
+    (setq dired-recursive-copies 'always)
+    (put 'dired-find-alternate-file 'disabled nil)
+    (require 'dired-x)
+    (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
+    (setq dired-dwin-target 1)
+    )
 
   ;; Appointments and notifications
   ;;  (require 'notifications)
@@ -474,10 +516,17 @@ you should place your code here."
   ;;  (appt-activate 1)
   ;;  (display-time)
 
-  ;; 解决org表格中英文对齐的问题
-  (when (configuration-layer/layer-usedp 'chinese)
-    (when (and (spacemacs/system-is-mswindows) window-system)
-      (spacemacs//set-monospaced-font "Source Code Pro" "Microsoft YaHei" 14 16)))
+  (with-eval-after-load 'org
+    (setq spaceline-org-clock-p t) ;; To permanently enable mode line display of org clock
+    )
+
+  (with-eval-after-load 'org-agenda
+    (require 'org-projectile)
+    (mapcar '(lambda (file)
+               (when (file-exists-p file)
+                 (push file org-agenda-files)))
+            (org-projectile-todo-files))
+    )
 
   ;; Org mode settings
   ;;  (setq org-directory "~/mydocs/org/")
@@ -497,15 +546,6 @@ you should place your code here."
   ;; (add-to-list 'auto-mode-alist '("\\.tscn\\'" . toml-mode))
   (setq spacemacs-large-file-modes-list '(archive-mode tar-mode jka-compr git-commit-mode image-mode doc-view-mode doc-view-mode-maybe ebrowse-tree-mode pdf-view-mode fundamental-mode ggtags-mode helm-gtags-mode tags-table-mode))
 
-  ;; Setting Chinese Font
-  ;;(when (and (spacemacs/system-is-mswindows) window-system)
-  ;;  (setq ispell-program-name "aspell")
-  ;;  (setq w32-pass-alt-to-system nil)
-  ;;  (setq w32-apps-modifier 'super)
-  ;;  (dolist (charset '(kana han symbol cjk-misc bopomofo))
-  ;;    (set-fontset-font (frame-parameter nil 'font)
-  ;;                      charset
-  ;;                      (font-spec :family "Microsoft Yahei" :size 14))))
 
   ;;(dolist (charset '(kana han cjk-misc bopomofo))
   ;;    (set-fontset-font (frame-parameter nil 'font) charset
