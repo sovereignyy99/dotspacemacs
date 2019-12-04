@@ -133,7 +133,7 @@ values."
      (chinese :variables
               chinese-default-input-method 'pinyin
               ;; chinese-enable-fcitx t
-              chinese-enable-youdao-dict nil
+              chinese-enable-youdao-dict t
               )
 
 
@@ -168,7 +168,9 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(
+                                    ;; vi-tilde-fringe
+                                    )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -338,7 +340,7 @@ values."
    dotspacemacs-loading-progress-bar nil
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup t
+   dotspacemacs-fullscreen-at-startup nil
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
    dotspacemacs-fullscreen-use-non-native nil
@@ -346,7 +348,7 @@ values."
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
    ;; A value from the range (0..100), in increasing opacity, which describes
-   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-maximized-at-startup t  
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
    dotspacemacs-active-transparency 90
@@ -522,7 +524,7 @@ you should place your code here."
 
   (with-eval-after-load 'org-agenda
     (require 'org-projectile)
-    (mapcar '(lambda (file)
+    (mapcar #'(lambda (file)
                (when (file-exists-p file)
                  (push file org-agenda-files)))
             (org-projectile-todo-files))
@@ -570,6 +572,10 @@ you should place your code here."
   ;; (spacemacs|diminish which-key-mode)
   ;; (spacemacs|diminish spacemacs-whitespace-cleanup-mode)
   ;; (spacemacs|diminish counsel-mode)
+
+  ;; keymaps
+  (define-key global-map (kbd "C-c y") 'youdao-dictionary-search-at-point+)
+  (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+)
   )
 
 (defun dotspacemacs/emacs-custom-settings ()
