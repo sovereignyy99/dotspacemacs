@@ -166,6 +166,7 @@ values."
                                       ;; auto-dim-other-buffers
                                       ;; (godot-gdscript :location local)  ;;game engine
                                       beacon
+                                      ;; doom-modeline
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -601,6 +602,12 @@ you should place your code here."
   ;; (spacemacs|diminish counsel-mode)
 
 
+  ;;##########################################################################
+  ;; doom-modeline
+  ;; (require 'doom-modeline)
+  ;; (doom-modeline-init)
+  ;;(setq dotspacemacs-mode-line-theme '(doom))
+
 
   ;;##########################################################################
   ;; better-default
@@ -613,10 +620,10 @@ you should place your code here."
   ;; (require 'abbrev-mode)
   ;; (abbrev-mode t)
   ;; (define-abbrev-table 'global-abbrev-table '(
-                                              ;; ;; signature
-                                              ;; ("8szy" "sunzhongyang")
-                                              ;; ("8ms" "Microsoft")
-                                              ;; ))
+  ;; ;; signature
+  ;; ("8szy" "sunzhongyang")
+  ;; ("8ms" "Microsoft")
+  ;; ))
 
   (recentf-mode 1)
   (setq recentf-max-menu-items 25)
