@@ -72,6 +72,7 @@ values."
      (org :variables
           org-want-todo-bindings t
           org-enable-sticky-header t
+          org-log-done t
           ;;org-enable-epub-support t
           ;;org-enable-github-support t
           ;;org-enable-bootstrap-support t
@@ -213,7 +214,7 @@ values."
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
-   dotspacemacs-editing-style 'hybrid
+   dotspacemacs-editing-style 'vim
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading t
    ;; Specify the startup banner. Default value is `official', it displays
@@ -348,7 +349,7 @@ values."
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
    ;; A value from the range (0..100), in increasing opacity, which describes
-   dotspacemacs-maximized-at-startup t  
+   dotspacemacs-maximized-at-startup t
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
    dotspacemacs-active-transparency 90
@@ -520,13 +521,29 @@ you should place your code here."
 
   (with-eval-after-load 'org
     (setq spaceline-org-clock-p t) ;; To permanently enable mode line display of org clock
+    (setq org-todo-keywords
+          '((sequence "TODO(t!)" "NEXT(n!)" "DOINGNOW(d!)" "BLOCKED(b!)"
+                      "TODELEGATE(g!)" "DELEGATED(D!)" "FOLLOWUP(f!)"
+                      "TICKLE(T!)" "|" "CANCELLED(c!)"
+                      "DONE(F!)")))
+
+    (setq org-todo-keyword-faces
+          '(("TODO" . org-warning)
+            ("DOINGNOW" . "#E35DBF")
+            ("CANCELED" . (:foreground "white" :background "#4d4d4d" :weight bold))
+            ("DELEGATED" . "pink")
+            ("NEXT" . "#008080")))
+
+    (spacemacs/declare-prefix "o" "own-menu")
+    (spacemacs/set-leader-keys "os" 'org-save-all-org-buffers)
+    (spacemacs/set-leader-keys "oi" 'helm-org-agenda-files-headings)
     )
 
   (with-eval-after-load 'org-agenda
     (require 'org-projectile)
     (mapcar #'(lambda (file)
-               (when (file-exists-p file)
-                 (push file org-agenda-files)))
+                (when (file-exists-p file)
+                  (push file org-agenda-files)))
             (org-projectile-todo-files))
     )
 
