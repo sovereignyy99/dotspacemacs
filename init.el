@@ -71,7 +71,7 @@ values."
              ranger-show-hidden nil)
      (org :variables
           org-want-todo-bindings t
-          org-enable-sticky-header t
+          org-enable-sticky-header nil
           org-log-done t
           ;;org-enable-epub-support t
           ;;org-enable-github-support t
@@ -120,7 +120,8 @@ values."
      (auto-completion :variables
                       auto-completion-return-key-behavior 'complete
                       auto-completion-tab-key-behavior 'complete
-                      auto-completion-idle-delay 0.1
+                      auto-completion-idle-delay 0.08
+                      company-minimum-prefix-length 1
                       auto-completion-enable-help-tooltip t
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-sort-by-usage t
@@ -464,11 +465,15 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  ;;##########################################################################
   (message "load user-config...")
 
+  ;;##########################################################################
+  ;; (add-to-list 'load-path "~/.emacs.d/lisp/")
   (require 'beacon)
   (beacon-mode t)
 
+  ;;##########################################################################
   ;; 解决org表格中英文对齐的问题
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and (spacemacs/system-is-mswindows) window-system)
@@ -484,6 +489,7 @@ you should place your code here."
   ;;                      charset
   ;;                      (font-spec :family "Microsoft Yahei" :size 14))))
 
+  ;;##########################################################################
   (with-eval-after-load 'dired
     ;; (setq dired-recursive-deletes 'always)
     (setq dired-recursive-copies 'always)
@@ -519,6 +525,7 @@ you should place your code here."
   ;;  (appt-activate 1)
   ;;  (display-time)
 
+  ;;##########################################################################
   (with-eval-after-load 'org
     (setq spaceline-org-clock-p t) ;; To permanently enable mode line display of org clock
     (setq org-todo-keywords
@@ -534,9 +541,12 @@ you should place your code here."
             ("DELEGATED" . "pink")
             ("NEXT" . "#008080")))
 
-    (spacemacs/declare-prefix "o" "own-menu")
-    (spacemacs/set-leader-keys "os" 'org-save-all-org-buffers)
-    (spacemacs/set-leader-keys "oi" 'helm-org-agenda-files-headings)
+    (setq org-agenda-files '("~/mydocs/org"))
+    (setq org-src-fontify-natively t)
+    (setq org-capture-templates
+          '(("t" "Todo" entry (file+headline "~/mydocs/org/notes.org" "CaptureNotes")
+             "* TODO [#B] %?\n  %i\n"
+             :empty-lines 1)))
     )
 
   (with-eval-after-load 'org-agenda
@@ -565,7 +575,7 @@ you should place your code here."
   ;; (add-to-list 'auto-mode-alist '("\\.tscn\\'" . toml-mode))
   (setq spacemacs-large-file-modes-list '(archive-mode tar-mode jka-compr git-commit-mode image-mode doc-view-mode doc-view-mode-maybe ebrowse-tree-mode pdf-view-mode fundamental-mode ggtags-mode helm-gtags-mode tags-table-mode))
 
-
+  ;;##########################################################################
   ;;(dolist (charset '(kana han cjk-misc bopomofo))
   ;;    (set-fontset-font (frame-parameter nil 'font) charset
   ;;                      (font-spec :family "微软雅黑" :size 16)))
@@ -590,9 +600,81 @@ you should place your code here."
   ;; (spacemacs|diminish spacemacs-whitespace-cleanup-mode)
   ;; (spacemacs|diminish counsel-mode)
 
+
+
+  ;;##########################################################################
+  ;; better-default
+  (global-linum-mode t)
+  (setq auto-save-default nil)
+  (add-hook 'emacs-lisp-mode-hook 'show-paren-mode)
+  (delete-selection-mode t)
+  (setq-default cursor-type 'bar)
+
+  ;; (require 'abbrev-mode)
+  ;; (abbrev-mode t)
+  ;; (define-abbrev-table 'global-abbrev-table '(
+                                              ;; ;; signature
+                                              ;; ("8szy" "sunzhongyang")
+                                              ;; ("8ms" "Microsoft")
+                                              ;; ))
+
+  (recentf-mode 1)
+  (setq recentf-max-menu-items 25)
+
+  ;;dwin = do what i mean.
+  (defun occur-dwin()
+    "Call 'occur' with a sane default."
+    (interactive)
+    (push (if (region-active-p)
+              (buffer-substring-no-properties
+               (region-beginning)
+               (region-end))
+            (let ((sym (thing-at-point 'symbol)))
+              (when (stringp sym)
+                (regexp-quote sym))))
+          regexp-history)
+    (call-interactively 'occur))
+
+  ;; (require 'smartparens-config)
+  ;; (add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
+  (smartparens-global-mode t)
+  (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
+  ;; (sp-local-pair 'lisp-interaction-mode "'" nil :actions nil)
+  (global-company-mode t)
+  ;; (require 'popwin)
+  ;; (popwin-mode t)
+
+  (require 'yasnippet)
+  (yas-reload-all)
+  (add-hook 'prog-mode-hook #'yas-minor-mode)
+
+
+
+  ;;##########################################################################
   ;; keymaps
   (define-key global-map (kbd "C-c y") 'youdao-dictionary-search-at-point+)
+  (define-key global-map (kbd "C-x C-r") 'recentf-open-files)
+
+  ;; (global-set-key "\C-x\ \C-r" 'recentf-open-files)
+  ;; (global-set-key (kbd "C-h C-f") 'find-function)
+  ;; (global-set-key (kbd "C-h C-v") 'find-variable)
+  ;; (global-set-key (kbd "C-h C-k") 'find-function-on-key)
+  ;; (global-set-key (kbd "C-c a") 'org-agenda)
+  ;; (global-set-key (kbd "M-s o") 'occur-dwin)
+  ;;C-n C-p to select
+  (with-eval-after-load 'company
+    (define-key company-active-map (kbd "M-n") nil)
+    (define-key company-active-map (kbd "M-p") nil)
+    (define-key company-active-map (kbd "C-n") #'company-select-next)
+    (define-key company-active-map (kbd "C-p") #'company-select-previous))
+  ;; (global-set-key (kbd "C-w") 'backward-kill-word)
+
+  (spacemacs/declare-prefix "o" "own-menu")
+  (spacemacs/set-leader-keys "os" 'org-save-all-org-buffers)
+  (spacemacs/set-leader-keys "oi" 'helm-org-agenda-files-headings)
   (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+)
+  (spacemacs/set-leader-keys "or" 'recentf-open-files)
+  (spacemacs/set-leader-keys "ow" 'occur-dwin)
   )
 
 (defun dotspacemacs/emacs-custom-settings ()
