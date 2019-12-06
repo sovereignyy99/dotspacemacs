@@ -677,7 +677,7 @@ you should place your code here."
     (define-key company-active-map (kbd "C-n") #'company-select-next)
     (define-key company-active-map (kbd "C-p") #'company-select-previous))
   ;; (global-set-key (kbd "C-w") 'backward-kill-word)
-  
+
   (spacemacs/declare-prefix "o" "+own-menu")
   ;; (spacemacs/declare-prefix "b" "+bookmark")
   (spacemacs/set-leader-keys "os" 'org-save-all-org-buffers)
