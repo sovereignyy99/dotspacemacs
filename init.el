@@ -617,6 +617,8 @@ you should place your code here."
   (delete-selection-mode t)
   (setq-default cursor-type 'bar)
 
+  ;; (global-evil-visualstar-mode t)
+
   ;; (require 'abbrev-mode)
   ;; (abbrev-mode t)
   ;; (define-abbrev-table 'global-abbrev-table '(
@@ -658,7 +660,7 @@ you should place your code here."
 
 
   ;;##########################################################################
-  ;; keymaps
+  ;; my own keymaps
   (define-key global-map (kbd "C-c y") 'youdao-dictionary-search-at-point+)
   (define-key global-map (kbd "C-x C-r") 'recentf-open-files)
 
@@ -675,13 +677,18 @@ you should place your code here."
     (define-key company-active-map (kbd "C-n") #'company-select-next)
     (define-key company-active-map (kbd "C-p") #'company-select-previous))
   ;; (global-set-key (kbd "C-w") 'backward-kill-word)
-
-  (spacemacs/declare-prefix "o" "own-menu")
+  
+  (spacemacs/declare-prefix "o" "+own-menu")
+  ;; (spacemacs/declare-prefix "b" "+bookmark")
   (spacemacs/set-leader-keys "os" 'org-save-all-org-buffers)
   (spacemacs/set-leader-keys "oi" 'helm-org-agenda-files-headings)
   (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+)
   (spacemacs/set-leader-keys "or" 'recentf-open-files)
   (spacemacs/set-leader-keys "ow" 'occur-dwin)
+  (spacemacs/set-leader-keys "obm" 'bookmark-set)
+  (spacemacs/set-leader-keys "obl" 'bookmark-bmenu-list)
+  (spacemacs/set-leader-keys "ocl" 'evilnc-comment-or-uncomment-lines)
+  (spacemacs/set-leader-keys "oj" 'evilmi-jump-items)
   )
 
 (defun dotspacemacs/emacs-custom-settings ()
