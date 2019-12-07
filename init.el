@@ -542,12 +542,37 @@ you should place your code here."
             ("DELEGATED" . "pink")
             ("NEXT" . "#008080")))
 
+    ;; 调试好久的颜色，效果超赞！ todo keywords 增加背景色
+    ;; (setf org-todo-keyword-faces '(("TODO" . (:foreground "white" :background "#95A5A6"   :weight bold))
+    ;;                                ("HAND" . (:foreground "white" :background "#2E8B57"  :weight bold))
+    ;;                                ("DONE" . (:foreground "white" :background "#3498DB" :weight bold))))
+
     (setq org-agenda-files '("~/mydocs/org"))
     (setq org-src-fontify-natively t)
     (setq org-capture-templates
           '(("t" "Todo" entry (file+headline "~/mydocs/org/notes.org" "CaptureNotes")
              "* TODO [#B] %?\n  %i\n"
              :empty-lines 1)))
+
+    (setq org-startup-indented t)
+    (setq org-bullets-bullet-list '("◉" "○" "✸" "✿"))
+    ;; (setq org-bullets-bullet-list '("☰" "☷" "☯" "☭"))
+
+    (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '(
+       ;; (sh . t)
+       (python . t)
+       ;; (R . t)
+       ;; (ruby . t)
+       ;; (ditaa . t)
+       (dot . t)
+       ;; (octave . t)
+       (sqlite . t)
+       ;; (perl . t)
+       (C . t)
+       ))
     )
 
   (with-eval-after-load 'org-agenda
