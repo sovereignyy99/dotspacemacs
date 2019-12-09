@@ -38,10 +38,11 @@ values."
      ;; ----------------------------------------------------------------
 
      ;; languages layers
+     asm
      html
      ;; (javascript :variables javascript-backend 'lsp)
      ;; lsp
-     ;; c-c++
+     ;; (c-c++ :variables c-c++-enable-clang-support t)
      ;; cmake
      emacs-lisp
      ;; rust
@@ -118,12 +119,16 @@ values."
      ;; dash ;; open and search docs with Zeal
      helm
      (auto-completion :variables
-                      auto-completion-return-key-behavior 'complete
+                      ;; auto-completion-return-key-behavior 'complete
+                      auto-completion-return-key-behavior nil
                       auto-completion-tab-key-behavior 'complete
+                      ;; auto-completion-tab-key-behavior 'cycle
                       auto-completion-idle-delay 0.08
                       company-minimum-prefix-length 1
                       auto-completion-enable-help-tooltip t
+                      ;; auto-completion-enable-help-tooltip 'manual
                       auto-completion-enable-snippets-in-popup t
+                      ;; auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/"
                       auto-completion-enable-sort-by-usage t
                       :disabled-for org markdown)
 
@@ -554,6 +559,7 @@ you should place your code here."
              "* TODO [#B] %?\n  %i\n"
              :empty-lines 1)))
 
+    (setq toc-org-max-depth 2)
     (setq org-startup-indented t)
     (setq org-bullets-bullet-list '("◉" "○" "✸" "✿"))
     ;; (setq org-bullets-bullet-list '("☰" "☷" "☯" "☭"))
