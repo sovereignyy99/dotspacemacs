@@ -31,17 +31,11 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
-     ;; <M-m f e R> (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
-
      ;; languages layers
+     ;; lsp
      asm
      html
      ;; (javascript :variables javascript-backend 'lsp)
-     ;; lsp
      ;; (c-c++ :variables c-c++-enable-clang-support t)
      ;; cmake
      emacs-lisp
@@ -176,9 +170,25 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(
-                                    ;; vi-tilde-fringe
-                                    )
+   dotspacemacs-excluded-packages
+   '(
+     vi-tilde-fringe
+     ;; org-projectile org-brain magit-gh-pulls magit-gitflow  evil-mc realgud tern company-tern
+     ;; evil-args evil-ediff evil-exchange evil-unimpaired
+     ;; evil-indent-plus volatile-highlights smartparens
+     ;; spaceline holy-mode skewer-mode rainbow-delimiters
+     ;; highlight-indentation vi-tilde-fringe eyebrowse ws-butler
+     ;; org-bullets smooth-scrolling org-repo-todo org-download org-timer
+     ;; livid-mode git-gutter git-gutter-fringe  evil-escape
+     ;; leuven-theme gh-md evil-lisp-state spray lorem-ipsum symon
+     ;; ac-ispell ace-jump-mode auto-complete auto-dictionary
+     ;; clang-format define-word google-translate disaster epic
+     ;; fancy-battery org-present orgit orglue spacemacs-theme
+     ;; helm-flyspell flyspell-correct-helm clean-aindent-mode
+     ;; helm-c-yasnippet ace-jump-helm-line helm-make magithub
+     ;; helm-themes helm-swoop helm-spacemacs-help smeargle
+     ;; ido-vertical-mode flx-ido company-quickhelp ivy-rich helm-purpose
+     )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -238,7 +248,7 @@ values."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '(
-                                ;; (recents . 5)
+                                (recents . 5)
                                 (projects . 7)
                                 )
    ;; True if the home buffer should respond to resize events.
@@ -348,7 +358,7 @@ values."
    dotspacemacs-loading-progress-bar nil
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup nil
+   dotspacemacs-fullscreen-at-startup t
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
    dotspacemacs-fullscreen-use-non-native nil
@@ -356,7 +366,7 @@ values."
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
    ;; A value from the range (0..100), in increasing opacity, which describes
-   dotspacemacs-maximized-at-startup t
+   dotspacemacs-maximized-at-startup nil
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
    dotspacemacs-active-transparency 90
@@ -475,25 +485,27 @@ you should place your code here."
   (message "load user-config...")
 
   ;;##########################################################################
-  ;; (add-to-list 'load-path "~/.emacs.d/lisp/")
-  (require 'beacon)
-  (beacon-mode t)
-
-  ;;##########################################################################
   ;; 解决org表格中英文对齐的问题
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and (spacemacs/system-is-mswindows) window-system)
       (spacemacs//set-monospaced-font "Source Code Pro" "Microsoft YaHei" 14 16)))
 
   ;; Setting Chinese Font
-  ;;(when (and (spacemacs/system-is-mswindows) window-system)
-  ;;  (setq ispell-program-name "aspell")
-  ;;  (setq w32-pass-alt-to-system nil)
-  ;;  (setq w32-apps-modifier 'super)
-  ;;  (dolist (charset '(kana han symbol cjk-misc bopomofo))
-  ;;    (set-fontset-font (frame-parameter nil 'font)
-  ;;                      charset
-  ;;                      (font-spec :family "Microsoft Yahei" :size 14))))
+  (when (and (spacemacs/system-is-mswindows) window-system)
+    (setq ispell-program-name "aspell")
+    (setq w32-pass-alt-to-system nil)
+    (setq w32-apps-modifier 'super)
+    (dolist (charset '(kana han symbol cjk-misc bopomofo))
+      (set-fontset-font (frame-parameter nil 'font)
+                        charset
+                        (font-spec :family "Microsoft YaHei" :size 16))))
+
+  (fset 'evil-visual-update-x-selection 'ignore)  ;; 防止选中自动复制
+
+  ;;##########################################################################
+  ;; (add-to-list 'load-path "~/.emacs.d/lisp/")
+  (require 'beacon)
+  (beacon-mode t)
 
   ;;##########################################################################
   (with-eval-after-load 'dired
@@ -620,7 +632,7 @@ you should place your code here."
 
   ;; (spacemacs|add-company-backends :modes text-mode)
 
-  (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+  (add-hook 'doc-view-mode-hook 'auto-revert-mode)  ;; 自动刷新
 
   ;; temp fix for ivy-switch-buffer
   ;; (spacemacs/set-leader-keys "bb" 'helm-mini)
@@ -658,7 +670,7 @@ you should place your code here."
   ;; ("8ms" "Microsoft")
   ;; ))
 
-  (recentf-mode 1)
+  ;; (recentf-mode 1)
   (setq recentf-max-menu-items 25)
 
   ;;dwin = do what i mean.
@@ -714,7 +726,7 @@ you should place your code here."
   (spacemacs/set-leader-keys "os" 'org-save-all-org-buffers)
   (spacemacs/set-leader-keys "oi" 'helm-org-agenda-files-headings)
   (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+)
-  (spacemacs/set-leader-keys "or" 'recentf-open-files)
+  ;; (spacemacs/set-leader-keys "or" 'recentf-open-files)
   (spacemacs/set-leader-keys "ow" 'occur-dwin)
   (spacemacs/set-leader-keys "obm" 'bookmark-set)
   (spacemacs/set-leader-keys "obl" 'bookmark-bmenu-list)
