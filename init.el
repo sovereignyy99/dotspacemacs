@@ -32,12 +32,17 @@ values."
    dotspacemacs-configuration-layers
    '(
      ;; languages layers
-     ;; lsp
+     lsp
      asm
      html
      ;; (javascript :variables javascript-backend 'lsp)
      ;; (c-c++ :variables c-c++-enable-clang-support t)
-     ;; cmake
+     (c-c++ :variables
+            c-c++-default-mode-for-headers 'c++-mode
+            c-c++-backend 'lsp-ccls
+            c-c++-lsp-executable (file-truename "/usr/local/bin/ccls"))
+     cmake
+     windows-scripts
      emacs-lisp
      ;; rust
      ;; (python :variables
@@ -248,8 +253,8 @@ values."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '(
-                                (recents . 5)
-                                (projects . 7)
+                                ;; (recents . 5)
+                                ;; (projects . 7)
                                 )
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
@@ -358,7 +363,7 @@ values."
    dotspacemacs-loading-progress-bar nil
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup t
+   dotspacemacs-fullscreen-at-startup nil
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
    dotspacemacs-fullscreen-use-non-native nil
@@ -366,7 +371,7 @@ values."
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
    ;; A value from the range (0..100), in increasing opacity, which describes
-   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-maximized-at-startup t
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
    dotspacemacs-active-transparency 90
@@ -700,6 +705,8 @@ you should place your code here."
   (yas-reload-all)
   (add-hook 'prog-mode-hook #'yas-minor-mode)
 
+  ;; fix for the lsp error
+  (defvar spacemacs-jump-handlers-fundamental-mode nil)
 
 
   ;;##########################################################################
