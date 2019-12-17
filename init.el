@@ -138,7 +138,7 @@ values."
                         layouts-autosave-delay 300)
      (chinese :variables
               chinese-default-input-method 'pinyin
-              ;; chinese-enable-fcitx t
+              chinese-enable-fcitx t
               chinese-enable-youdao-dict t
               )
 
@@ -476,6 +476,12 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; (load (expand-file-name "init-syntax-table.el" dotspacemacs-directory))
   ;; (load (expand-file-name "xcwen-misc.el" dotspacemacs-directory))
 
+  ;; (let ((fcitx-path "D:\\emacstools\\fcitx-remote.exe"))
+  ;;   (setenv "PATH" (concat fcitx-path ";" (getenv "PATH")))
+  ;;   (add-to-list 'exec-path fcitx-path))
+
+  ;; (setq w32-pass-lwindow-to-system nil)
+  ;; (setq w32-lwindow-modifier 'super)
   )
 
 (defun dotspacemacs/user-config ()
@@ -504,6 +510,8 @@ you should place your code here."
       (set-fontset-font (frame-parameter nil 'font)
                         charset
                         (font-spec :family "Microsoft YaHei" :size 16))))
+
+  ;; (add-hook 'evil-normal-state-entry-hook XXX)
 
   (fset 'evil-visual-update-x-selection 'ignore)  ;; 防止选中自动复制
 
