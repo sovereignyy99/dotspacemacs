@@ -577,7 +577,9 @@ you should place your code here."
     ;;                                ("HAND" . (:foreground "white" :background "#2E8B57"  :weight bold))
     ;;                                ("DONE" . (:foreground "white" :background "#3498DB" :weight bold))))
 
-    (setq org-agenda-files '("~/mydocs/org"))
+    (setq org-agenda-files '("~/mydocs/org" "~/mydocs/org/journal" "~/mydocs/org/lesson/cmake" "~/mydocs/org/lesson/emacs"
+                             "~/mydocs/org/lesson/qt" "~/mydocs/org/life/children" "~/mydocs/org/life/job"))
+    ;; (setq org-agenda-files (directory-files-recursively "~/mydocs/org/" "\\.org$"))
     (setq org-src-fontify-natively t)
     (setq org-capture-templates
           '(("t" "Todo" entry (file+headline "~/mydocs/org/notes.org" "CaptureNotes")

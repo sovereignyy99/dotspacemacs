@@ -6,7 +6,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
-
+ '(exec-path
+   (quote
+    ("c:/Program Files/Basler/pylon 5/Runtime/Win32" "c:/Program Files/Basler/pylon 5/Runtime/x64" "c:/Program Files (x86)/Common Files/Oracle/Java/javapath" "c:/Program Files/Common Files/Siemens/Automation/Simatic OAM/bin" "d:/Program Files/Python37/Scripts" "d:/Program Files/Python37" "c:/Windows/system32" "c:/Windows" "c:/Windows/System32/Wbem" "c:/Windows/System32/WindowsPowerShell/v1.0" "c:/Program Files/dotnet" "c:/LLVM/bin" "d:/Program Files (x86)/GnuWin32/bin" "e:/Qt/Qt5.12.0/Tools/mingw730_64/bin" "e:/Qt/Qt5.12.0/5.12.0/mingw73_64/bin" "d:/Program Files (x86)/ForceControl V7.0" "d:/Program Files/CMake/bin" "c:/Program Files (x86)/Microsoft SQL Server/Client SDK/ODBC/110/Tools/Binn" "c:/Program Files (x86)/Microsoft SQL Server/120/Tools/Binn" "c:/Program Files (x86)/Microsoft SQL Server/120/DTS/Binn" "d:/Program Files (x86)/sqlite3" "d:/Program Files/ALTRun" "e:/swords/routine" "c:/Orion/idsvision_v1.0/bin" "c:/Orion/idsvision_v1.0/opencv/bin" "c:/Orion/idsvision_v1.0/openvx/bin" "c:/Orion/idsvision_v1.0/openvino/bin/intel64/Release" "d:/Program Files/nodejs" "c:/Program Files/MiKTeX 2.9/miktex/bin/x64" "c:/ProgramData/chocolatey/bin" "c:/Program Files/Git/cmd" "d:/Cadence/Cadence_SPB_16.6/openaccess/bin/win32/opt" "d:/Cadence/Cadence_SPB_16.6/tools/capture" "d:/Cadence/Cadence_SPB_16.6/tools/pspice" "d:/Cadence/Cadence_SPB_16.6/tools/specctra/bin" "d:/Cadence/Cadence_SPB_16.6/tools/fet/bin" "d:/Cadence/Cadence_SPB_16.6/tools/libutil/bin" "d:/Cadence/Cadence_SPB_16.6/tools/bin" "d:/Cadence/Cadence_SPB_16.6/tools/pcb/bin" "d:/Program Files/Microsoft VS Code/bin" "c:/Users/mp/AppData/Roaming/npm" "h:/emacs-26.3-x86_64/libexec/emacs/26.3/x86_64-w64-mingw32" "c:/Program Files/Git/usr/bin" "c:/Program Files/gnuplot/bin")))
  '(magit-diff-use-overlays nil)
  '(org-agenda-files (quote ("D:\\Cadence\\SPB_Data\\mydocs\\org")))
  '(org-default-notes-file "d:/Cadence/SPB_Data/mydocs/org/notes.org" t)
