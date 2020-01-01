@@ -6,10 +6,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
-<<<<<<< HEAD
-
-=======
->>>>>>> d4f4522306707ed32535110b6b3bb8dcef9d1ec5
  '(magit-diff-use-overlays nil)
  '(org-agenda-files (quote ("D:\\Cadence\\SPB_Data\\mydocs\\org")))
  '(org-default-notes-file "d:/Cadence/SPB_Data/mydocs/org/notes.org" t)
