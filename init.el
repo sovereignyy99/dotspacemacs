@@ -31,18 +31,18 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
-     ;; <M-m f e R> (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
-
      ;; languages layers
+     lsp
+     asm
      html
      ;; (javascript :variables javascript-backend 'lsp)
-     ;; lsp
-     ;; c-c++
-     ;; cmake
+     ;; (c-c++ :variables c-c++-enable-clang-support t)
+     (c-c++ :variables
+            c-c++-default-mode-for-headers 'c++-mode
+            c-c++-backend 'lsp-ccls
+            c-c++-lsp-executable (file-truename "/usr/local/bin/ccls"))
+     cmake
+     windows-scripts
      emacs-lisp
      ;; rust
      ;; (python :variables
@@ -71,7 +71,8 @@ values."
              ranger-show-hidden nil)
      (org :variables
           org-want-todo-bindings t
-          org-enable-sticky-header t
+          org-enable-sticky-header nil
+          org-log-done t
           ;;org-enable-epub-support t
           ;;org-enable-github-support t
           ;;org-enable-bootstrap-support t
@@ -117,11 +118,16 @@ values."
      ;; dash ;; open and search docs with Zeal
      helm
      (auto-completion :variables
-                      auto-completion-return-key-behavior 'complete
+                      ;; auto-completion-return-key-behavior 'complete
+                      auto-completion-return-key-behavior nil
                       auto-completion-tab-key-behavior 'complete
-                      auto-completion-idle-delay 0.1
+                      ;; auto-completion-tab-key-behavior 'cycle
+                      auto-completion-idle-delay 0.08
+                      company-minimum-prefix-length 1
                       auto-completion-enable-help-tooltip t
+                      ;; auto-completion-enable-help-tooltip 'manual
                       auto-completion-enable-snippets-in-popup t
+                      ;; auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/"
                       auto-completion-enable-sort-by-usage t
                       :disabled-for org markdown)
 
@@ -132,7 +138,7 @@ values."
                         layouts-autosave-delay 300)
      (chinese :variables
               chinese-default-input-method 'pinyin
-              ;; chinese-enable-fcitx t
+              chinese-enable-fcitx t
               chinese-enable-youdao-dict t
               )
 
@@ -164,13 +170,30 @@ values."
                                       ;; auto-dim-other-buffers
                                       ;; (godot-gdscript :location local)  ;;game engine
                                       beacon
+                                      ;; doom-modeline
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(
-                                    ;; vi-tilde-fringe
-                                    )
+   dotspacemacs-excluded-packages
+   '(
+     vi-tilde-fringe
+     ;; org-projectile org-brain magit-gh-pulls magit-gitflow  evil-mc realgud tern company-tern
+     ;; evil-args evil-ediff evil-exchange evil-unimpaired
+     ;; evil-indent-plus volatile-highlights smartparens
+     ;; spaceline holy-mode skewer-mode rainbow-delimiters
+     ;; highlight-indentation vi-tilde-fringe eyebrowse ws-butler
+     ;; org-bullets smooth-scrolling org-repo-todo org-download org-timer
+     ;; livid-mode git-gutter git-gutter-fringe  evil-escape
+     ;; leuven-theme gh-md evil-lisp-state spray lorem-ipsum symon
+     ;; ac-ispell ace-jump-mode auto-complete auto-dictionary
+     ;; clang-format define-word google-translate disaster epic
+     ;; fancy-battery org-present orgit orglue spacemacs-theme
+     ;; helm-flyspell flyspell-correct-helm clean-aindent-mode
+     ;; helm-c-yasnippet ace-jump-helm-line helm-make magithub
+     ;; helm-themes helm-swoop helm-spacemacs-help smeargle
+     ;; ido-vertical-mode flx-ido company-quickhelp ivy-rich helm-purpose
+     )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -213,7 +236,7 @@ values."
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
-   dotspacemacs-editing-style 'hybrid
+   dotspacemacs-editing-style 'vim
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading t
    ;; Specify the startup banner. Default value is `official', it displays
@@ -231,7 +254,7 @@ values."
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '(
                                 ;; (recents . 5)
-                                (projects . 7)
+                                ;; (projects . 7)
                                 )
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
@@ -348,7 +371,7 @@ values."
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
    ;; A value from the range (0..100), in increasing opacity, which describes
-   dotspacemacs-maximized-at-startup t  
+   dotspacemacs-maximized-at-startup t
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
    dotspacemacs-active-transparency 90
@@ -453,6 +476,12 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; (load (expand-file-name "init-syntax-table.el" dotspacemacs-directory))
   ;; (load (expand-file-name "xcwen-misc.el" dotspacemacs-directory))
 
+  ;; (let ((fcitx-path "D:\\emacstools\\fcitx-remote.exe"))
+  ;;   (setenv "PATH" (concat fcitx-path ";" (getenv "PATH")))
+  ;;   (add-to-list 'exec-path fcitx-path))
+
+  ;; (setq w32-pass-lwindow-to-system nil)
+  ;; (setq w32-lwindow-modifier 'super)
   )
 
 (defun dotspacemacs/user-config ()
@@ -463,26 +492,35 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  ;;##########################################################################
   (message "load user-config...")
 
-  (require 'beacon)
-  (beacon-mode t)
-
+  ;;##########################################################################
   ;; 解决org表格中英文对齐的问题
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and (spacemacs/system-is-mswindows) window-system)
       (spacemacs//set-monospaced-font "Source Code Pro" "Microsoft YaHei" 14 16)))
 
   ;; Setting Chinese Font
-  ;;(when (and (spacemacs/system-is-mswindows) window-system)
-  ;;  (setq ispell-program-name "aspell")
-  ;;  (setq w32-pass-alt-to-system nil)
-  ;;  (setq w32-apps-modifier 'super)
-  ;;  (dolist (charset '(kana han symbol cjk-misc bopomofo))
-  ;;    (set-fontset-font (frame-parameter nil 'font)
-  ;;                      charset
-  ;;                      (font-spec :family "Microsoft Yahei" :size 14))))
+  (when (and (spacemacs/system-is-mswindows) window-system)
+    (setq ispell-program-name "aspell")
+    (setq w32-pass-alt-to-system nil)
+    (setq w32-apps-modifier 'super)
+    (dolist (charset '(kana han symbol cjk-misc bopomofo))
+      (set-fontset-font (frame-parameter nil 'font)
+                        charset
+                        (font-spec :family "Microsoft YaHei" :size 16))))
 
+  ;; (add-hook 'evil-normal-state-entry-hook XXX)
+
+  (fset 'evil-visual-update-x-selection 'ignore)  ;; 防止选中自动复制
+
+  ;;##########################################################################
+  ;; (add-to-list 'load-path "~/.emacs.d/lisp/")
+  (require 'beacon)
+  (beacon-mode t)
+
+  ;;##########################################################################
   (with-eval-after-load 'dired
     ;; (setq dired-recursive-deletes 'always)
     (setq dired-recursive-copies 'always)
@@ -518,15 +556,61 @@ you should place your code here."
   ;;  (appt-activate 1)
   ;;  (display-time)
 
+  ;;##########################################################################
   (with-eval-after-load 'org
     (setq spaceline-org-clock-p t) ;; To permanently enable mode line display of org clock
+    (setq org-todo-keywords
+          '((sequence "TODO(t!)" "NEXT(n!)" "DOINGNOW(d!)" "BLOCKED(b!)"
+                      "TODELEGATE(g!)" "DELEGATED(D!)" "FOLLOWUP(f!)"
+                      "TICKLE(T!)" "|" "CANCELLED(c!)"
+                      "DONE(F!)")))
+
+    (setq org-todo-keyword-faces
+          '(("TODO" . org-warning)
+            ("DOINGNOW" . "#E35DBF")
+            ("CANCELED" . (:foreground "white" :background "#4d4d4d" :weight bold))
+            ("DELEGATED" . "pink")
+            ("NEXT" . "#008080")))
+
+    ;; 调试好久的颜色，效果超赞！ todo keywords 增加背景色
+    ;; (setf org-todo-keyword-faces '(("TODO" . (:foreground "white" :background "#95A5A6"   :weight bold))
+    ;;                                ("HAND" . (:foreground "white" :background "#2E8B57"  :weight bold))
+    ;;                                ("DONE" . (:foreground "white" :background "#3498DB" :weight bold))))
+
+    (setq org-agenda-files '("~/mydocs/org"))
+    (setq org-src-fontify-natively t)
+    (setq org-capture-templates
+          '(("t" "Todo" entry (file+headline "~/mydocs/org/notes.org" "CaptureNotes")
+             "* TODO [#B] %?\n  %i\n"
+             :empty-lines 1)))
+
+    (setq toc-org-max-depth 2)
+    (setq org-startup-indented t)
+    (setq org-bullets-bullet-list '("◉" "○" "✸" "✿"))
+    ;; (setq org-bullets-bullet-list '("☰" "☷" "☯" "☭"))
+
+    (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '(
+       ;; (sh . t)
+       (python . t)
+       ;; (R . t)
+       ;; (ruby . t)
+       ;; (ditaa . t)
+       (dot . t)
+       ;; (octave . t)
+       (sqlite . t)
+       ;; (perl . t)
+       (C . t)
+       ))
     )
 
   (with-eval-after-load 'org-agenda
     (require 'org-projectile)
     (mapcar #'(lambda (file)
-               (when (file-exists-p file)
-                 (push file org-agenda-files)))
+                (when (file-exists-p file)
+                  (push file org-agenda-files)))
             (org-projectile-todo-files))
     )
 
@@ -548,7 +632,7 @@ you should place your code here."
   ;; (add-to-list 'auto-mode-alist '("\\.tscn\\'" . toml-mode))
   (setq spacemacs-large-file-modes-list '(archive-mode tar-mode jka-compr git-commit-mode image-mode doc-view-mode doc-view-mode-maybe ebrowse-tree-mode pdf-view-mode fundamental-mode ggtags-mode helm-gtags-mode tags-table-mode))
 
-
+  ;;##########################################################################
   ;;(dolist (charset '(kana han cjk-misc bopomofo))
   ;;    (set-fontset-font (frame-parameter nil 'font) charset
   ;;                      (font-spec :family "微软雅黑" :size 16)))
@@ -561,7 +645,7 @@ you should place your code here."
 
   ;; (spacemacs|add-company-backends :modes text-mode)
 
-  (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+  (add-hook 'doc-view-mode-hook 'auto-revert-mode)  ;; 自动刷新
 
   ;; temp fix for ivy-switch-buffer
   ;; (spacemacs/set-leader-keys "bb" 'helm-mini)
@@ -573,9 +657,96 @@ you should place your code here."
   ;; (spacemacs|diminish spacemacs-whitespace-cleanup-mode)
   ;; (spacemacs|diminish counsel-mode)
 
-  ;; keymaps
+
+  ;;##########################################################################
+  ;; doom-modeline
+  ;; (require 'doom-modeline)
+  ;; (doom-modeline-init)
+  ;;(setq dotspacemacs-mode-line-theme '(doom))
+
+
+  ;;##########################################################################
+  ;; better-default
+  (global-linum-mode t)
+  (setq auto-save-default nil)
+  (add-hook 'emacs-lisp-mode-hook 'show-paren-mode)
+  (delete-selection-mode t)
+  (setq-default cursor-type 'bar)
+
+  ;; (global-evil-visualstar-mode t)
+
+  ;; (require 'abbrev-mode)
+  ;; (abbrev-mode t)
+  ;; (define-abbrev-table 'global-abbrev-table '(
+  ;; ;; signature
+  ;; ("8szy" "sunzhongyang")
+  ;; ("8ms" "Microsoft")
+  ;; ))
+
+  ;; (recentf-mode 1)
+  (setq recentf-max-menu-items 25)
+
+  ;;dwin = do what i mean.
+  (defun occur-dwin()
+    "Call 'occur' with a sane default."
+    (interactive)
+    (push (if (region-active-p)
+              (buffer-substring-no-properties
+               (region-beginning)
+               (region-end))
+            (let ((sym (thing-at-point 'symbol)))
+              (when (stringp sym)
+                (regexp-quote sym))))
+          regexp-history)
+    (call-interactively 'occur))
+
+  ;; (require 'smartparens-config)
+  ;; (add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
+  (smartparens-global-mode t)
+  (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
+  ;; (sp-local-pair 'lisp-interaction-mode "'" nil :actions nil)
+  (global-company-mode t)
+  ;; (require 'popwin)
+  ;; (popwin-mode t)
+
+  (require 'yasnippet)
+  (yas-reload-all)
+  (add-hook 'prog-mode-hook #'yas-minor-mode)
+
+  ;; fix for the lsp error
+  (defvar spacemacs-jump-handlers-fundamental-mode nil)
+
+
+  ;;##########################################################################
+  ;; my own keymaps
   (define-key global-map (kbd "C-c y") 'youdao-dictionary-search-at-point+)
+  (define-key global-map (kbd "C-x C-r") 'recentf-open-files)
+
+  ;; (global-set-key "\C-x\ \C-r" 'recentf-open-files)
+  ;; (global-set-key (kbd "C-h C-f") 'find-function)
+  ;; (global-set-key (kbd "C-h C-v") 'find-variable)
+  ;; (global-set-key (kbd "C-h C-k") 'find-function-on-key)
+  ;; (global-set-key (kbd "C-c a") 'org-agenda)
+  ;; (global-set-key (kbd "M-s o") 'occur-dwin)
+  ;;C-n C-p to select
+  (with-eval-after-load 'company
+    (define-key company-active-map (kbd "M-n") nil)
+    (define-key company-active-map (kbd "M-p") nil)
+    (define-key company-active-map (kbd "C-n") #'company-select-next)
+    (define-key company-active-map (kbd "C-p") #'company-select-previous))
+  ;; (global-set-key (kbd "C-w") 'backward-kill-word)
+
+  (spacemacs/declare-prefix "o" "+own-menu")
+  ;; (spacemacs/declare-prefix "b" "+bookmark")
+  (spacemacs/set-leader-keys "os" 'org-save-all-org-buffers)
+  (spacemacs/set-leader-keys "oi" 'helm-org-agenda-files-headings)
   (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+)
+  ;; (spacemacs/set-leader-keys "or" 'recentf-open-files)
+  (spacemacs/set-leader-keys "ow" 'occur-dwin)
+  (spacemacs/set-leader-keys "obm" 'bookmark-set)
+  (spacemacs/set-leader-keys "obl" 'bookmark-bmenu-list)
+  (spacemacs/set-leader-keys "ocl" 'evilnc-comment-or-uncomment-lines)
+  (spacemacs/set-leader-keys "oj" 'evilmi-jump-items)
   )
 
 (defun dotspacemacs/emacs-custom-settings ()
