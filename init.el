@@ -45,11 +45,12 @@ values."
      windows-scripts
      emacs-lisp
      ;; rust
-     ;; (python :variables
-     ;;     python-backend 'lsp
-     ;;     python-format-on-save nil
-     ;;     python-formatter 'black
-     ;;     python-fill-column 99)
+     ;; python
+     (python :variables
+         python-backend 'lsp
+         python-format-on-save nil
+         python-formatter 'black
+         python-fill-column 99)
      ;; yaml
      ;; shell-scripts
      markdown
