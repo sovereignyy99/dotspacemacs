@@ -604,6 +604,7 @@ you should place your code here."
        (dot . t)
        ;; (octave . t)
        (sqlite . t)
+       ;; (postgresql . t)
        ;; (perl . t)
        (C . t)
        ))
