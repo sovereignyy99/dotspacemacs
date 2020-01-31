@@ -33,6 +33,7 @@ values."
    '(
      ;; languages layers
      lsp
+     sql
      asm
      html
      ;; (javascript :variables javascript-backend 'lsp)
