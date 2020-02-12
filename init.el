@@ -579,10 +579,16 @@ you should place your code here."
     ;;                                ("HAND" . (:foreground "white" :background "#2E8B57"  :weight bold))
     ;;                                ("DONE" . (:foreground "white" :background "#3498DB" :weight bold))))
 
-    (setq org-agenda-files '("~/mydocs/org" "~/mydocs/org/journal" "~/mydocs/org/lesson/cmake" "~/mydocs/org/lesson/emacs"
-                             "~/mydocs/org/lesson/qt" "~/mydocs/org/life/children" "~/mydocs/org/life/job"))
-    ;; (setq org-agenda-files (directory-files-recursively "~/mydocs/org/" "\\.org$"))
-    (setq org-src-fontify-natively t)
+    (setq org-agenda-files '("~/mydocs/org"
+                             "~/mydocs/org/journal"
+                             "~/mydocs/org/lesson" "~/mydocs/org/lesson/cmake" "~/mydocs/org/lesson/database" "~/mydocs/org/lesson/emacs" "~/mydocs/org/lesson/qt"
+                             "~/mydocs/org/life/children" "~/mydocs/org/life/film" "~/mydocs/org/life/job"
+                             "~/mydocs/org/misc"
+                             "~/mydocs/org/project"
+                             "~/mydocs/org/techinfo"
+                             ))
+    ;; (setq org-agenda-files (directory-files-recursively "~/mydocs/org/project" "\\.org$"))
+    ;; (setq org-src-fontify-natively t)
     (setq org-capture-templates
           '(("t" "Todo" entry (file+headline "~/mydocs/org/notes.org" "CaptureNotes")
              "* TODO [#B] %?\n  %i\n"
