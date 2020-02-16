@@ -594,6 +594,17 @@ you should place your code here."
              "* TODO [#B] %?\n  %i\n"
              :empty-lines 1)))
 
+    (setq org-file-apps
+          '(
+            ("\\.mm\\'" . default)
+            ("\\.x?html?\\'" . default)
+            ("\\.pdf\\'" . default)
+            ("\\.docx\\'" . default)
+            ("\\.xlsx\\'" . default)
+            ("\\.pptx\\'" . default)
+            (auto-mode . emacs)
+            ))
+
     (setq toc-org-max-depth 2)
     (setq org-startup-indented t)
     (setq org-bullets-bullet-list '("◉" "○" "✸" "✿"))
