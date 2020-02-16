@@ -591,16 +591,16 @@ you should place your code here."
           '(
             ;; ("TODO" . org-warning)
             ("TODO" . "Orange")
-            ("FIRING" . "Red") 
+            ("FIRING" . "Red")
             ("IN-PROGRESS" . "OrangeRed")
             ("WAITING" . "LightSkyBlue")
             ("APPT" . "Pink")
             ;; ("NEXT" . "#008080")
             ;; ("DOING-NOW" . "#E35DBF")
             ;; ("DELEGATED" . "pink")
-            ("DONE" . "ForestGreen")
-            ("CANCELED" . (:foreground "White" :background "ForestGreen" :weight bold))
-            ("DEFERRED" . "ForestGreen")
+            ("DONE" . "Green")
+            ("CANCELED" . "Green")
+            ("DEFERRED" . "Green")
             ))
 
     ;; 调试好久的颜色，效果超赞！ todo keywords 增加背景色
