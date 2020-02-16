@@ -562,17 +562,20 @@ you should place your code here."
   (with-eval-after-load 'org
     (setq spaceline-org-clock-p t) ;; To permanently enable mode line display of org clock
     (setq org-todo-keywords
-          '((sequence "TODO(t!)" "NEXT(n!)" "DOINGNOW(d!)" "BLOCKED(b!)"
+          '((sequence "TODO(t!)" "NEXT(n!)" "IN-PROGRESS(i!)" "DOINGNOW(d!)" "BLOCKED(b!)"
                       "TODELEGATE(g!)" "DELEGATED(D!)" "FOLLOWUP(f!)"
                       "TICKLE(T!)" "|" "CANCELLED(c!)"
                       "DONE(F!)")))
 
     (setq org-todo-keyword-faces
-          '(("TODO" . org-warning)
+          '(
+            ("TODO" . org-warning)
             ("DOINGNOW" . "#E35DBF")
             ("CANCELED" . (:foreground "white" :background "#4d4d4d" :weight bold))
             ("DELEGATED" . "pink")
-            ("NEXT" . "#008080")))
+            ("NEXT" . "#008080")
+            ("IN-PROGRESS" . "#008080")
+            ))
 
     ;; 调试好久的颜色，效果超赞！ todo keywords 增加背景色
     ;; (setf org-todo-keyword-faces '(("TODO" . (:foreground "white" :background "#95A5A6"   :weight bold))
