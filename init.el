@@ -48,10 +48,10 @@ values."
      ;; rust
      ;; python
      (python :variables
-         python-backend 'lsp
-         python-format-on-save nil
-         python-formatter 'black
-         python-fill-column 99)
+             python-backend 'lsp
+             python-format-on-save nil
+             python-formatter 'black
+             python-fill-column 99)
      ;; yaml
      ;; shell-scripts
      markdown
@@ -562,19 +562,39 @@ you should place your code here."
   (with-eval-after-load 'org
     (setq spaceline-org-clock-p t) ;; To permanently enable mode line display of org clock
     (setq org-todo-keywords
-          '((sequence "TODO(t!)" "NEXT(n!)" "IN-PROGRESS(i!)" "DOINGNOW(d!)" "BLOCKED(b!)"
-                      "TODELEGATE(g!)" "DELEGATED(D!)" "FOLLOWUP(f!)"
-                      "TICKLE(T!)" "|" "CANCELLED(c!)"
-                      "DONE(F!)")))
+          '((sequence
+             ;; The item is ready to be done at the earliest opportunity or at the date (and maybe time) indicated in the SCHEDULED tag. Some tasks are given a DEADLINE date which is useful for scheduling the tasks during my daily planning.
+             "TODO(t!)"
+             "IN-PROGRESS(i!)"
+             ;; I did some work on this task but I am waiting for a response. If I use this task I schedule the task into the future as a reminder to follow up with some notes in the body of the task.
+             "WAITING(w!)"
+             ;; Used to tag an activity that can only be done at the specified time and date, instead of tasks that can be completed at any time.
+             "APPT(a!)"
+             ;; "NEXT(n!)"
+             ;; "DOING-NOW(d!)"
+             ;; "BLOCKED(b!)"
+             ;; "TO-DELEGATE(g!)"
+             ;; "DELEGATED(D!)"
+             ;; "FOLLOW-UP(f!)"
+             ;; "TICKLE(T!)"
+             "|"
+             "DONE(d!)"
+             ;; I decided not to do this task but have left the task on file with this status.
+             "CANCELLED(c!)"
+             ;; Used to identify a task that will not be activated just yet. The reason will be included in the task notes.
+             "DEFERRED(D!)")))
 
     (setq org-todo-keyword-faces
           '(
             ("TODO" . org-warning)
-            ("DOINGNOW" . "#E35DBF")
+            ("IN-PROGRESS" . "#E35DBF")
+            ("WAITING" . "pink")
+            ("APPT" . "pink")
+            ;; ("NEXT" . "#008080")
+            ;; ("DOING-NOW" . "#E35DBF")
+            ;; ("DELEGATED" . "pink")
             ("CANCELED" . (:foreground "white" :background "#4d4d4d" :weight bold))
-            ("DELEGATED" . "pink")
-            ("NEXT" . "#008080")
-            ("IN-PROGRESS" . "#008080")
+            ("DEFERRED" . "#008080")
             ))
 
     ;; 调试好久的颜色，效果超赞！ todo keywords 增加背景色
@@ -583,7 +603,7 @@ you should place your code here."
     ;;                                ("DONE" . (:foreground "white" :background "#3498DB" :weight bold))))
 
     (setq org-agenda-files '("~/mydocs/org"
-                             "~/mydocs/org/journal"
+                             ;; "~/mydocs/org/journal"
                              "~/mydocs/org/lesson" "~/mydocs/org/lesson/cmake" "~/mydocs/org/lesson/database" "~/mydocs/org/lesson/emacs" "~/mydocs/org/lesson/qt"
                              "~/mydocs/org/life/children" "~/mydocs/org/life/film" "~/mydocs/org/life/job"
                              "~/mydocs/org/misc"
@@ -593,7 +613,7 @@ you should place your code here."
     ;; (setq org-agenda-files (directory-files-recursively "~/mydocs/org/project" "\\.org$"))
     ;; (setq org-src-fontify-natively t)
     (setq org-capture-templates
-          '(("t" "Todo" entry (file+headline "~/mydocs/org/notes.org" "CaptureNotes")
+          '(("t" "Todo" entry (file+headline "~/mydocs/org/Notes.org" "CaptureNotes")
              "* TODO [#B] %?\n  %i\n"
              :empty-lines 1)))
 
@@ -631,6 +651,7 @@ you should place your code here."
        ))
     )
 
+  ;; push files into variable.
   (with-eval-after-load 'org-agenda
     (require 'org-projectile)
     (mapcar #'(lambda (file)
@@ -638,6 +659,60 @@ you should place your code here."
                   (push file org-agenda-files)))
             (org-projectile-todo-files))
     )
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (defun air-org-skip-subtree-if-priority (priority)
+    "Skip an agenda subtree if it has a priority of PRIORITY.
+
+PRIORITY may be one of the characters ?A, ?B, or ?C."
+    (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+          (pri-value (* 1000 (- org-lowest-priority priority)))
+          (pri-current (org-get-priority (thing-at-point 'line t))))
+      (if (= pri-value pri-current)
+          subtree-end
+        nil)))
+
+  (defun air-org-skip-subtree-if-habit ()
+    "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
+    (let ((subtree-end (save-excursion (org-end-of-subtree t))))
+      (if (string= (org-entry-get nil "STYLE") "habit")
+          subtree-end
+        nil)))
+
+  ;; (setq org-agenda-custom-commands
+  ;;       '(("c" "Simple agenda view"
+  ;;          ((tags "PRIORITY=\"A\""
+  ;;                 ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+  ;;                  (org-agenda-overriding-header "High-priority unfinished tasks:")))
+  ;;           (agenda "")
+  ;;           (alltodo "")))))
+
+  ;; (setq org-agenda-custom-commands
+  ;;       '(("c" "Simple agenda view"
+  ;;          ((tags "PRIORITY=\"A\""
+  ;;                 ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+  ;;                  (org-agenda-overriding-header "High-priority unfinished tasks:")))
+  ;;           (agenda "")
+  ;;           (alltodo ""
+  ;;                    ((org-agenda-skip-function
+  ;;                      '(or (air-org-skip-subtree-if-priority ?A)
+  ;;                           (org-agenda-skip-if nil '(scheduled deadline))))))))))
+
+  ;; (setq org-agenda-span 'day)
+  (setq org-agenda-custom-commands
+        '(("d" "Daily agenda and all TODOs"
+           ((tags "PRIORITY=\"A\""
+                  ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                   (org-agenda-overriding-header "High-priority unfinished tasks:")))
+            (agenda "" ((org-agenda-span 'day)))
+            (alltodo ""
+                     ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
+                                                     (air-org-skip-subtree-if-priority ?A)
+                                                     (org-agenda-skip-if nil '(scheduled deadline))))
+                      (org-agenda-overriding-header "ALL normal priority tasks:"))))
+           ((org-agenda-compact-blocks nil)))))
+  ;;  ((org-agenda-compact-blocks t)))))
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
   ;; Org mode settings
   ;;  (setq org-directory "~/mydocs/org/")
