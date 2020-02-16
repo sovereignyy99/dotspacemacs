@@ -561,6 +561,7 @@ you should place your code here."
   ;;##########################################################################
   (with-eval-after-load 'org
     (setq spaceline-org-clock-p t) ;; To permanently enable mode line display of org clock
+    (setq org-export-coding-system 'utf-8) ;; force UTF-8
     (setq org-todo-keywords
           '((sequence
              ;; The item is ready to be done at the earliest opportunity or at the date (and maybe time) indicated in the SCHEDULED tag. Some tasks are given a DEADLINE date which is useful for scheduling the tasks during my daily planning.
