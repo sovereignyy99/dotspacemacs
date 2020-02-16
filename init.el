@@ -600,7 +600,7 @@ you should place your code here."
             ;; ("DELEGATED" . "pink")
             ("DONE" . "Green")
             ("CANCELED" . "Green")
-            ("DEFERRED" . "Green")
+            ("DEFERRED" . "ForestGreen")
             ))
 
     ;; 调试好久的颜色，效果超赞！ todo keywords 增加背景色
