@@ -565,6 +565,9 @@ you should place your code here."
           '((sequence
              ;; The item is ready to be done at the earliest opportunity or at the date (and maybe time) indicated in the SCHEDULED tag. Some tasks are given a DEADLINE date which is useful for scheduling the tasks during my daily planning.
              "TODO(t!)"
+             ;; I should use this tag when I start on a task, but if I clock in to a TODO item, I don't really need this task.
+             "FIRING(f!)"
+             ;; ongoing
              "IN-PROGRESS(i!)"
              ;; I did some work on this task but I am waiting for a response. If I use this task I schedule the task into the future as a reminder to follow up with some notes in the body of the task.
              "WAITING(w!)"
@@ -586,15 +589,18 @@ you should place your code here."
 
     (setq org-todo-keyword-faces
           '(
-            ("TODO" . org-warning)
-            ("IN-PROGRESS" . "#E35DBF")
-            ("WAITING" . "pink")
-            ("APPT" . "pink")
+            ;; ("TODO" . org-warning)
+            ("TODO" . "Orange")
+            ("FIRING" . "Red") 
+            ("IN-PROGRESS" . "OrangeRed")
+            ("WAITING" . "LightSkyBlue")
+            ("APPT" . "Pink")
             ;; ("NEXT" . "#008080")
             ;; ("DOING-NOW" . "#E35DBF")
             ;; ("DELEGATED" . "pink")
-            ("CANCELED" . (:foreground "white" :background "#4d4d4d" :weight bold))
-            ("DEFERRED" . "#008080")
+            ("DONE" . "ForestGreen")
+            ("CANCELED" . (:foreground "White" :background "ForestGreen" :weight bold))
+            ("DEFERRED" . "ForestGreen")
             ))
 
     ;; 调试好久的颜色，效果超赞！ todo keywords 增加背景色
