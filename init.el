@@ -624,19 +624,21 @@ you should place your code here."
             ;; Todo
             ("t" "Todo"
              entry (file+headline "~/mydocs/org/Notes.org" "Tasks")
-             "* TODO [#B] %?\n  %i\n %a"
+             ;; "* TODO [#B] %?\n  %i\n %a"
+             (file "~/.spacemacs.d/snippets/todo.orgcaptmpl")
              :empty-lines 1)
 
             ;; Journal
             ("j" "Journal"
              entry (file+datetree "~/mydocs/org/journal/journal.org")
-             (file "~/.spacemacs.d/snippets/journal.orgcaptmpl"))
+             (file "~/.spacemacs.d/snippets/journal.orgcaptmpl")
+             :empty-lines 1)
 
             ;; Tidbits
-            ("b" "Tidbit: quote, zinger, one-liner or textlet"
+            ("T" "Tidbit: quote, zinger, one-liner or textlet"
              entry (file+headline "~/mydocs/org/Notes.org" "Tidbits")
-             (file "~/.spacemacs.d/snippets/tidbits.orgcaptmpl"))
-            ))
+             (file "~/.spacemacs.d/snippets/tidbits.orgcaptmpl")
+             :empty-lines 1)))
 
     (setq org-file-apps
           '(
