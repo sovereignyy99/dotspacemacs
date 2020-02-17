@@ -610,7 +610,7 @@ you should place your code here."
     ;;                                ("DONE" . (:foreground "white" :background "#3498DB" :weight bold))))
 
     (setq org-agenda-files '("~/mydocs/org"
-                             ;; "~/mydocs/org/journal"
+                             "~/mydocs/org/journal"
                              "~/mydocs/org/lesson" "~/mydocs/org/lesson/cmake" "~/mydocs/org/lesson/database" "~/mydocs/org/lesson/emacs" "~/mydocs/org/lesson/qt"
                              "~/mydocs/org/life/children" "~/mydocs/org/life/film" "~/mydocs/org/life/job"
                              "~/mydocs/org/misc"
@@ -620,9 +620,23 @@ you should place your code here."
     ;; (setq org-agenda-files (directory-files-recursively "~/mydocs/org/project" "\\.org$"))
     ;; (setq org-src-fontify-natively t)
     (setq org-capture-templates
-          '(("t" "Todo" entry (file+headline "~/mydocs/org/Notes.org" "CaptureNotes")
-             "* TODO [#B] %?\n  %i\n"
-             :empty-lines 1)))
+          '(
+            ;; Todo
+            ("t" "Todo"
+             entry (file+headline "~/mydocs/org/Notes.org" "Tasks")
+             "* TODO [#B] %?\n  %i\n %a"
+             :empty-lines 1)
+
+            ;; Journal
+            ("j" "Journal"
+             entry (file+datetree "~/mydocs/org/journal/journal.org")
+             (file "~/.spacemacs.d/snippets/journal.orgcaptmpl"))
+
+            ;; Tidbits
+            ("b" "Tidbit: quote, zinger, one-liner or textlet"
+             entry (file+headline "~/mydocs/org/Notes.org" "Tidbits")
+             (file "~/.spacemacs.d/snippets/tidbits.orgcaptmpl"))
+            ))
 
     (setq org-file-apps
           '(
