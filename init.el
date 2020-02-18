@@ -634,10 +634,10 @@ you should place your code here."
              (file "~/.spacemacs.d/snippets/journal.orgcaptmpl")
              :empty-lines 1)
 
-            ;; Tidbits
-            ("T" "Tidbit: quote, zinger, one-liner or textlet"
-             entry (file+headline "~/mydocs/org/Notes.org" "Tidbits")
-             (file "~/.spacemacs.d/snippets/tidbits.orgcaptmpl")
+            ;; Memo
+            ("m" "Memo"
+             entry (file+headline "~/mydocs/org/Notes.org" "Memo")
+             (file "~/.spacemacs.d/snippets/memo.orgcaptmpl")
              :empty-lines 1)))
 
     (setq org-file-apps
