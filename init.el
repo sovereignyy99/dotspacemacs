@@ -621,11 +621,18 @@ you should place your code here."
     ;; (setq org-src-fontify-natively t)
     (setq org-capture-templates
           '(
-            ;; Todo
-            ("t" "Todo"
+            ;; TodoWithLink
+            ("T" "Todo"
              entry (file+headline "~/mydocs/org/Notes.org" "Tasks")
              ;; "* TODO [#B] %?\n  %i\n %a"
              (file "~/.spacemacs.d/snippets/todo.orgcaptmpl")
+             :empty-lines 1)
+
+            ;; TodoWithoutLink
+            ("t" "Todo: no links"
+             entry (file+headline "~/mydocs/org/Notes.org" "Tasks")
+             ;; "* TODO [#B] %?\n  %i\n %a"
+             (file "~/.spacemacs.d/snippets/todo_nolinks.orgcaptmpl")
              :empty-lines 1)
 
             ;; Journal
