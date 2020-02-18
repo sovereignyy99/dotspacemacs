@@ -651,6 +651,13 @@ you should place your code here."
             (auto-mode . emacs)
             ))
 
+    ;; org-refile configuration
+    (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+    (setq org-refile-use-outline-path 'file)
+    (setq org-outline-path-complete-in-steps 'nil)
+    (setq org-refile-allow-creating-parent-nodes 'confirm)
+
+    ;; toc
     (setq toc-org-max-depth 2)
     (setq org-startup-indented t)
     (setq org-bullets-bullet-list '("◉" "○" "✸" "✿"))
