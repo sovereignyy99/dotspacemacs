@@ -623,14 +623,14 @@ you should place your code here."
           '(
             ;; TodoWithLink
             ("T" "Todo"
-             entry (file+headline "~/mydocs/org/Notes.org" "Tasks")
+             entry (file+headline "~/mydocs/org/PulpFiction.org" "Tasks")
              ;; "* TODO [#B] %?\n  %i\n %a"
              (file "~/.spacemacs.d/snippets/todo.orgcaptmpl")
              :empty-lines 1)
 
             ;; TodoWithoutLink
             ("t" "Todo: no links"
-             entry (file+headline "~/mydocs/org/Notes.org" "Tasks")
+             entry (file+headline "~/mydocs/org/PulpFiction.org" "Tasks")
              ;; "* TODO [#B] %?\n  %i\n %a"
              (file "~/.spacemacs.d/snippets/todo_nolinks.orgcaptmpl")
              :empty-lines 1)
@@ -643,7 +643,7 @@ you should place your code here."
 
             ;; Memo
             ("m" "Memo"
-             entry (file+headline "~/mydocs/org/Notes.org" "Memo")
+             entry (file+headline "~/mydocs/org/PulpFiction.org" "Memo")
              (file "~/.spacemacs.d/snippets/memo.orgcaptmpl")
              :empty-lines 1)))
 
@@ -749,6 +749,9 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
            ((org-agenda-compact-blocks nil)))))
   ;;  ((org-agenda-compact-blocks t)))))
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; (define-key org-agenda-mode-map "j" 'org-agenda-next-item)
+  ;; (define-key org-agenda-mode-map "k" 'org-agenda-previous-item)
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
   ;; When you perform a text search (the “s” selection from the org-agenda pop-up), include the archives for all of the files in Org’s agenda files list. If you archive things regularly, which I do, this helps you dig stuff out of there when you’re looking for it.
