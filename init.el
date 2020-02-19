@@ -749,11 +749,8 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
            ((org-agenda-compact-blocks nil)))))
   ;;  ((org-agenda-compact-blocks t)))))
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; (define-key org-agenda-mode-map "j" 'org-agenda-next-item)
-  ;; (define-key org-agenda-mode-map "k" 'org-agenda-previous-item)
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; When you perform a text search (the “s” selection from the org-agenda pop-up), include the archives for all of the files in Org’s agenda files list. If you archive things regularly, which I do, this helps you dig stuff out of there when you’re looking for it.
   ;; (setq org-agenda-text-search-extra-files '(agenda-archives))
 
@@ -772,20 +769,6 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   ;; This does the same as above, but for the scheduled dates, which I use more often.
   ;; (setq org-log-reschedule (quote time))
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   ;; Org mode settings
   ;;  (setq org-directory "~/mydocs/org/")
@@ -894,6 +877,12 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   ;; my own keymaps
   (define-key global-map (kbd "C-c y") 'youdao-dictionary-search-at-point+)
   (define-key global-map (kbd "C-x C-r") 'recentf-open-files)
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; 没必要改，evil模式下为M-j,M-
+  ;; (define-key org-agenda-mode-map "j" 'org-agenda-next-item)
+  ;; (define-key org-agenda-mode-map "k" 'org-agenda-previous-item)
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
   ;; (global-set-key "\C-x\ \C-r" 'recentf-open-files)
   ;; (global-set-key (kbd "C-h C-f") 'find-function)
