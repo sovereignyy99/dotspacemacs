@@ -609,7 +609,7 @@ you should place your code here."
     ;;                                ("HAND" . (:foreground "white" :background "#2E8B57"  :weight bold))
     ;;                                ("DONE" . (:foreground "white" :background "#3498DB" :weight bold))))
 
-    (setq org-agenda-files '("~/mydocs/org"
+    (setq org-agenda-files '(
                              "~/mydocs/org/journal"
                              "~/mydocs/org/lesson" "~/mydocs/org/lesson/cmake" "~/mydocs/org/lesson/database" "~/mydocs/org/lesson/emacs" "~/mydocs/org/lesson/qt"
                              "~/mydocs/org/life/children" "~/mydocs/org/life/film" "~/mydocs/org/life/job"
@@ -622,15 +622,29 @@ you should place your code here."
     (setq org-capture-templates
           '(
             ;; TodoWithLink
-            ("T" "Todo"
-             entry (file+headline "~/mydocs/org/PulpFiction.org" "Tasks")
+            ("F" "Todo@PulpFiction: with links ^ ^"
+             entry (file+headline "~/mydocs/org/journal/PulpFiction.org" "Tasks")
              ;; "* TODO [#B] %?\n  %i\n %a"
              (file "~/.spacemacs.d/snippets/todo.orgcaptmpl")
              :empty-lines 1)
 
             ;; TodoWithoutLink
-            ("t" "Todo: no links"
-             entry (file+headline "~/mydocs/org/PulpFiction.org" "Tasks")
+            ("f" "Todo@PulpFiction: without links ^ ^"
+             entry (file+headline "~/mydocs/org/journal/PulpFiction.org" "Tasks")
+             ;; "* TODO [#B] %?\n  %i\n %a"
+             (file "~/.spacemacs.d/snippets/todo_nolinks.orgcaptmpl")
+             :empty-lines 1)
+
+            ;; TodoWithLink
+            ("W" "Todo@WorkNotes: with links ^_^"
+             entry (file+headline "~/mydocs/org/journal/WorkNotes.org" "Tasks")
+             ;; "* TODO [#B] %?\n  %i\n %a"
+             (file "~/.spacemacs.d/snippets/todo.orgcaptmpl")
+             :empty-lines 1)
+
+            ;; TodoWithoutLink
+            ("w" "Todo@WorkNotes: without links ^_^"
+             entry (file+headline "~/mydocs/org/journal/WorkNotes.org" "Tasks")
              ;; "* TODO [#B] %?\n  %i\n %a"
              (file "~/.spacemacs.d/snippets/todo_nolinks.orgcaptmpl")
              :empty-lines 1)
@@ -643,7 +657,7 @@ you should place your code here."
 
             ;; Memo
             ("m" "Memo"
-             entry (file+headline "~/mydocs/org/PulpFiction.org" "Memo")
+             entry (file+headline "~/mydocs/org/journal/PulpFiction.org" "Memo")
              (file "~/.spacemacs.d/snippets/memo.orgcaptmpl")
              :empty-lines 1)))
 
@@ -763,12 +777,6 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                    (org-agenda-overriding-header "High-priority unfinished tasks:")))
             (agenda "" (
                         (org-agenda-span 'day)
-                        (org-agenda-files '(
-                                            "~/mydocs/org/project"
-                                            "~/mydocs/org/techinfo"
-                                            "~/mydocs/org/PulpFiction.org"
-                                            ))
-                        (org-agenda-text-search-extra-files nil)
                         ))
             (alltodo ""
                      ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
@@ -779,6 +787,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
             (org-agenda-files '(
                                 "~/mydocs/org/project"
                                 "~/mydocs/org/techinfo"
+                                "~/mydocs/org/journal/WorkNotes.org"
                                 ))
             (org-agenda-text-search-extra-files nil))
            )
@@ -792,14 +801,6 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                    (org-agenda-overriding-header "High-priority unfinished tasks:")))
             (agenda "" (
                         (org-agenda-span 'day)
-                        (org-agenda-files '(
-                                            "~/mydocs/org/life/children" "~/mydocs/org/life/film" "~/mydocs/org/life/job"
-                                            "~/mydocs/org/lesson" "~/mydocs/org/lesson/cmake" "~/mydocs/org/lesson/database" "~/mydocs/org/lesson/emacs" "~/mydocs/org/lesson/qt"
-                                            "~/mydocs/org/journal"
-                                            "~/mydocs/org/PulpFiction.org"
-                                            "~/mydocs/org/misc"
-                                            ))
-                        (org-agenda-text-search-extra-files nil)
                         ))
             (alltodo ""
                      ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
@@ -810,8 +811,8 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
             (org-agenda-files '(
                                 "~/mydocs/org/life/children" "~/mydocs/org/life/film" "~/mydocs/org/life/job"
                                 "~/mydocs/org/lesson" "~/mydocs/org/lesson/cmake" "~/mydocs/org/lesson/database" "~/mydocs/org/lesson/emacs" "~/mydocs/org/lesson/qt"
-                                "~/mydocs/org/journal"
                                 "~/mydocs/org/misc"
+                                "~/mydocs/org/journal/PulpFiction.org"
                                 ))
             (org-agenda-text-search-extra-files nil))
            )
@@ -819,7 +820,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
           ;; #################################################################
           ;; #################################################################
           ;; #################################################################
-          ("f" "@PulpFiction: Daily agenda and all TODOs"
+          ("N" "@CapturedNotes: Daily agenda and all TODOs"
            ((tags "PRIORITY=\"A\""
                   ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
                    (org-agenda-overriding-header "High-priority unfinished tasks:")))
@@ -830,7 +831,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                                      (org-agenda-skip-if nil '(scheduled deadline))))
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
            ((org-agenda-compact-blocks nil)
-            (org-agenda-files '("~/mydocs/org/PulpFiction.org"))
+            (org-agenda-files '("~/mydocs/org/journal/PulpFiction.org" "~/mydocs/org/journal/WorkNotes.org"))
             (org-agenda-text-search-extra-files nil))
            )
           ;; #################################################################
