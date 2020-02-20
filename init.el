@@ -737,7 +737,11 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 
   ;; (setq org-agenda-span 'day)
   (setq org-agenda-custom-commands
-        '(("d" "Daily agenda and all TODOs"
+        '(
+          ;; #################################################################
+          ;; #################################################################
+          ;; #################################################################
+          ("d" "@All: Daily agenda and all TODOs"
            ((tags "PRIORITY=\"A\""
                   ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
                    (org-agenda-overriding-header "High-priority unfinished tasks:")))
@@ -747,10 +751,112 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                                      (air-org-skip-subtree-if-priority ?A)
                                                      (org-agenda-skip-if nil '(scheduled deadline))))
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
-           ((org-agenda-compact-blocks nil)))))
-  ;;  ((org-agenda-compact-blocks t)))))
+           ((org-agenda-compact-blocks nil)))
+          ;;  ((org-agenda-compact-blocks t)))
 
+          ;; #################################################################
+          ;; #################################################################
+          ;; #################################################################
+          ("w" "@Work: Daily agenda and all TODOs"
+           ((tags "PRIORITY=\"A\""
+                  ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                   (org-agenda-overriding-header "High-priority unfinished tasks:")))
+            (agenda "" (
+                        (org-agenda-span 'day)
+                        (org-agenda-files '(
+                                            "~/mydocs/org/project"
+                                            "~/mydocs/org/techinfo"
+                                            "~/mydocs/org/PulpFiction.org"
+                                            ))
+                        (org-agenda-text-search-extra-files nil)
+                        ))
+            (alltodo ""
+                     ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
+                                                     (air-org-skip-subtree-if-priority ?A)
+                                                     (org-agenda-skip-if nil '(scheduled deadline))))
+                      (org-agenda-overriding-header "ALL normal priority tasks:"))))
+           ((org-agenda-compact-blocks nil)
+            (org-agenda-files '(
+                                "~/mydocs/org/project"
+                                "~/mydocs/org/techinfo"
+                                ))
+            (org-agenda-text-search-extra-files nil))
+           )
+
+          ;; #################################################################
+          ;; #################################################################
+          ;; #################################################################
+          ("l" "@Life: Daily agenda and all TODOs"
+           ((tags "PRIORITY=\"A\""
+                  ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                   (org-agenda-overriding-header "High-priority unfinished tasks:")))
+            (agenda "" (
+                        (org-agenda-span 'day)
+                        (org-agenda-files '(
+                                            "~/mydocs/org/life/children" "~/mydocs/org/life/film" "~/mydocs/org/life/job"
+                                            "~/mydocs/org/lesson" "~/mydocs/org/lesson/cmake" "~/mydocs/org/lesson/database" "~/mydocs/org/lesson/emacs" "~/mydocs/org/lesson/qt"
+                                            "~/mydocs/org/journal"
+                                            "~/mydocs/org/PulpFiction.org"
+                                            "~/mydocs/org/misc"
+                                            ))
+                        (org-agenda-text-search-extra-files nil)
+                        ))
+            (alltodo ""
+                     ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
+                                                     (air-org-skip-subtree-if-priority ?A)
+                                                     (org-agenda-skip-if nil '(scheduled deadline))))
+                      (org-agenda-overriding-header "ALL normal priority tasks:"))))
+           ((org-agenda-compact-blocks nil)
+            (org-agenda-files '(
+                                "~/mydocs/org/life/children" "~/mydocs/org/life/film" "~/mydocs/org/life/job"
+                                "~/mydocs/org/lesson" "~/mydocs/org/lesson/cmake" "~/mydocs/org/lesson/database" "~/mydocs/org/lesson/emacs" "~/mydocs/org/lesson/qt"
+                                "~/mydocs/org/journal"
+                                "~/mydocs/org/misc"
+                                ))
+            (org-agenda-text-search-extra-files nil))
+           )
+
+          ;; #################################################################
+          ;; #################################################################
+          ;; #################################################################
+          ("f" "@PulpFiction: Daily agenda and all TODOs"
+           ((tags "PRIORITY=\"A\""
+                  ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                   (org-agenda-overriding-header "High-priority unfinished tasks:")))
+            (agenda "" ((org-agenda-span 'day)))
+            (alltodo ""
+                     ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
+                                                     (air-org-skip-subtree-if-priority ?A)
+                                                     (org-agenda-skip-if nil '(scheduled deadline))))
+                      (org-agenda-overriding-header "ALL normal priority tasks:"))))
+           ((org-agenda-compact-blocks nil)
+            (org-agenda-files '("~/mydocs/org/PulpFiction.org"))
+            (org-agenda-text-search-extra-files nil))
+           )
+          ;; #################################################################
+          ;; sorting
+          ;; ("F" todo "FIRING"
+          ;;  ((org-agenda-sorting-strategy '(priority-down))
+          ;;   (org-agenda-prefix-format "  Mixed: ")
+          ;;   ))
+
+          ;; current buffer
+          ;; ("N" tags-tree "+CpteProject-Vacation"
+          ;;  ((org-show-context-detail 'minimal)))
+
+          ;; specified files.
+          ;; ("N" todo "TODO"
+          ;;  ((org-agenda-files '("~/mydocs/org/project"))
+          ;;   (org-agenda-text-search-extra-files nil)))
+
+          ;; specified files.
+          ;; ("N" search ""
+          ;;  ((org-agenda-files '("~/mydocs/org/project"))
+          ;;   (org-agenda-text-search-extra-files nil)))
+          ;; #################################################################
+          ))
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
   ;; When you perform a text search (the “s” selection from the org-agenda pop-up), include the archives for all of the files in Org’s agenda files list. If you archive things regularly, which I do, this helps you dig stuff out of there when you’re looking for it.
   ;; (setq org-agenda-text-search-extra-files '(agenda-archives))
 
