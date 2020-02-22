@@ -667,8 +667,11 @@ you should place your code here."
             ("\\.x?html?\\'" . default)
             ("\\.pdf\\'" . default)
             ("\\.docx\\'" . default)
+            ("\\.doc\\'" . default)
             ("\\.xlsx\\'" . default)
+            ("\\.xls\\'" . default)
             ("\\.pptx\\'" . default)
+            ("\\.ppt\\'" . default)
             (auto-mode . emacs)
             ))
 
