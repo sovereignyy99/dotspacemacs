@@ -982,6 +982,22 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   ;; fix for the lsp error
   (defvar spacemacs-jump-handlers-fundamental-mode nil)
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (defun locate-current-file-in-explorer ()
+    (interactive)
+    (cond
+     ;; In buffers with file name
+     ((buffer-file-name)
+      (shell-command (concat "start explorer /e,/select,\"" (replace-regexp-in-string "/" "\\\\" (buffer-file-name)) "\"")))
+     ;; In dired mode
+     ((eq major-mode 'dired-mode)
+      (shell-command (concat "start explorer /e,\"" (replace-regexp-in-string "/" "\\\\" (dired-current-directory)) "\"")))
+     ;; In eshell mode
+     ((eq major-mode 'eshell-mode)
+      (shell-command (concat "start explorer /e,\"" (replace-regexp-in-string "/" "\\\\" (eshell/pwd)) "\"")))
+     ;; Use default-directory as last resource
+     (t
+      (shell-command (concat "start explorer /e,\"" (replace-regexp-in-string "/" "\\\\" default-directory) "\"")))))
 
   ;;##########################################################################
   ;; my own keymaps
@@ -1019,6 +1035,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   (spacemacs/set-leader-keys "obl" 'bookmark-bmenu-list)
   (spacemacs/set-leader-keys "ocl" 'evilnc-comment-or-uncomment-lines)
   (spacemacs/set-leader-keys "oj" 'evilmi-jump-items)
+  (spacemacs/set-leader-keys "of" 'locate-current-file-in-explorer)
   )
 
 (defun dotspacemacs/emacs-custom-settings ()
