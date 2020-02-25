@@ -32,16 +32,27 @@ values."
    dotspacemacs-configuration-layers
    '(
      ;; languages layers
-     lsp
+     ;; lsp
+     (lsp :variables
+          lsp-clangd-executable 'clangd
+          lsp-clients-clangd-executable 'clangd
+          )
      sql
      asm
      html
      ;; (javascript :variables javascript-backend 'lsp)
-     ;; (c-c++ :variables c-c++-enable-clang-support t)
      (c-c++ :variables
-            c-c++-default-mode-for-headers 'c++-mode
-            c-c++-backend 'lsp-ccls
-            c-c++-lsp-executable (file-truename "/usr/local/bin/ccls"))
+            c-c++-adopt-subprojects t
+            ;; c-c++-enable-clang-support t
+            c-c++-default-mode-for-headers 'c-or-c++-mode
+            c-c++-backend 'lsp-clangd
+            c-c++-lsp-enable-semantic-highlight 'rainbow
+            c-c++-enable-organize-includes-on-save t
+            c-c++-enable-clang-format-on-save t
+            c-c++-enable-auto-newline t
+            )
+     ;; gtags
+     ;; rtags
      cmake
      windows-scripts
      emacs-lisp
@@ -99,8 +110,8 @@ values."
                      spell-checking-enable-by-default nil
                      enable-flyspell-auto-completion t)
      (syntax-checking :variables
-                      syntax-checking-enable-by-default nil
-                      syntax-checking-enable-tooltips nil)
+                      syntax-checking-enable-by-default t
+                      syntax-checking-enable-tooltips t)
      (colors :variables
              colors-colorize-identifiers 'variables)
      ;; emoji
@@ -120,8 +131,8 @@ values."
      ;; dash ;; open and search docs with Zeal
      helm
      (auto-completion :variables
-                      ;; auto-completion-return-key-behavior 'complete
-                      auto-completion-return-key-behavior nil
+                      auto-completion-return-key-behavior 'complete
+                      ;; auto-completion-return-key-behavior nil
                       auto-completion-tab-key-behavior 'complete
                       ;; auto-completion-tab-key-behavior 'cycle
                       auto-completion-idle-delay 0.08
@@ -889,7 +900,13 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   ;;          (org-agenda-files :maxlevel . 1)))
 
   (setq company-show-numbers t)
+
+  ;; flycheck
+  ;; (flycheck-global-modes t) ;; ?
   (setq flycheck-check-syntax-automatically '(new-line save))
+  ;; (setq flycheck-clang-language-standard "c++11")
+  (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
+
   (custom-set-faces
    '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
    '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
@@ -971,7 +988,10 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   (smartparens-global-mode t)
   (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
   ;; (sp-local-pair 'lisp-interaction-mode "'" nil :actions nil)
+
   (global-company-mode t)
+  ;; (setq company-lsp-cache-candidates 'auto) 
+
   ;; (require 'popwin)
   ;; (popwin-mode t)
 
