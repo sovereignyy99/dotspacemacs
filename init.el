@@ -32,11 +32,11 @@ values."
    dotspacemacs-configuration-layers
    '(
      ;; languages layers
-     ;; lsp
-     (lsp :variables
-          lsp-clangd-executable 'clangd
-          lsp-clients-clangd-executable 'clangd
-          )
+     lsp
+     ;; (lsp :variables
+     ;;      lsp-clangd-executable 'clangd
+     ;;      lsp-clients-clangd-executable 'clangd
+     ;;      )
      sql
      asm
      html
@@ -45,7 +45,7 @@ values."
             c-c++-adopt-subprojects t
             ;; c-c++-enable-clang-support t
             c-c++-default-mode-for-headers 'c-or-c++-mode
-            c-c++-backend 'lsp-clangd
+            c-c++-backend 'lsp-cquery
             c-c++-lsp-enable-semantic-highlight 'rainbow
             c-c++-enable-organize-includes-on-save t
             c-c++-enable-clang-format-on-save t
@@ -183,6 +183,7 @@ values."
                                       ;; auto-dim-other-buffers
                                       ;; (godot-gdscript :location local)  ;;game engine
                                       beacon
+                                      ;; emacs-cquery
                                       ;; doom-modeline
                                       )
    ;; A list of packages that cannot be updated.
@@ -532,6 +533,18 @@ you should place your code here."
   ;; (add-to-list 'load-path "~/.emacs.d/lisp/")
   (require 'beacon)
   (beacon-mode t)
+
+  ;;##########################################################################
+  ;;##########################################################################
+  ;; cquery
+  ;; (require 'cquery)
+  ;; (setq cquery-executable "d:/cquery/build/cquery.exe")
+  ;; (setq cquery-extra-init-params '(:index (:comments 2) :cacheFormat "msgpack" :completion (:detailedLabel t)))
+
+
+
+
+
 
   ;;##########################################################################
   (with-eval-after-load 'dired
@@ -1019,6 +1032,8 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
      (t
       (shell-command (concat "start explorer /e,\"" (replace-regexp-in-string "/" "\\\\" default-directory) "\"")))))
 
+  ;;##########################################################################
+  ;;##########################################################################
   ;;##########################################################################
   ;; my own keymaps
   (define-key global-map (kbd "C-c y") 'youdao-dictionary-search-at-point+)
