@@ -32,11 +32,10 @@ values."
    dotspacemacs-configuration-layers
    '(
      ;; languages layers
-     lsp
-     ;; (lsp :variables
-     ;;      lsp-clangd-executable 'clangd
-     ;;      lsp-clients-clangd-executable 'clangd
-     ;;      )
+     (lsp :variables
+          lsp-clangd-executable 'clangd
+          lsp-clients-clangd-executable 'clangd
+          )
      sql
      asm
      ;; ruby
@@ -45,9 +44,9 @@ values."
      ;; (javascript :variables javascript-backend 'lsp)
      (c-c++ :variables
             c-c++-adopt-subprojects t
-            ;; c-c++-enable-clang-support t
+            c-c++-enable-clang-support t
             c-c++-default-mode-for-headers 'c++-mode
-            c-c++-backend 'lsp-cquery
+            c-c++-backend 'lsp-clangd
             c-c++-lsp-enable-semantic-highlight 'rainbow
             c-c++-enable-organize-includes-on-save t
             c-c++-enable-clang-format-on-save t
@@ -274,8 +273,8 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         dracula
                          monokai
+                         dracula
                          spacemacs-dark
                          solarized-dark
                          leuven
@@ -1074,7 +1073,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   ;; (sp-local-pair 'lisp-interaction-mode "'" nil :actions nil)
 
   (global-company-mode t)
-  ;; (setq company-lsp-cache-candidates 'auto) 
+  ;; (setq company-lsp-cache-candidates 'auto)
 
   ;; (require 'popwin)
   ;; (popwin-mode t)
