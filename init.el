@@ -32,10 +32,11 @@ values."
    dotspacemacs-configuration-layers
    '(
      ;; languages layers
-     (lsp :variables
-          lsp-clangd-executable 'clangd
-          lsp-clients-clangd-executable 'clangd
-          )
+     lsp
+     ;; (lsp :variables
+     ;;      lsp-clangd-executable 'clangd
+     ;;      lsp-clients-clangd-executable 'clangd
+     ;;      )
      sql
      asm
      ;; ruby
