@@ -39,12 +39,14 @@ values."
      ;;      )
      sql
      asm
+     ;; ruby
      html
+     ;; javascript
      ;; (javascript :variables javascript-backend 'lsp)
      (c-c++ :variables
             c-c++-adopt-subprojects t
             ;; c-c++-enable-clang-support t
-            c-c++-default-mode-for-headers 'c-or-c++-mode
+            c-c++-default-mode-for-headers 'c++-mode
             c-c++-backend 'lsp-cquery
             c-c++-lsp-enable-semantic-highlight 'rainbow
             c-c++-enable-organize-includes-on-save t
@@ -57,13 +59,10 @@ values."
      windows-scripts
      emacs-lisp
      ;; rust
-     ;; python
-     (python :variables
-             python-backend 'lsp
-             python-format-on-save nil
-             python-formatter 'black
-             python-fill-column 99)
      ;; yaml
+     ;; (python :variables
+     ;;        python-backend 'lsp
+     ;;        )
      ;; shell-scripts
      markdown
      latex
@@ -131,14 +130,11 @@ values."
      ;; dash ;; open and search docs with Zeal
      helm
      (auto-completion :variables
-                      auto-completion-return-key-behavior 'complete
-                      ;; auto-completion-return-key-behavior nil
+                      auto-completion-return-key-behavior nil
                       auto-completion-tab-key-behavior 'complete
-                      ;; auto-completion-tab-key-behavior 'cycle
                       auto-completion-idle-delay 0.08
                       company-minimum-prefix-length 1
                       auto-completion-enable-help-tooltip t
-                      ;; auto-completion-enable-help-tooltip 'manual
                       auto-completion-enable-snippets-in-popup t
                       ;; auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/"
                       auto-completion-enable-sort-by-usage t
@@ -536,10 +532,85 @@ you should place your code here."
 
   ;;##########################################################################
   ;;##########################################################################
-  ;; cquery
+  ;; stop smartparens being too smart
+  (setq sp-escape-wrapped-region nil)
+  (setq sp-escape-quotes-after-insert nil)
+
+  ;; hide minor modes
+  (setq dotspacemacs-mode-line-unicode-symbols nil)
+  (spacemacs/toggle-mode-line-minor-modes-off)
+
+  ;; evil in compilation mode (from github.com/asok/.emacs.d)
+  ;; (add-hook 'compilation-mode-hook
+  ;;           '(lambda ()
+  ;;              (local-unset-key "g")
+  ;;              (local-unset-key "h")
+  ;;              (evil-define-key 'motion compilation-mode-map "r" 'recompile)
+  ;;              (evil-define-key 'motion compilation-mode-map "h" 'evil-backward-char)))
+
+  ;; evil command mode
+  ;; (define-key evil-ex-completion-map (kbd "C-a") 'move-beginning-of-line)
+  ;; (define-key evil-ex-completion-map (kbd "C-b") 'backward-char)
+  ;; (define-key evil-ex-completion-map (kbd "C-d") 'delete-forward-char)
+  ;; (define-key evil-ex-completion-map (kbd "C-h") 'evil-ex-delete-backward-char)
+
+  ;; previous/nex modified hunk in git
+  (spacemacs/set-leader-keys
+    "gp" '(lambda () (interactive) (git-gutter+-next-hunk -1))
+    "gn" '(lambda () (interactive) (git-gutter+-next-hunk 1)))
+
+  ;; undo-tree
+  (setq undo-tree-auto-save-history t
+        undo-tree-history-directory-alist
+        `(("." . ,(concat user-home-directory ".undo"))))
+
+  (setq company-idle-delay 0.5)
+  (setq flycheck-check-syntax-automatically '(mode-enabled save))
+
+  ;;##########################################################################
+  ;;##########################################################################
   ;; (require 'cquery)
   ;; (setq cquery-executable "d:/cquery/build/cquery.exe")
   ;; (setq cquery-extra-init-params '(:index (:comments 2) :cacheFormat "msgpack" :completion (:detailedLabel t)))
+
+  ;; ;; c++
+  ;; (defun my-c-style ()
+  ;;   ;; (c-set-style "linux")
+  ;;   (setq tab-width 4)
+  ;;   (setq c-basic-offset tab-width)
+  ;;   (c-set-offset 'substatement-open 0)
+  ;;   (c-set-offset 'innamespace 0)
+  ;;   )
+  ;; (spacemacs/add-to-hooks 'my-c-style '(c-mode-hook c++-mode-hook))
+
+  ;; ;; lsp
+  ;; (setq cquery-additional-arguments (list "--log-file" "cquery.log"))
+  ;; ;; (setq lsp-highlight-symbol-at-point nil)
+  ;; (face-spec-set 'lsp-face-highlight-textual '((t :background nil :inherit hl-line)))
+  ;; ;; (face-spec-set 'cquery-sem-member-var-face '((t :inherit nil)))
+  ;; ;; (face-spec-set 'cquery-sem-free-var-face '((t :inherit nil)))
+  ;; (setq lsp-ui-doc-enable nil)
+  ;; (setq lsp-ui-peek-enable nil)
+  ;; (setq lsp-ui-sideline-code-actions-prefix "")
+  ;; ;; (setq lsp-print-io t) ;; for debug
+  ;; (setq company-lsp-cache-candidates nil)
+  ;; (setq company-lsp-async t)
+  ;; (setq company-transformers nil)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
