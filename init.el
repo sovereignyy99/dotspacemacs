@@ -33,27 +33,37 @@ values."
    '(
      ;; languages layers
      lsp
+     ;; (lsp :variables
+     ;;      lsp-clangd-executable 'clangd
+     ;;      lsp-clients-clangd-executable 'clangd
+     ;;      )
      sql
      asm
+     ;; ruby
      html
+     javascript
      ;; (javascript :variables javascript-backend 'lsp)
-     ;; (c-c++ :variables c-c++-enable-clang-support t)
      (c-c++ :variables
-            c-c++-default-mode-for-headers 'c++-mode
-            c-c++-backend 'lsp-ccls
-            c-c++-lsp-executable (file-truename "/usr/local/bin/ccls"))
+            c-c++-adopt-subprojects t
+            c-c++-enable-clang-support t
+            c-c++-default-mode-for-headers 'c-or-c++-mode
+            c-c++-backend 'lsp-clangd
+            c-c++-lsp-enable-semantic-highlight 'rainbow
+            c-c++-enable-organize-includes-on-save t
+            c-c++-enable-clang-format-on-save t
+            c-c++-enable-auto-newline t
+            )
+     ;; gtags
+     ;; rtags
      cmake
      windows-scripts
      emacs-lisp
      ;; rust
-     ;; python
-     (python :variables
-             python-backend 'lsp
-             python-format-on-save nil
-             python-formatter 'black
-             python-fill-column 99)
      ;; yaml
-     ;; shell-scripts
+     python
+     ;; (python :variables
+     ;;        python-backend 'lsp
+     ;;        )
      markdown
      latex
      ;; graphviz
@@ -65,6 +75,7 @@ values."
      ;; tools layers
      ;; sphinx
      ;; pandoc
+     asciidoc
      (ranger :variables
              ranger-show-preview t
              ranger-ignored-extensions '("mkv" "iso" "mp4" "mov" "flv" "avi")
@@ -88,19 +99,20 @@ values."
           org-journal-time-format ""
           org-projectile-file "TODOs.org"
           )
-     ;; spacemacs-org
      autohotkey
      ;; (shell :variables
-     ;;    shell-default-height 50
-     ;;    shell-default-position 'bottom
-     ;;    shell-default-shell 'ansi-term
-     ;;    shell-default-term-shell "~/bin/zsh")
+     ;;        shell-default-height 50
+     ;;        shell-default-position 'bottom
+     ;;        shell-default-shell 'ansi-term
+     ;;        shell-default-term-shell "~/bin/zsh")
+     shell
+     shell-scripts
      (spell-checking :variables
                      spell-checking-enable-by-default nil
                      enable-flyspell-auto-completion t)
      (syntax-checking :variables
-                      syntax-checking-enable-by-default nil
-                      syntax-checking-enable-tooltips nil)
+                      syntax-checking-enable-by-default t
+                      syntax-checking-enable-tooltips t)
      (colors :variables
              colors-colorize-identifiers 'variables)
      ;; emoji
@@ -120,14 +132,11 @@ values."
      ;; dash ;; open and search docs with Zeal
      helm
      (auto-completion :variables
-                      ;; auto-completion-return-key-behavior 'complete
                       auto-completion-return-key-behavior nil
                       auto-completion-tab-key-behavior 'complete
-                      ;; auto-completion-tab-key-behavior 'cycle
                       auto-completion-idle-delay 0.08
                       company-minimum-prefix-length 1
                       auto-completion-enable-help-tooltip t
-                      ;; auto-completion-enable-help-tooltip 'manual
                       auto-completion-enable-snippets-in-popup t
                       ;; auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/"
                       auto-completion-enable-sort-by-usage t
@@ -172,6 +181,7 @@ values."
                                       ;; auto-dim-other-buffers
                                       ;; (godot-gdscript :location local)  ;;game engine
                                       beacon
+                                      ;; emacs-cquery
                                       ;; doom-modeline
                                       )
    ;; A list of packages that cannot be updated.
@@ -255,8 +265,8 @@ values."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '(
-                                ;; (recents . 5)
-                                ;; (projects . 7)
+                                (recents . 8)
+                                (projects . 8)
                                 )
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
@@ -266,8 +276,8 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         dracula
                          monokai
+                         dracula
                          spacemacs-dark
                          solarized-dark
                          leuven
@@ -523,6 +533,91 @@ you should place your code here."
   (beacon-mode t)
 
   ;;##########################################################################
+  ;;##########################################################################
+  ;; stop smartparens being too smart
+  (setq sp-escape-wrapped-region nil)
+  (setq sp-escape-quotes-after-insert nil)
+
+  ;; hide minor modes
+  (setq dotspacemacs-mode-line-unicode-symbols nil)
+  (spacemacs/toggle-mode-line-minor-modes-off)
+
+  ;; evil in compilation mode (from github.com/asok/.emacs.d)
+  ;; (add-hook 'compilation-mode-hook
+  ;;           '(lambda ()
+  ;;              (local-unset-key "g")
+  ;;              (local-unset-key "h")
+  ;;              (evil-define-key 'motion compilation-mode-map "r" 'recompile)
+  ;;              (evil-define-key 'motion compilation-mode-map "h" 'evil-backward-char)))
+
+  ;; evil command mode
+  ;; (define-key evil-ex-completion-map (kbd "C-a") 'move-beginning-of-line)
+  ;; (define-key evil-ex-completion-map (kbd "C-b") 'backward-char)
+  ;; (define-key evil-ex-completion-map (kbd "C-d") 'delete-forward-char)
+  ;; (define-key evil-ex-completion-map (kbd "C-h") 'evil-ex-delete-backward-char)
+
+  ;; previous/nex modified hunk in git
+  (spacemacs/set-leader-keys
+    "gp" '(lambda () (interactive) (git-gutter+-next-hunk -1))
+    "gn" '(lambda () (interactive) (git-gutter+-next-hunk 1)))
+
+  ;; undo-tree
+  (setq undo-tree-auto-save-history t
+        undo-tree-history-directory-alist
+        `(("." . ,(concat user-home-directory ".undo"))))
+
+
+  ;;##########################################################################
+  ;;##########################################################################
+  ;; (require 'cquery)
+  ;; (setq cquery-executable "d:/cquery/build/cquery.exe")
+  ;; (setq cquery-extra-init-params '(:index (:comments 2) :cacheFormat "msgpack" :completion (:detailedLabel t)))
+
+  ;; ;; c++
+  ;; (defun my-c-style ()
+  ;;   ;; (c-set-style "linux")
+  ;;   (setq tab-width 4)
+  ;;   (setq c-basic-offset tab-width)
+  ;;   (c-set-offset 'substatement-open 0)
+  ;;   (c-set-offset 'innamespace 0)
+  ;;   )
+  ;; (spacemacs/add-to-hooks 'my-c-style '(c-mode-hook c++-mode-hook))
+
+  ;; ;; lsp
+  ;; (setq cquery-additional-arguments (list "--log-file" "cquery.log"))
+  ;; ;; (setq lsp-highlight-symbol-at-point nil)
+  ;; (face-spec-set 'lsp-face-highlight-textual '((t :background nil :inherit hl-line)))
+  ;; ;; (face-spec-set 'cquery-sem-member-var-face '((t :inherit nil)))
+  ;; ;; (face-spec-set 'cquery-sem-free-var-face '((t :inherit nil)))
+  ;; (setq lsp-ui-doc-enable nil)
+  ;; (setq lsp-ui-peek-enable nil)
+  ;; (setq lsp-ui-sideline-code-actions-prefix "")
+  ;; ;; (setq lsp-print-io t) ;; for debug
+  ;; (setq company-lsp-cache-candidates nil)
+  ;; (setq company-lsp-async t)
+  ;; (setq company-transformers nil)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ;;##########################################################################
   (with-eval-after-load 'dired
     ;; (setq dired-recursive-deletes 'always)
     (setq dired-recursive-copies 'always)
@@ -609,7 +704,7 @@ you should place your code here."
     ;;                                ("HAND" . (:foreground "white" :background "#2E8B57"  :weight bold))
     ;;                                ("DONE" . (:foreground "white" :background "#3498DB" :weight bold))))
 
-    (setq org-agenda-files '("~/mydocs/org"
+    (setq org-agenda-files '(
                              "~/mydocs/org/journal"
                              "~/mydocs/org/lesson" "~/mydocs/org/lesson/cmake" "~/mydocs/org/lesson/database" "~/mydocs/org/lesson/emacs" "~/mydocs/org/lesson/qt"
                              "~/mydocs/org/life/children" "~/mydocs/org/life/film" "~/mydocs/org/life/job"
@@ -621,11 +716,32 @@ you should place your code here."
     ;; (setq org-src-fontify-natively t)
     (setq org-capture-templates
           '(
-            ;; Todo
-            ("t" "Todo"
-             entry (file+headline "~/mydocs/org/Notes.org" "Tasks")
+            ;; TodoWithLink
+            ("F" "Todo@PulpFiction: with links ^ ^"
+             entry (file+headline "~/mydocs/org/journal/PulpFiction.org" "Tasks")
              ;; "* TODO [#B] %?\n  %i\n %a"
              (file "~/.spacemacs.d/snippets/todo.orgcaptmpl")
+             :empty-lines 1)
+
+            ;; TodoWithoutLink
+            ("f" "Todo@PulpFiction: without links ^ ^"
+             entry (file+headline "~/mydocs/org/journal/PulpFiction.org" "Tasks")
+             ;; "* TODO [#B] %?\n  %i\n %a"
+             (file "~/.spacemacs.d/snippets/todo_nolinks.orgcaptmpl")
+             :empty-lines 1)
+
+            ;; TodoWithLink
+            ("W" "Todo@WorkNotes: with links ^_^"
+             entry (file+headline "~/mydocs/org/journal/WorkNotes.org" "Tasks")
+             ;; "* TODO [#B] %?\n  %i\n %a"
+             (file "~/.spacemacs.d/snippets/todo.orgcaptmpl")
+             :empty-lines 1)
+
+            ;; TodoWithoutLink
+            ("w" "Todo@WorkNotes: without links ^_^"
+             entry (file+headline "~/mydocs/org/journal/WorkNotes.org" "Tasks")
+             ;; "* TODO [#B] %?\n  %i\n %a"
+             (file "~/.spacemacs.d/snippets/todo_nolinks.orgcaptmpl")
              :empty-lines 1)
 
             ;; Journal
@@ -634,10 +750,10 @@ you should place your code here."
              (file "~/.spacemacs.d/snippets/journal.orgcaptmpl")
              :empty-lines 1)
 
-            ;; Tidbits
-            ("T" "Tidbit: quote, zinger, one-liner or textlet"
-             entry (file+headline "~/mydocs/org/Notes.org" "Tidbits")
-             (file "~/.spacemacs.d/snippets/tidbits.orgcaptmpl")
+            ;; Memo
+            ("m" "Memo"
+             entry (file+headline "~/mydocs/org/journal/PulpFiction.org" "Memo")
+             (file "~/.spacemacs.d/snippets/memo.orgcaptmpl")
              :empty-lines 1)))
 
     (setq org-file-apps
@@ -646,11 +762,21 @@ you should place your code here."
             ("\\.x?html?\\'" . default)
             ("\\.pdf\\'" . default)
             ("\\.docx\\'" . default)
+            ("\\.doc\\'" . default)
             ("\\.xlsx\\'" . default)
+            ("\\.xls\\'" . default)
             ("\\.pptx\\'" . default)
+            ("\\.ppt\\'" . default)
             (auto-mode . emacs)
             ))
 
+    ;; org-refile configuration
+    (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+    (setq org-refile-use-outline-path 'file)
+    (setq org-outline-path-complete-in-steps 'nil)
+    (setq org-refile-allow-creating-parent-nodes 'confirm)
+
+    ;; toc
     (setq toc-org-max-depth 2)
     (setq org-startup-indented t)
     (setq org-bullets-bullet-list '("◉" "○" "✸" "✿"))
@@ -723,7 +849,11 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 
   ;; (setq org-agenda-span 'day)
   (setq org-agenda-custom-commands
-        '(("d" "Daily agenda and all TODOs"
+        '(
+          ;; #################################################################
+          ;; #################################################################
+          ;; #################################################################
+          ("d" "@All: Daily agenda and all TODOs"
            ((tags "PRIORITY=\"A\""
                   ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
                    (org-agenda-overriding-header "High-priority unfinished tasks:")))
@@ -733,8 +863,116 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                                      (air-org-skip-subtree-if-priority ?A)
                                                      (org-agenda-skip-if nil '(scheduled deadline))))
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
-           ((org-agenda-compact-blocks nil)))))
-  ;;  ((org-agenda-compact-blocks t)))))
+           ((org-agenda-compact-blocks nil)))
+          ;;  ((org-agenda-compact-blocks t)))
+
+          ;; #################################################################
+          ;; #################################################################
+          ;; #################################################################
+          ("w" "@Work: Daily agenda and all TODOs"
+           ((tags "PRIORITY=\"A\""
+                  ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                   (org-agenda-overriding-header "High-priority unfinished tasks:")))
+            (agenda "" (
+                        (org-agenda-span 'day)
+                        ))
+            (alltodo ""
+                     ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
+                                                     (air-org-skip-subtree-if-priority ?A)
+                                                     (org-agenda-skip-if nil '(scheduled deadline))))
+                      (org-agenda-overriding-header "ALL normal priority tasks:"))))
+           ((org-agenda-compact-blocks nil)
+            (org-agenda-files '(
+                                "~/mydocs/org/project"
+                                "~/mydocs/org/techinfo"
+                                "~/mydocs/org/journal/WorkNotes.org"
+                                ))
+            (org-agenda-text-search-extra-files nil))
+           )
+
+          ;; #################################################################
+          ;; #################################################################
+          ;; #################################################################
+          ("l" "@Life: Daily agenda and all TODOs"
+           ((tags "PRIORITY=\"A\""
+                  ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                   (org-agenda-overriding-header "High-priority unfinished tasks:")))
+            (agenda "" (
+                        (org-agenda-span 'day)
+                        ))
+            (alltodo ""
+                     ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
+                                                     (air-org-skip-subtree-if-priority ?A)
+                                                     (org-agenda-skip-if nil '(scheduled deadline))))
+                      (org-agenda-overriding-header "ALL normal priority tasks:"))))
+           ((org-agenda-compact-blocks nil)
+            (org-agenda-files '(
+                                "~/mydocs/org/life/children" "~/mydocs/org/life/film" "~/mydocs/org/life/job"
+                                "~/mydocs/org/lesson" "~/mydocs/org/lesson/cmake" "~/mydocs/org/lesson/database" "~/mydocs/org/lesson/emacs" "~/mydocs/org/lesson/qt"
+                                "~/mydocs/org/misc"
+                                "~/mydocs/org/journal/PulpFiction.org"
+                                ))
+            (org-agenda-text-search-extra-files nil))
+           )
+
+          ;; #################################################################
+          ;; #################################################################
+          ;; #################################################################
+          ("N" "@CapturedNotes: Daily agenda and all TODOs"
+           ((tags "PRIORITY=\"A\""
+                  ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                   (org-agenda-overriding-header "High-priority unfinished tasks:")))
+            (agenda "" ((org-agenda-span 'day)))
+            (alltodo ""
+                     ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
+                                                     (air-org-skip-subtree-if-priority ?A)
+                                                     (org-agenda-skip-if nil '(scheduled deadline))))
+                      (org-agenda-overriding-header "ALL normal priority tasks:"))))
+           ((org-agenda-compact-blocks nil)
+            (org-agenda-files '("~/mydocs/org/journal/PulpFiction.org" "~/mydocs/org/journal/WorkNotes.org"))
+            (org-agenda-text-search-extra-files nil))
+           )
+          ;; #################################################################
+          ;; sorting
+          ;; ("F" todo "FIRING"
+          ;;  ((org-agenda-sorting-strategy '(priority-down))
+          ;;   (org-agenda-prefix-format "  Mixed: ")
+          ;;   ))
+
+          ;; current buffer
+          ;; ("N" tags-tree "+CpteProject-Vacation"
+          ;;  ((org-show-context-detail 'minimal)))
+
+          ;; specified files.
+          ;; ("N" todo "TODO"
+          ;;  ((org-agenda-files '("~/mydocs/org/project"))
+          ;;   (org-agenda-text-search-extra-files nil)))
+
+          ;; specified files.
+          ;; ("N" search ""
+          ;;  ((org-agenda-files '("~/mydocs/org/project"))
+          ;;   (org-agenda-text-search-extra-files nil)))
+          ;; #################################################################
+          ))
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+  ;; When you perform a text search (the “s” selection from the org-agenda pop-up), include the archives for all of the files in Org’s agenda files list. If you archive things regularly, which I do, this helps you dig stuff out of there when you’re looking for it.
+  ;; (setq org-agenda-text-search-extra-files '(agenda-archives))
+
+  ;; I tend to leave a blank line at the end of the content of each task entry. This causes Org to automatically place a blank line before a new heading or plain text list item, just the way I like it.
+  ;; (setq org-blank-before-new-entry (quote ((heading) (plain-list-item))))
+
+  ;; This one is pretty awesome; it forces you to mark all child tasks as “DONE” before you can mark the parent as “DONE.” The agenda view already has the notion of “blocked” tasks (those with incomplete child tasks), which should appear dimmed (that, of course, is also customizable). This makes it even harder to slack off on your work.
+  (setq org-enforce-todo-dependencies t)
+
+  ;; I like to know when tasks have changed status. Setting this option causes Org to insert an annotation in a task when it is marked as done including a timestamp of when exactly that happened.
+  ;; (setq org-log-done (quote time))
+
+  ;; Adding yet further auditing, this option causes Org to insert annotations when you change the deadline of a task, which will note the previous deadline date and when it was changed. Very useful for figuring out how many times you “kicked the can down the road.”
+  ;; (setq org-log-redeadline (quote time))
+
+  ;; This does the same as above, but for the scheduled dates, which I use more often.
+  ;; (setq org-log-reschedule (quote time))
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
   ;; Org mode settings
@@ -746,7 +984,14 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   ;;          (org-agenda-files :maxlevel . 1)))
 
   (setq company-show-numbers t)
+
+  ;; flycheck
+  ;; (flycheck-global-modes t) ;; ?
   (setq flycheck-check-syntax-automatically '(new-line save))
+  ;; (setq flycheck-check-syntax-automatically '(mode-enabled save))
+  ;; (setq flycheck-clang-language-standard "c++11")
+  (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
+
   (custom-set-faces
    '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
    '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
@@ -828,7 +1073,10 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   (smartparens-global-mode t)
   (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
   ;; (sp-local-pair 'lisp-interaction-mode "'" nil :actions nil)
+
   (global-company-mode t)
+  ;; (setq company-lsp-cache-candidates 'auto)
+
   ;; (require 'popwin)
   ;; (popwin-mode t)
 
@@ -839,11 +1087,35 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   ;; fix for the lsp error
   (defvar spacemacs-jump-handlers-fundamental-mode nil)
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (defun locate-current-file-in-explorer ()
+    (interactive)
+    (cond
+     ;; In buffers with file name
+     ((buffer-file-name)
+      (shell-command (concat "start explorer /e,/select,\"" (replace-regexp-in-string "/" "\\\\" (buffer-file-name)) "\"")))
+     ;; In dired mode
+     ((eq major-mode 'dired-mode)
+      (shell-command (concat "start explorer /e,\"" (replace-regexp-in-string "/" "\\\\" (dired-current-directory)) "\"")))
+     ;; In eshell mode
+     ((eq major-mode 'eshell-mode)
+      (shell-command (concat "start explorer /e,\"" (replace-regexp-in-string "/" "\\\\" (eshell/pwd)) "\"")))
+     ;; Use default-directory as last resource
+     (t
+      (shell-command (concat "start explorer /e,\"" (replace-regexp-in-string "/" "\\\\" default-directory) "\"")))))
 
+  ;;##########################################################################
+  ;;##########################################################################
   ;;##########################################################################
   ;; my own keymaps
   (define-key global-map (kbd "C-c y") 'youdao-dictionary-search-at-point+)
   (define-key global-map (kbd "C-x C-r") 'recentf-open-files)
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; 没必要改，evil模式下为M-j,M-
+  ;; (define-key org-agenda-mode-map "j" 'org-agenda-next-item)
+  ;; (define-key org-agenda-mode-map "k" 'org-agenda-previous-item)
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
   ;; (global-set-key "\C-x\ \C-r" 'recentf-open-files)
   ;; (global-set-key (kbd "C-h C-f") 'find-function)
@@ -870,6 +1142,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   (spacemacs/set-leader-keys "obl" 'bookmark-bmenu-list)
   (spacemacs/set-leader-keys "ocl" 'evilnc-comment-or-uncomment-lines)
   (spacemacs/set-leader-keys "oj" 'evilmi-jump-items)
+  (spacemacs/set-leader-keys "of" 'locate-current-file-in-explorer)
   )
 
 (defun dotspacemacs/emacs-custom-settings ()
