@@ -51,7 +51,7 @@ values."
             c-c++-lsp-enable-semantic-highlight 'rainbow
             c-c++-enable-organize-includes-on-save t
             c-c++-enable-clang-format-on-save t
-            c-c++-enable-auto-newline t
+            c-c++-enable-auto-newline nil
             )
      ;; gtags
      ;; rtags
@@ -111,8 +111,7 @@ values."
                      spell-checking-enable-by-default nil
                      enable-flyspell-auto-completion t)
      (syntax-checking :variables
-                      syntax-checking-enable-by-default t
-                      syntax-checking-enable-tooltips t)
+                      syntax-checking-enable-by-default nil)
      (colors :variables
              colors-colorize-identifiers 'variables)
      ;; emoji
@@ -136,12 +135,12 @@ values."
                       auto-completion-tab-key-behavior 'complete
                       auto-completion-idle-delay 0.08
                       company-minimum-prefix-length 1
-                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-help-tooltip nil
                       auto-completion-enable-snippets-in-popup t
                       ;; auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/"
                       auto-completion-enable-sort-by-usage t
-                      :disabled-for org markdown)
-
+                      ;; :disabled-for org markdown
+                      )
 
      ;; better config layers
      better-defaults
@@ -599,7 +598,24 @@ you should place your code here."
 
 
 
+  ;;##########################################################################
+  ;;##########################################################################
+  ;; (setq-default helm-make-build-dir "~/mydocs/B-hello-headers/build")
+  ;; (put 'helm-make-build-dir 'safe-local-variable 'stringp)
+  ;; (with-eval-after-load 'projectile
+  ;;   (push '("C" "h") projectile-other-file-alist))
 
+  ;; (c-add-style "szy"
+  ;;              '((indent-tabs-mode . nil)
+  ;;                (c-basic-offset . 4)
+  ;;                (c-offsets-alist
+  ;;                 (substatement-open . 0)
+  ;;                 (inline-open . 0)
+  ;;                 (statement-cont . c-lineup-assignments)
+  ;;                 (inextern-lang . 0)
+  ;;                 (innamespace . 0))))
+
+  ;; (push '(other . "szy") c-default-style)
 
 
 
