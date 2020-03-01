@@ -41,7 +41,7 @@ values."
      asm
      ;; ruby
      html
-     ;; javascript
+     javascript
      ;; (javascript :variables javascript-backend 'lsp)
      (c-c++ :variables
             c-c++-adopt-subprojects t
@@ -60,10 +60,10 @@ values."
      emacs-lisp
      ;; rust
      ;; yaml
+     python
      ;; (python :variables
      ;;        python-backend 'lsp
      ;;        )
-     ;; shell-scripts
      markdown
      latex
      ;; graphviz
@@ -99,13 +99,14 @@ values."
           org-journal-time-format ""
           org-projectile-file "TODOs.org"
           )
-     ;; spacemacs-org
      autohotkey
      ;; (shell :variables
-     ;;    shell-default-height 50
-     ;;    shell-default-position 'bottom
-     ;;    shell-default-shell 'ansi-term
-     ;;    shell-default-term-shell "~/bin/zsh")
+     ;;        shell-default-height 50
+     ;;        shell-default-position 'bottom
+     ;;        shell-default-shell 'ansi-term
+     ;;        shell-default-term-shell "~/bin/zsh")
+     shell
+     shell-scripts
      (spell-checking :variables
                      spell-checking-enable-by-default nil
                      enable-flyspell-auto-completion t)
@@ -265,7 +266,7 @@ values."
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '(
                                 (recents . 8)
-                                (projects . 3)
+                                (projects . 8)
                                 )
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
