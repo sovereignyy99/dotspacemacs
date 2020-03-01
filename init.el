@@ -46,7 +46,7 @@ values."
      (c-c++ :variables
             c-c++-adopt-subprojects t
             c-c++-enable-clang-support t
-            c-c++-default-mode-for-headers 'c++-mode
+            c-c++-default-mode-for-headers 'c-or-c++-mode
             c-c++-backend 'lsp-clangd
             c-c++-lsp-enable-semantic-highlight 'rainbow
             c-c++-enable-organize-includes-on-save t
@@ -564,8 +564,6 @@ you should place your code here."
         undo-tree-history-directory-alist
         `(("." . ,(concat user-home-directory ".undo"))))
 
-  (setq company-idle-delay 0.5)
-  (setq flycheck-check-syntax-automatically '(mode-enabled save))
 
   ;;##########################################################################
   ;;##########################################################################
@@ -988,6 +986,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   ;; flycheck
   ;; (flycheck-global-modes t) ;; ?
   (setq flycheck-check-syntax-automatically '(new-line save))
+  ;; (setq flycheck-check-syntax-automatically '(mode-enabled save))
   ;; (setq flycheck-clang-language-standard "c++11")
   (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
 
