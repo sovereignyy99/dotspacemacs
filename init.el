@@ -75,6 +75,7 @@ values."
      ;; tools layers
      ;; sphinx
      ;; pandoc
+     asciidoc
      (ranger :variables
              ranger-show-preview t
              ranger-ignored-extensions '("mkv" "iso" "mp4" "mov" "flv" "avi")
@@ -263,8 +264,8 @@ values."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '(
-                                ;; (recents . 5)
-                                ;; (projects . 7)
+                                (recents . 8)
+                                (projects . 3)
                                 )
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
