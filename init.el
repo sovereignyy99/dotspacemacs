@@ -131,15 +131,18 @@ values."
      ;; dash ;; open and search docs with Zeal
      helm
      (auto-completion :variables
-                      auto-completion-return-key-behavior nil
+                      auto-completion-return-key-behavior 'nil
                       auto-completion-tab-key-behavior 'complete
-                      auto-completion-idle-delay 0.08
+                      auto-completion-complete-with-key-sequence nil
+                      auto-completion-complete-with-key-sequence-delay 0.1
+                      auto-completion-idle-delay 0.01
+                      auto-completion-private-snippets-directory nil
                       company-minimum-prefix-length 1
-                      auto-completion-enable-help-tooltip nil
+                      auto-completion-enable-help-tooltip 'manual
                       auto-completion-enable-snippets-in-popup t
-                      ;; auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/"
                       auto-completion-enable-sort-by-usage t
-                      ;; :disabled-for org markdown
+                      ;; auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/"
+                      :disabled-for org markdown
                       )
 
      ;; better config layers
@@ -151,7 +154,6 @@ values."
               chinese-enable-fcitx t
               chinese-enable-youdao-dict t
               )
-
 
      ;; vcs layers
      (git :variables
@@ -556,14 +558,14 @@ you should place your code here."
   ;; (define-key evil-ex-completion-map (kbd "C-h") 'evil-ex-delete-backward-char)
 
   ;; previous/nex modified hunk in git
-  (spacemacs/set-leader-keys
-    "gp" '(lambda () (interactive) (git-gutter+-next-hunk -1))
-    "gn" '(lambda () (interactive) (git-gutter+-next-hunk 1)))
+  ;; (spacemacs/set-leader-keys
+  ;;   "gp" '(lambda () (interactive) (git-gutter+-next-hunk -1))
+  ;;   "gn" '(lambda () (interactive) (git-gutter+-next-hunk 1)))
 
   ;; undo-tree
-  (setq undo-tree-auto-save-history t
-        undo-tree-history-directory-alist
-        `(("." . ,(concat user-home-directory ".undo"))))
+  ;; (setq undo-tree-auto-save-history t
+  ;;       undo-tree-history-directory-alist
+  ;;       `(("." . ,(concat user-home-directory ".undo"))))
 
 
   ;;##########################################################################
@@ -617,6 +619,7 @@ you should place your code here."
 
   ;; (push '(other . "szy") c-default-style)
 
+  ;; (push 'company-clang spacemacs-default-company-backends)
 
 
 
@@ -726,7 +729,7 @@ you should place your code here."
                              "~/mydocs/org/life/children" "~/mydocs/org/life/film" "~/mydocs/org/life/job"
                              "~/mydocs/org/misc"
                              "~/mydocs/org/project"
-                             "~/mydocs/org/techinfo"
+                             "~/mydocs/org/techdoc"
                              ))
     ;; (setq org-agenda-files (directory-files-recursively "~/mydocs/org/project" "\\.org$"))
     ;; (setq org-src-fontify-natively t)
@@ -900,7 +903,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
            ((org-agenda-compact-blocks nil)
             (org-agenda-files '(
                                 "~/mydocs/org/project"
-                                "~/mydocs/org/techinfo"
+                                "~/mydocs/org/techdoc"
                                 "~/mydocs/org/journal/WorkNotes.org"
                                 ))
             (org-agenda-text-search-extra-files nil))
@@ -1003,10 +1006,10 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 
   ;; flycheck
   ;; (flycheck-global-modes t) ;; ?
-  (setq flycheck-check-syntax-automatically '(new-line save))
+  ;; (setq flycheck-check-syntax-automatically '(new-line save))
   ;; (setq flycheck-check-syntax-automatically '(mode-enabled save))
   ;; (setq flycheck-clang-language-standard "c++11")
-  (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
+  ;; (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
 
   (custom-set-faces
    '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
@@ -1068,7 +1071,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   ;; ))
 
   ;; (recentf-mode 1)
-  (setq recentf-max-menu-items 25)
+  (setq recentf-max-menu-items 16)
 
   ;;dwin = do what i mean.
   (defun occur-dwin()
@@ -1091,7 +1094,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   ;; (sp-local-pair 'lisp-interaction-mode "'" nil :actions nil)
 
   (global-company-mode t)
-  ;; (setq company-lsp-cache-candidates 'auto)
+  (setq company-lsp-cache-candidates 'auto)
 
   ;; (require 'popwin)
   ;; (popwin-mode t)
