@@ -182,6 +182,7 @@ values."
                                       ;; auto-dim-other-buffers
                                       ;; (godot-gdscript :location local)  ;;game engine
                                       beacon
+                                      ;; image+
                                       ;; emacs-cquery
                                       ;; doom-modeline
                                       )
@@ -533,6 +534,9 @@ you should place your code here."
   (require 'beacon)
   (beacon-mode t)
 
+  ;; image+
+  ;; (eval-after-load 'image '(require 'image+))
+
   ;;##########################################################################
   ;;##########################################################################
   ;; stop smartparens being too smart
@@ -542,6 +546,9 @@ you should place your code here."
   ;; hide minor modes
   (setq dotspacemacs-mode-line-unicode-symbols nil)
   (spacemacs/toggle-mode-line-minor-modes-off)
+
+  ;;if there is a #+ATTR.*: width="200", resize to 200, otherwise resize to 400
+  (setq org-image-actual-width '(300))
 
   ;; evil in compilation mode (from github.com/asok/.emacs.d)
   ;; (add-hook 'compilation-mode-hook
