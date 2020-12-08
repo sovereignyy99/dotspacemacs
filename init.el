@@ -730,6 +730,15 @@ you should place your code here."
     ;;                                ("HAND" . (:foreground "white" :background "#2E8B57"  :weight bold))
     ;;                                ("DONE" . (:foreground "white" :background "#3498DB" :weight bold))))
 
+
+
+
+
+
+
+
+
+
     (setq org-agenda-files '(
                              "~/mydocs/org/journal"
                              "~/mydocs/org/lesson"
@@ -740,6 +749,7 @@ you should place your code here."
                              "~/mydocs/org/life/children"
                              "~/mydocs/org/life/film"
                              "~/mydocs/org/life/job"
+                             "~/mydocs/org/life/history"
                              "~/mydocs/org/misc"
                              "~/mydocs/org/project"
                              "~/mydocs/org/techdoc"
@@ -756,6 +766,9 @@ you should place your code here."
                              "~/mydocs/org/techdoc/deeplearning"
                              "~/mydocs/org/techdoc/realtime_ethernet"
                              "~/mydocs/org/techdoc/openwrt"
+                             "~/mydocs/org/techdoc/PID"
+                             "~/mydocs/org/techdoc/PLC"
+                             "~/mydocs/org/techdoc/PID"
                              "~/mydocs/org/reference"
                              ))
     ;; (setq org-agenda-files (directory-files-recursively "~/mydocs/org/project" "\\.org$"))
@@ -944,6 +957,8 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                 "~/mydocs/org/techdoc/deeplearning"
                                 "~/mydocs/org/techdoc/realtime_ethernet"
                                 "~/mydocs/org/techdoc/openwrt"
+                                "~/mydocs/org/techdoc/PID"
+                                "~/mydocs/org/techdoc/PLC"
                                 "~/mydocs/org/journal/WorkNotes.org"
                                 ))
             (org-agenda-text-search-extra-files nil))
@@ -966,8 +981,15 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
            ((org-agenda-compact-blocks nil)
             (org-agenda-files '(
-                                "~/mydocs/org/life/children" "~/mydocs/org/life/film" "~/mydocs/org/life/job"
-                                "~/mydocs/org/lesson" "~/mydocs/org/lesson/cmake" "~/mydocs/org/lesson/database" "~/mydocs/org/lesson/emacs" "~/mydocs/org/lesson/qt"
+                                "~/mydocs/org/life/children"
+                                "~/mydocs/org/life/film"
+                                "~/mydocs/org/life/job"
+                                "~/mydocs/org/life/history"
+                                "~/mydocs/org/lesson"
+                                "~/mydocs/org/lesson/cmake"
+                                "~/mydocs/org/lesson/database"
+                                "~/mydocs/org/lesson/emacs"
+                                "~/mydocs/org/lesson/qt"
                                 "~/mydocs/org/misc"
                                 "~/mydocs/org/journal/PulpFiction.org"
                                 ))
