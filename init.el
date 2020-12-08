@@ -740,6 +740,7 @@ you should place your code here."
 
 
     (setq org-agenda-files '(
+                             "~/mydocs/org"
                              "~/mydocs/org/journal"
                              "~/mydocs/org/lesson"
                              "~/mydocs/org/lesson/cmake"
@@ -942,6 +943,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
            ((org-agenda-compact-blocks nil)
             (org-agenda-files '(
+                                "~/mydocs/org"
                                 "~/mydocs/org/project"
                                 "~/mydocs/org/techdoc"
                                 "~/mydocs/org/techdoc/crossbelt_sorter"
@@ -981,6 +983,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
            ((org-agenda-compact-blocks nil)
             (org-agenda-files '(
+                                "~/mydocs/org"
                                 "~/mydocs/org/life/children"
                                 "~/mydocs/org/life/film"
                                 "~/mydocs/org/life/job"
@@ -1010,7 +1013,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                                      (org-agenda-skip-if nil '(scheduled deadline))))
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
            ((org-agenda-compact-blocks nil)
-            (org-agenda-files '("~/mydocs/org/journal/PulpFiction.org" "~/mydocs/org/journal/WorkNotes.org"))
+            (org-agenda-files '("~/mydocs/org" "~/mydocs/org/journal/PulpFiction.org" "~/mydocs/org/journal/WorkNotes.org"))
             (org-agenda-text-search-extra-files nil))
            )
           ;; #################################################################
