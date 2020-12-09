@@ -769,7 +769,6 @@ you should place your code here."
                              "~/mydocs/org/techdoc/openwrt"
                              "~/mydocs/org/techdoc/PID"
                              "~/mydocs/org/techdoc/PLC"
-                             "~/mydocs/org/techdoc/PID"
                              "~/mydocs/org/reference"
                              ))
     ;; (setq org-agenda-files (directory-files-recursively "~/mydocs/org/project" "\\.org$"))
