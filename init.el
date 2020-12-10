@@ -1137,6 +1137,9 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   ;; (recentf-mode 1)
   (setq recentf-max-menu-items 16)
 
+  ;; ctrl+i跳转
+  (setq dotspacemacs-distinguish-gui-tab t)
+
   ;;dwin = do what i mean.
   (defun occur-dwin()
     "Call 'occur' with a sane default."
