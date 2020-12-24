@@ -51,7 +51,7 @@ values."
             c-c++-lsp-enable-semantic-highlight 'rainbow
             c-c++-enable-organize-includes-on-save t
             c-c++-enable-clang-format-on-save t
-            c-c++-enable-auto-newline t
+            c-c++-enable-auto-newline nil
             )
      ;; gtags
      ;; rtags
@@ -111,8 +111,7 @@ values."
                      spell-checking-enable-by-default nil
                      enable-flyspell-auto-completion t)
      (syntax-checking :variables
-                      syntax-checking-enable-by-default t
-                      syntax-checking-enable-tooltips t)
+                      syntax-checking-enable-by-default nil)
      (colors :variables
              colors-colorize-identifiers 'variables)
      ;; emoji
@@ -132,16 +131,19 @@ values."
      ;; dash ;; open and search docs with Zeal
      helm
      (auto-completion :variables
-                      auto-completion-return-key-behavior nil
+                      auto-completion-return-key-behavior 'nil
                       auto-completion-tab-key-behavior 'complete
-                      auto-completion-idle-delay 0.08
+                      auto-completion-complete-with-key-sequence nil
+                      auto-completion-complete-with-key-sequence-delay 0.1
+                      auto-completion-idle-delay 0.01
+                      auto-completion-private-snippets-directory nil
                       company-minimum-prefix-length 1
-                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-help-tooltip 'manual
                       auto-completion-enable-snippets-in-popup t
-                      ;; auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/"
                       auto-completion-enable-sort-by-usage t
-                      :disabled-for org markdown)
-
+                      ;; auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/"
+                      :disabled-for org markdown
+                      )
 
      ;; better config layers
      better-defaults
@@ -152,7 +154,6 @@ values."
               chinese-enable-fcitx t
               chinese-enable-youdao-dict t
               )
-
 
      ;; vcs layers
      (git :variables
@@ -181,6 +182,7 @@ values."
                                       ;; auto-dim-other-buffers
                                       ;; (godot-gdscript :location local)  ;;game engine
                                       beacon
+                                      ;; image+
                                       ;; emacs-cquery
                                       ;; doom-modeline
                                       )
@@ -532,6 +534,9 @@ you should place your code here."
   (require 'beacon)
   (beacon-mode t)
 
+  ;; image+
+  ;; (eval-after-load 'image '(require 'image+))
+
   ;;##########################################################################
   ;;##########################################################################
   ;; stop smartparens being too smart
@@ -541,6 +546,9 @@ you should place your code here."
   ;; hide minor modes
   (setq dotspacemacs-mode-line-unicode-symbols nil)
   (spacemacs/toggle-mode-line-minor-modes-off)
+
+  ;;if there is a #+ATTR.*: width="200", resize to 200, otherwise resize to 400
+  (setq org-image-actual-width '(300))
 
   ;; evil in compilation mode (from github.com/asok/.emacs.d)
   ;; (add-hook 'compilation-mode-hook
@@ -557,14 +565,14 @@ you should place your code here."
   ;; (define-key evil-ex-completion-map (kbd "C-h") 'evil-ex-delete-backward-char)
 
   ;; previous/nex modified hunk in git
-  (spacemacs/set-leader-keys
-    "gp" '(lambda () (interactive) (git-gutter+-next-hunk -1))
-    "gn" '(lambda () (interactive) (git-gutter+-next-hunk 1)))
+  ;; (spacemacs/set-leader-keys
+  ;;   "gp" '(lambda () (interactive) (git-gutter+-next-hunk -1))
+  ;;   "gn" '(lambda () (interactive) (git-gutter+-next-hunk 1)))
 
   ;; undo-tree
-  (setq undo-tree-auto-save-history t
-        undo-tree-history-directory-alist
-        `(("." . ,(concat user-home-directory ".undo"))))
+  ;; (setq undo-tree-auto-save-history t
+  ;;       undo-tree-history-directory-alist
+  ;;       `(("." . ,(concat user-home-directory ".undo"))))
 
 
   ;;##########################################################################
@@ -599,8 +607,26 @@ you should place your code here."
 
 
 
+  ;;##########################################################################
+  ;;##########################################################################
+  ;; (setq-default helm-make-build-dir "~/mydocs/B-hello-headers/build")
+  ;; (put 'helm-make-build-dir 'safe-local-variable 'stringp)
+  ;; (with-eval-after-load 'projectile
+  ;;   (push '("C" "h") projectile-other-file-alist))
 
+  ;; (c-add-style "szy"
+  ;;              '((indent-tabs-mode . nil)
+  ;;                (c-basic-offset . 4)
+  ;;                (c-offsets-alist
+  ;;                 (substatement-open . 0)
+  ;;                 (inline-open . 0)
+  ;;                 (statement-cont . c-lineup-assignments)
+  ;;                 (inextern-lang . 0)
+  ;;                 (innamespace . 0))))
 
+  ;; (push '(other . "szy") c-default-style)
+
+  ;; (push 'company-clang spacemacs-default-company-backends)
 
 
 
@@ -704,13 +730,49 @@ you should place your code here."
     ;;                                ("HAND" . (:foreground "white" :background "#2E8B57"  :weight bold))
     ;;                                ("DONE" . (:foreground "white" :background "#3498DB" :weight bold))))
 
+
+
+
+
+
+
+
+
+
     (setq org-agenda-files '(
+                             "~/mydocs/org"
                              "~/mydocs/org/journal"
-                             "~/mydocs/org/lesson" "~/mydocs/org/lesson/cmake" "~/mydocs/org/lesson/database" "~/mydocs/org/lesson/emacs" "~/mydocs/org/lesson/qt"
-                             "~/mydocs/org/life/children" "~/mydocs/org/life/film" "~/mydocs/org/life/job"
+                             "~/mydocs/org/lesson"
+                             "~/mydocs/org/lesson/cmake"
+                             "~/mydocs/org/lesson/database"
+                             "~/mydocs/org/lesson/emacs"
+                             "~/mydocs/org/lesson/qt"
+                             "~/mydocs/org/life/children"
+                             "~/mydocs/org/life/film"
+                             "~/mydocs/org/life/job"
+                             "~/mydocs/org/life/history"
                              "~/mydocs/org/misc"
                              "~/mydocs/org/project"
-                             "~/mydocs/org/techinfo"
+                             "~/mydocs/org/techdoc"
+                             "~/mydocs/org/techdoc/CrossbeltSorter"
+                             "~/mydocs/org/techdoc/Linux"
+                             "~/mydocs/org/techdoc/ParcelSingulator"
+                             "~/mydocs/org/techdoc/RealtimeEthernet"
+                             "~/mydocs/org/techdoc/ASI"
+                             "~/mydocs/org/techdoc/AutoHotkey"
+                             "~/mydocs/org/techdoc/CAN"
+                             "~/mydocs/org/techdoc/EtherCAT"
+                             "~/mydocs/org/techdoc/Profinet"
+                             "~/mydocs/org/techdoc/UML"
+                             "~/mydocs/org/techdoc/RCoax"
+                             "~/mydocs/org/techdoc/RFID"
+                             "~/mydocs/org/techdoc/SerialComm"
+                             "~/mydocs/org/techdoc/VFD"
+                             "~/mydocs/org/techdoc/deeplearning"
+                             "~/mydocs/org/techdoc/openwrt"
+                             "~/mydocs/org/techdoc/PID"
+                             "~/mydocs/org/techdoc/PLC"
+                             "~/mydocs/org/reference"
                              ))
     ;; (setq org-agenda-files (directory-files-recursively "~/mydocs/org/project" "\\.org$"))
     ;; (setq org-src-fontify-natively t)
@@ -883,8 +945,27 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
            ((org-agenda-compact-blocks nil)
             (org-agenda-files '(
+                                "~/mydocs/org"
                                 "~/mydocs/org/project"
-                                "~/mydocs/org/techinfo"
+                                "~/mydocs/org/techdoc"
+                                "~/mydocs/org/techdoc/CrossbeltSorter"
+                                "~/mydocs/org/techdoc/Linux"
+                                "~/mydocs/org/techdoc/ParcelSingulator"
+                                "~/mydocs/org/techdoc/RealtimeEthernet"
+                                "~/mydocs/org/techdoc/ASI"
+                                "~/mydocs/org/techdoc/AutoHotkey"
+                                "~/mydocs/org/techdoc/CAN"
+                                "~/mydocs/org/techdoc/EtherCAT"
+                                "~/mydocs/org/techdoc/Profinet"
+                                "~/mydocs/org/techdoc/UML"
+                                "~/mydocs/org/techdoc/RCoax"
+                                "~/mydocs/org/techdoc/RFID"
+                                "~/mydocs/org/techdoc/SerialComm"
+                                "~/mydocs/org/techdoc/VFD"
+                                "~/mydocs/org/techdoc/deeplearning"
+                                "~/mydocs/org/techdoc/openwrt"
+                                "~/mydocs/org/techdoc/PID"
+                                "~/mydocs/org/techdoc/PLC"
                                 "~/mydocs/org/journal/WorkNotes.org"
                                 ))
             (org-agenda-text-search-extra-files nil))
@@ -907,8 +988,16 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
            ((org-agenda-compact-blocks nil)
             (org-agenda-files '(
-                                "~/mydocs/org/life/children" "~/mydocs/org/life/film" "~/mydocs/org/life/job"
-                                "~/mydocs/org/lesson" "~/mydocs/org/lesson/cmake" "~/mydocs/org/lesson/database" "~/mydocs/org/lesson/emacs" "~/mydocs/org/lesson/qt"
+                                "~/mydocs/org"
+                                "~/mydocs/org/life/children"
+                                "~/mydocs/org/life/film"
+                                "~/mydocs/org/life/job"
+                                "~/mydocs/org/life/history"
+                                "~/mydocs/org/lesson"
+                                "~/mydocs/org/lesson/cmake"
+                                "~/mydocs/org/lesson/database"
+                                "~/mydocs/org/lesson/emacs"
+                                "~/mydocs/org/lesson/qt"
                                 "~/mydocs/org/misc"
                                 "~/mydocs/org/journal/PulpFiction.org"
                                 ))
@@ -929,7 +1018,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                                      (org-agenda-skip-if nil '(scheduled deadline))))
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
            ((org-agenda-compact-blocks nil)
-            (org-agenda-files '("~/mydocs/org/journal/PulpFiction.org" "~/mydocs/org/journal/WorkNotes.org"))
+            (org-agenda-files '("~/mydocs/org" "~/mydocs/org/journal/PulpFiction.org" "~/mydocs/org/journal/WorkNotes.org"))
             (org-agenda-text-search-extra-files nil))
            )
           ;; #################################################################
@@ -987,10 +1076,10 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 
   ;; flycheck
   ;; (flycheck-global-modes t) ;; ?
-  (setq flycheck-check-syntax-automatically '(new-line save))
+  ;; (setq flycheck-check-syntax-automatically '(new-line save))
   ;; (setq flycheck-check-syntax-automatically '(mode-enabled save))
   ;; (setq flycheck-clang-language-standard "c++11")
-  (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
+  ;; (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
 
   (custom-set-faces
    '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
@@ -1052,7 +1141,10 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   ;; ))
 
   ;; (recentf-mode 1)
-  (setq recentf-max-menu-items 25)
+  (setq recentf-max-menu-items 16)
+
+  ;; ctrl+i跳转
+  (setq dotspacemacs-distinguish-gui-tab t)
 
   ;;dwin = do what i mean.
   (defun occur-dwin()
@@ -1075,7 +1167,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   ;; (sp-local-pair 'lisp-interaction-mode "'" nil :actions nil)
 
   (global-company-mode t)
-  ;; (setq company-lsp-cache-candidates 'auto)
+  (setq company-lsp-cache-candidates 'auto)
 
   ;; (require 'popwin)
   ;; (popwin-mode t)
