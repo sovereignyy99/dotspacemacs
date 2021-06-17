@@ -777,6 +777,7 @@ you should place your code here."
                              "~/mydocs/org/techdoc/PLC"
                              "~/mydocs/org/techdoc/WinCC"
                              "~/mydocs/org/techdoc/Emulate3D"
+                             "~/mydocs/org/techdoc/FreeRTOS"
                              "~/mydocs/org/reference"
                              ))
     ;; (setq org-agenda-files (directory-files-recursively "~/mydocs/org/project" "\\.org$"))
@@ -976,6 +977,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                 "~/mydocs/org/techdoc/PLC"
                                 "~/mydocs/org/journal/WorkNotes.org"
                                 "~/mydocs/org/techdoc/Emulate3D"
+                                "~/mydocs/org/techdoc/FreeRTOS"
                                 ))
             (org-agenda-text-search-extra-files nil))
            )
