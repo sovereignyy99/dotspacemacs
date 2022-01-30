@@ -778,7 +778,7 @@ you should place your code here."
                              "~/mydocs/org/techdoc/PLC"
                              "~/mydocs/org/techdoc/WinCC"
                              "~/mydocs/org/techdoc/Emulate3D"
-                             "~/mydocs/org/techdoc/FreeRTOS"
+                             "~/mydocs/org/techdoc/RTOS"
                              "~/mydocs/org/techdoc/SiemensSimulation"
                              "~/mydocs/org/reference"
                              ))
@@ -979,7 +979,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                 "~/mydocs/org/techdoc/PLC"
                                 "~/mydocs/org/journal/WorkNotes.org"
                                 "~/mydocs/org/techdoc/Emulate3D"
-                                "~/mydocs/org/techdoc/FreeRTOS"
+                                "~/mydocs/org/techdoc/RTOS"
                                 "~/mydocs/org/techdoc/SiemensSimulation"
                                 ))
             (org-agenda-text-search-extra-files nil))
