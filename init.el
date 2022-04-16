@@ -609,7 +609,7 @@ you should place your code here."
 
   ;;##########################################################################
   ;;##########################################################################
-  ;; (setq-default helm-make-build-dir "~/mydocs/B-hello-headers/build")
+  ;; (setq-default helm-make-build-dir "~/B-hello-headers/build")
   ;; (put 'helm-make-build-dir 'safe-local-variable 'stringp)
   ;; (with-eval-after-load 'projectile
   ;;   (push '("C" "h") projectile-other-file-alist))
@@ -775,7 +775,7 @@ you should place your code here."
                              "~/org/learning/simulation"
                              "~/org/learning/tools"
                              ))
-    ;; (setq org-agenda-files (directory-files-recursively "~/mydocs/org/project" "\\.org$"))
+    ;; (setq org-agenda-files (directory-files-recursively "~/org/project" "\\.org$"))
     ;; (setq org-src-fontify-natively t)
     (setq org-capture-templates
           '(
@@ -1068,12 +1068,12 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 
           ;; specified files.
           ;; ("N" todo "TODO"
-          ;;  ((org-agenda-files '("~/mydocs/org/project"))
+          ;;  ((org-agenda-files '("~/org/project"))
           ;;   (org-agenda-text-search-extra-files nil)))
 
           ;; specified files.
           ;; ("N" search ""
-          ;;  ((org-agenda-files '("~/mydocs/org/project"))
+          ;;  ((org-agenda-files '("~/org/project"))
           ;;   (org-agenda-text-search-extra-files nil)))
           ;; #################################################################
           ))
@@ -1099,7 +1099,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
   ;; Org mode settings
-  ;;  (setq org-directory "~/mydocs/org/")
+  ;;  (setq org-directory "~/org/")
   ;;  (setq org-default-notes-file (concat org-directory "tasks.org"))
   ;;  (setq org-todo-keywords '((sequence "TODO" "PROGRESS" "|" "DONE" "DELEGATED" "CANCELLED")))
   ;;  (setq org-refile-targets
