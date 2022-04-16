@@ -91,7 +91,7 @@ values."
           ;;org-enable-bootstrap-support t
           ;;org-enable-reveal-js-support t
           org-enable-org-journal-support t
-          org-journal-dir "~/mydocs/org/journal/"
+          org-journal-dir "~/org/journal/"
           org-journal-file-format "%Y-%m-%d"
           org-journal-date-prefix "#+TITLE: "
           org-journal-date-format "%A, %B %d %Y"
@@ -740,47 +740,40 @@ you should place your code here."
 
 
     (setq org-agenda-files '(
-                             "~/mydocs/org"
-                             "~/mydocs/org/journal"
-                             "~/mydocs/org/lesson"
-                             "~/mydocs/org/lesson/cmake"
-                             "~/mydocs/org/lesson/database"
-                             "~/mydocs/org/lesson/emacs"
-                             "~/mydocs/org/lesson/qt"
-                             "~/mydocs/org/lesson/cs"
-                             "~/mydocs/org/lesson/cpp"
-                             "~/mydocs/org/life/children"
-                             "~/mydocs/org/life/film"
-                             "~/mydocs/org/life/job"
-                             "~/mydocs/org/life/history"
-                             "~/mydocs/org/misc"
-                             "~/mydocs/org/project"
-                             "~/mydocs/org/techdoc"
-                             "~/mydocs/org/techdoc/CrossbeltSorter"
-                             "~/mydocs/org/techdoc/datasheet"
-                             "~/mydocs/org/techdoc/MCU"
-                             "~/mydocs/org/techdoc/Linux"
-                             "~/mydocs/org/techdoc/ParcelSingulator"
-                             "~/mydocs/org/techdoc/RealtimeEthernet"
-                             "~/mydocs/org/techdoc/ASI"
-                             "~/mydocs/org/techdoc/AutoHotkey"
-                             "~/mydocs/org/techdoc/CAN"
-                             "~/mydocs/org/techdoc/EtherCAT"
-                             "~/mydocs/org/techdoc/Profinet"
-                             "~/mydocs/org/techdoc/UML"
-                             "~/mydocs/org/techdoc/RCoax"
-                             "~/mydocs/org/techdoc/RFID"
-                             "~/mydocs/org/techdoc/SerialComm"
-                             "~/mydocs/org/techdoc/VFD"
-                             "~/mydocs/org/techdoc/deeplearning"
-                             "~/mydocs/org/techdoc/openwrt"
-                             "~/mydocs/org/techdoc/PID"
-                             "~/mydocs/org/techdoc/PLC"
-                             "~/mydocs/org/techdoc/WinCC"
-                             "~/mydocs/org/techdoc/Emulate3D"
-                             "~/mydocs/org/techdoc/RTOS"
-                             "~/mydocs/org/techdoc/SiemensSimulation"
-                             "~/mydocs/org/reference"
+                             "~/org"
+                             "~/org/journal"
+                             "~/org/life/children"
+                             "~/org/life/film"
+                             "~/org/life/finance"
+                             "~/org/life/history"
+                             "~/org/life/job"
+                             "~/org/misc"
+                             "~/org/project"
+                             "~/org/learning"
+                             "~/org/learning/algorithm_and_data_structure"
+                             "~/org/learning/android"
+                             "~/org/learning/books"
+                             "~/org/learning/comm_ic"
+                             "~/org/learning/circuit_board_design"
+                             "~/org/learning/crossbelt_sorter"
+                             "~/org/learning/datasheet"
+                             "~/org/learning/database"
+                             "~/org/learning/deeplearning"
+                             "~/org/learning/electric"
+                             "~/org/learning/ethercat"
+                             "~/org/learning/industrial_fieldbus"
+                             "~/org/learning/knowledge_system"
+                             "~/org/learning/mcu"
+                             "~/org/learning/linux"
+                             "~/org/learning/motor_control"
+                             "~/org/learning/operating_system"
+                             "~/org/learning/parcel_singulator"
+                             "~/org/learning/plc"
+                             "~/org/learning/program_language"
+                             "~/org/learning/qt"
+                             "~/org/learning/rtos"
+                             "~/org/learning/simulation"
+                             "~/org/learning/tools"
                              ))
     ;; (setq org-agenda-files (directory-files-recursively "~/mydocs/org/project" "\\.org$"))
     ;; (setq org-src-fontify-natively t)
@@ -788,41 +781,41 @@ you should place your code here."
           '(
             ;; TodoWithLink
             ("F" "Todo@PulpFiction: with links ^ ^"
-             entry (file+headline "~/mydocs/org/journal/PulpFiction.org" "Tasks")
+             entry (file+headline "~/org/journal/PulpFiction.org" "Tasks")
              ;; "* TODO [#B] %?\n  %i\n %a"
              (file "~/.spacemacs.d/snippets/todo.orgcaptmpl")
              :empty-lines 1)
 
             ;; TodoWithoutLink
             ("f" "Todo@PulpFiction: without links ^ ^"
-             entry (file+headline "~/mydocs/org/journal/PulpFiction.org" "Tasks")
+             entry (file+headline "~/org/journal/PulpFiction.org" "Tasks")
              ;; "* TODO [#B] %?\n  %i\n %a"
              (file "~/.spacemacs.d/snippets/todo_nolinks.orgcaptmpl")
              :empty-lines 1)
 
             ;; TodoWithLink
             ("W" "Todo@WorkNotes: with links ^_^"
-             entry (file+headline "~/mydocs/org/journal/WorkNotes.org" "Tasks")
+             entry (file+headline "~/org/journal/WorkNotes.org" "Tasks")
              ;; "* TODO [#B] %?\n  %i\n %a"
              (file "~/.spacemacs.d/snippets/todo.orgcaptmpl")
              :empty-lines 1)
 
             ;; TodoWithoutLink
             ("w" "Todo@WorkNotes: without links ^_^"
-             entry (file+headline "~/mydocs/org/journal/WorkNotes.org" "Tasks")
+             entry (file+headline "~/org/journal/WorkNotes.org" "Tasks")
              ;; "* TODO [#B] %?\n  %i\n %a"
              (file "~/.spacemacs.d/snippets/todo_nolinks.orgcaptmpl")
              :empty-lines 1)
 
             ;; Journal
             ("j" "Journal"
-             entry (file+datetree "~/mydocs/org/journal/journal.org")
+             entry (file+datetree "~/org/journal/journal.org")
              (file "~/.spacemacs.d/snippets/journal.orgcaptmpl")
              :empty-lines 1)
 
             ;; Memo
             ("m" "Memo"
-             entry (file+headline "~/mydocs/org/journal/PulpFiction.org" "Memo")
+             entry (file+headline "~/org/journal/PulpFiction.org" "Memo")
              (file "~/.spacemacs.d/snippets/memo.orgcaptmpl")
              :empty-lines 1)))
 
@@ -953,34 +946,41 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
            ((org-agenda-compact-blocks nil)
             (org-agenda-files '(
-                                "~/mydocs/org"
-                                "~/mydocs/org/project"
-                                "~/mydocs/org/techdoc"
-                                "~/mydocs/org/techdoc/CrossbeltSorter"
-                                "~/mydocs/org/techdoc/datasheet"
-                                "~/mydocs/org/techdoc/MCU"
-                                "~/mydocs/org/techdoc/Linux"
-                                "~/mydocs/org/techdoc/ParcelSingulator"
-                                "~/mydocs/org/techdoc/RealtimeEthernet"
-                                "~/mydocs/org/techdoc/ASI"
-                                "~/mydocs/org/techdoc/AutoHotkey"
-                                "~/mydocs/org/techdoc/CAN"
-                                "~/mydocs/org/techdoc/EtherCAT"
-                                "~/mydocs/org/techdoc/Profinet"
-                                "~/mydocs/org/techdoc/UML"
-                                "~/mydocs/org/techdoc/RCoax"
-                                "~/mydocs/org/techdoc/RFID"
-                                "~/mydocs/org/techdoc/SerialComm"
-                                "~/mydocs/org/techdoc/VFD"
-                                "~/mydocs/org/techdoc/deeplearning"
-                                "~/mydocs/org/techdoc/openwrt"
-                                "~/mydocs/org/techdoc/WinCC"
-                                "~/mydocs/org/techdoc/PID"
-                                "~/mydocs/org/techdoc/PLC"
-                                "~/mydocs/org/journal/WorkNotes.org"
-                                "~/mydocs/org/techdoc/Emulate3D"
-                                "~/mydocs/org/techdoc/RTOS"
-                                "~/mydocs/org/techdoc/SiemensSimulation"
+                                "~/org"
+                                "~/org/journal"
+                                "~/org/journal/WorkNotes.org"
+                                "~/org/life/children"
+                                "~/org/life/film"
+                                "~/org/life/finance"
+                                "~/org/life/history"
+                                "~/org/life/job"
+                                "~/org/misc"
+                                "~/org/project"
+                                "~/org/learning"
+                                "~/org/learning/algorithm_and_data_structure"
+                                "~/org/learning/android"
+                                "~/org/learning/books"
+                                "~/org/learning/comm_ic"
+                                "~/org/learning/circuit_board_design"
+                                "~/org/learning/crossbelt_sorter"
+                                "~/org/learning/datasheet"
+                                "~/org/learning/database"
+                                "~/org/learning/deeplearning"
+                                "~/org/learning/electric"
+                                "~/org/learning/ethercat"
+                                "~/org/learning/industrial_fieldbus"
+                                "~/org/learning/knowledge_system"
+                                "~/org/learning/mcu"
+                                "~/org/learning/linux"
+                                "~/org/learning/operating_system"
+                                "~/org/learning/motor_control"
+                                "~/org/learning/parcel_singulator"
+                                "~/org/learning/plc"
+                                "~/org/learning/program_language"
+                                "~/org/learning/qt"
+                                "~/org/learning/rtos"
+                                "~/org/learning/simulation"
+                                "~/org/learning/tools"
                                 ))
             (org-agenda-text-search-extra-files nil))
            )
@@ -1002,20 +1002,38 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
            ((org-agenda-compact-blocks nil)
             (org-agenda-files '(
-                                "~/mydocs/org"
-                                "~/mydocs/org/life/children"
-                                "~/mydocs/org/life/film"
-                                "~/mydocs/org/life/job"
-                                "~/mydocs/org/life/history"
-                                "~/mydocs/org/lesson"
-                                "~/mydocs/org/lesson/cmake"
-                                "~/mydocs/org/lesson/database"
-                                "~/mydocs/org/lesson/emacs"
-                                "~/mydocs/org/lesson/qt"
-                                "~/mydocs/org/lesson/cs"
-                                "~/mydocs/org/lesson/cpp"
-                                "~/mydocs/org/misc"
-                                "~/mydocs/org/journal/PulpFiction.org"
+                                "~/org"
+                                "~/org/journal"
+                                "~/org/journal/PulpFiction.org"
+                                "~/org/life/children"
+                                "~/org/life/film"
+                                "~/org/life/finance"
+                                "~/org/life/history"
+                                "~/org/life/job"
+                                "~/org/misc"
+                                "~/org/learning"
+                                "~/org/learning/algorithm_and_data_structure"
+                                "~/org/learning/android"
+                                "~/org/learning/books"
+                                "~/org/learning/comm_ic"
+                                "~/org/learning/circuit_board_design"
+                                "~/org/learning/datasheet"
+                                "~/org/learning/database"
+                                "~/org/learning/deeplearning"
+                                "~/org/learning/electric"
+                                "~/org/learning/ethercat"
+                                "~/org/learning/industrial_fieldbus"
+                                "~/org/learning/knowledge_system"
+                                "~/org/learning/mcu"
+                                "~/org/learning/linux"
+                                "~/org/learning/operating_system"
+                                "~/org/learning/motor_control"
+                                "~/org/learning/plc"
+                                "~/org/learning/program_language"
+                                "~/org/learning/qt"
+                                "~/org/learning/rtos"
+                                "~/org/learning/simulation"
+                                "~/org/learning/tools"
                                 ))
             (org-agenda-text-search-extra-files nil))
            )
@@ -1034,7 +1052,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                                      (org-agenda-skip-if nil '(scheduled deadline))))
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
            ((org-agenda-compact-blocks nil)
-            (org-agenda-files '("~/mydocs/org" "~/mydocs/org/journal/PulpFiction.org" "~/mydocs/org/journal/WorkNotes.org"))
+            (org-agenda-files '("~/org" "~/org/journal/PulpFiction.org" "~/org/journal/WorkNotes.org"))
             (org-agenda-text-search-extra-files nil))
            )
           ;; #################################################################
