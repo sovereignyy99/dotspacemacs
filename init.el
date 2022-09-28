@@ -1179,6 +1179,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 
   ;; ctrl+i跳转
   (setq dotspacemacs-distinguish-gui-tab t)
+  (setq org-export-with-sub-superscripts (quote {}))
 
   ;;dwin = do what i mean.
   (defun occur-dwin()
