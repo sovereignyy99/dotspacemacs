@@ -42,6 +42,8 @@ values."
      ;; ruby
      html
      javascript
+     ;;yaml-jsyaml
+     yaml
      ;; (javascript :variables javascript-backend 'lsp)
      (c-c++ :variables
             c-c++-adopt-subprojects t
