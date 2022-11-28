@@ -292,7 +292,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 14
+                               :size 28
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -607,7 +607,12 @@ you should place your code here."
   ;; (setq company-lsp-async t)
   ;; (setq company-transformers nil)
 
-
+  ;; pomodoro
+  (setq org-pomodoro-audio-player "mplayer")
+  (setq org-pomodoro-finished-sound-args "-volume 0.7")
+  (setq org-pomodoro-long-break-sound-args "-volume 0.7")
+  (setq org-pomodoro-short-break-sound-args "-volume 0.7")
+  (setq org-pomodoro-ticking-sound-args "-volume 0.3")
 
   ;;##########################################################################
   ;;##########################################################################
