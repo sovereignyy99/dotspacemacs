@@ -293,7 +293,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 28
+                               :size 23
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -516,7 +516,7 @@ you should place your code here."
   ;; 解决org表格中英文对齐的问题
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and (spacemacs/system-is-mswindows) window-system)
-      (spacemacs//set-monospaced-font "Source Code Pro" "Microsoft YaHei" 14 16)))
+      (spacemacs//set-monospaced-font "Source Code Pro" "Microsoft YaHei" 23 23)))   ;;14 16
 
   ;; Setting Chinese Font
   (when (and (spacemacs/system-is-mswindows) window-system)
@@ -526,7 +526,7 @@ you should place your code here."
     (dolist (charset '(kana han symbol cjk-misc bopomofo))
       (set-fontset-font (frame-parameter nil 'font)
                         charset
-                        (font-spec :family "Microsoft YaHei" :size 16))))
+                        (font-spec :family "Microsoft YaHei" :size 23))));16
 
   ;; (add-hook 'evil-normal-state-entry-hook XXX)
 
