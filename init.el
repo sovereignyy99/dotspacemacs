@@ -94,7 +94,7 @@ values."
           ;;org-enable-bootstrap-support t
           ;;org-enable-reveal-js-support t
           org-enable-org-journal-support t
-          org-journal-dir "~/org/journal/"
+          org-journal-dir "~/org/org/journal/"
           org-journal-file-format "%Y-%m-%d"
           org-journal-date-prefix "#+TITLE: "
           org-journal-date-format "%A, %B %d %Y"
@@ -738,93 +738,89 @@ you should place your code here."
     ;;                                ("HAND" . (:foreground "white" :background "#2E8B57"  :weight bold))
     ;;                                ("DONE" . (:foreground "white" :background "#3498DB" :weight bold))))
 
+    ;; (setq org-agenda-files '(
+    ;;                          "~/org"
+    ;;                          "~/org/journal"
+    ;;                          "~/org/life/children"
+    ;;                          "~/org/life/film"
+    ;;                          "~/org/life/finance"
+    ;;                          "~/org/life/history"
+    ;;                          "~/org/life/job"
+    ;;                          "~/org/misc"
+    ;;                          "~/org/project"
+    ;;                          "~/org/learning"
+    ;;                          "~/org/learning/algorithm_and_data_structure"
+    ;;                          "~/org/learning/android"
+    ;;                          "~/org/learning/books"
+    ;;                          "~/org/learning/comm_ic"
+    ;;                          "~/org/learning/circuit_board_design"
+    ;;                          "~/org/learning/crossbelt_sorter"
+    ;;                          "~/org/learning/datasheet"
+    ;;                          "~/org/learning/database"
+    ;;                          "~/org/learning/deeplearning"
+    ;;                          "~/org/learning/electric"
+    ;;                          "~/org/learning/ethernet"
+    ;;                          "~/org/learning/industrial_fieldbus"
+    ;;                          "~/org/learning/knowledge_system"
+    ;;                          "~/org/learning/mcu"
+    ;;                          "~/org/learning/linux"
+    ;;                          "~/org/learning/motor_control"
+    ;;                          "~/org/learning/operating_system"
+    ;;                          "~/org/learning/parcel_singulator"
+    ;;                          "~/org/learning/plc"
+    ;;                          "~/org/learning/program_language"
+    ;;                          "~/org/learning/project_management"
+    ;;                          "~/org/learning/qt"
+    ;;                          "~/org/learning/rtos"
+    ;;                          "~/org/learning/simulation"
+    ;;                          "~/org/learning/tools"
+    ;;                          ))
 
+    ;;(setq org-agenda-files (directory-files-recursively "~/org/org" "\\.org$"))
+    (setq org-agenda-files (directory-files-recursively "~/org/org" (rx (or ".org") eos)))
 
-
-
-
-
-
-
-
-    (setq org-agenda-files '(
-                             "~/org"
-                             "~/org/journal"
-                             "~/org/life/children"
-                             "~/org/life/film"
-                             "~/org/life/finance"
-                             "~/org/life/history"
-                             "~/org/life/job"
-                             "~/org/misc"
-                             "~/org/project"
-                             "~/org/learning"
-                             "~/org/learning/algorithm_and_data_structure"
-                             "~/org/learning/android"
-                             "~/org/learning/books"
-                             "~/org/learning/comm_ic"
-                             "~/org/learning/circuit_board_design"
-                             "~/org/learning/crossbelt_sorter"
-                             "~/org/learning/datasheet"
-                             "~/org/learning/database"
-                             "~/org/learning/deeplearning"
-                             "~/org/learning/electric"
-                             "~/org/learning/ethernet"
-                             "~/org/learning/industrial_fieldbus"
-                             "~/org/learning/knowledge_system"
-                             "~/org/learning/mcu"
-                             "~/org/learning/linux"
-                             "~/org/learning/motor_control"
-                             "~/org/learning/operating_system"
-                             "~/org/learning/parcel_singulator"
-                             "~/org/learning/plc"
-                             "~/org/learning/program_language"
-                             "~/org/learning/project_management"
-                             "~/org/learning/qt"
-                             "~/org/learning/rtos"
-                             "~/org/learning/simulation"
-                             "~/org/learning/tools"
-                             ))
-    ;; (setq org-agenda-files (directory-files-recursively "~/org/project" "\\.org$"))
+    ;;正则应该用(rx (or ".org" ".txt") eos)，因为换行符可以作为文件名一部分
+    ;;(setq org-agenda-files (directory-files-recursively "~/org/org" (rx (or ".org" ".txt") eos)))
     ;; (setq org-src-fontify-natively t)
     (setq org-capture-templates
           '(
             ;; TodoWithLink
             ("F" "Todo@PulpFiction: with links ^ ^"
-             entry (file+headline "~/org/journal/PulpFiction.org" "Tasks")
+             entry (file+headline "~/org/org/journal/PulpFiction.org" "Tasks")
              ;; "* TODO [#B] %?\n  %i\n %a"
              (file "~/.spacemacs.d/snippets/todo.orgcaptmpl")
              :empty-lines 1)
 
             ;; TodoWithoutLink
             ("f" "Todo@PulpFiction: without links ^ ^"
-             entry (file+headline "~/org/journal/PulpFiction.org" "Tasks")
+             entry (file+headline "~/org/org/journal/PulpFiction.org" "Tasks")
              ;; "* TODO [#B] %?\n  %i\n %a"
              (file "~/.spacemacs.d/snippets/todo_nolinks.orgcaptmpl")
              :empty-lines 1)
 
             ;; TodoWithLink
             ("W" "Todo@WorkNotes: with links ^_^"
-             entry (file+headline "~/org/journal/WorkNotes.org" "Tasks")
+             entry (file+headline "~/org/org/journal/WorkNotes.org" "Tasks")
              ;; "* TODO [#B] %?\n  %i\n %a"
              (file "~/.spacemacs.d/snippets/todo.orgcaptmpl")
              :empty-lines 1)
 
             ;; TodoWithoutLink
             ("w" "Todo@WorkNotes: without links ^_^"
-             entry (file+headline "~/org/journal/WorkNotes.org" "Tasks")
+             entry (file+headline "~/org/org/journal/WorkNotes.org" "Tasks")
              ;; "* TODO [#B] %?\n  %i\n %a"
              (file "~/.spacemacs.d/snippets/todo_nolinks.orgcaptmpl")
              :empty-lines 1)
 
             ;; Journal
             ("j" "Journal"
-             entry (file+datetree "~/org/journal/journal.org")
+             entry (file+datetree "~/org/org/journal/journal.org")
              (file "~/.spacemacs.d/snippets/journal.orgcaptmpl")
              :empty-lines 1)
 
             ;; Memo
             ("m" "Memo"
-             entry (file+headline "~/org/journal/PulpFiction.org" "Memo")
+             entry (file+headline "~/org/org/journal/PulpFiction.org" "Memo")
              (file "~/.spacemacs.d/snippets/memo.orgcaptmpl")
              :empty-lines 1)))
 
@@ -956,8 +952,8 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
            ((org-agenda-compact-blocks nil)
             (org-agenda-files '(
                                 "~/org"
-                                "~/org/journal"
-                                "~/org/journal/WorkNotes.org"
+                                "~/org/org/journal"
+                                "~/org/org/journal/WorkNotes.org"
                                 "~/org/life/children"
                                 "~/org/life/film"
                                 "~/org/life/finance"
@@ -1013,8 +1009,8 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
            ((org-agenda-compact-blocks nil)
             (org-agenda-files '(
                                 "~/org"
-                                "~/org/journal"
-                                "~/org/journal/PulpFiction.org"
+                                "~/org/org/journal"
+                                "~/org/org/journal/PulpFiction.org"
                                 "~/org/life/children"
                                 "~/org/life/film"
                                 "~/org/life/finance"
@@ -1063,7 +1059,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                                      (org-agenda-skip-if nil '(scheduled deadline))))
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
            ((org-agenda-compact-blocks nil)
-            (org-agenda-files '("~/org" "~/org/journal/PulpFiction.org" "~/org/journal/WorkNotes.org"))
+            (org-agenda-files '("~/org" "~/org/org/journal/PulpFiction.org" "~/org/org/journal/WorkNotes.org"))
             (org-agenda-text-search-extra-files nil))
            )
           ;; #################################################################
