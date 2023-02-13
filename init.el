@@ -1115,6 +1115,11 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 
   (setq company-show-numbers t)
 
+  ;; latex
+  ;;(setq TeX-global-PDF-mode t TeX-engine 'xetex)
+  ;;(add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
+  ;;(setq TeX-command-default "XeLaTeX")
+
   ;; flycheck
   ;; (flycheck-global-modes t) ;; ?
   ;; (setq flycheck-check-syntax-automatically '(new-line save))
