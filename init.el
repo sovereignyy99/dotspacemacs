@@ -188,6 +188,10 @@ values."
                                       ;; image+
                                       ;; emacs-cquery
                                       ;; doom-modeline
+                                      (org-excalidraw :location
+                                                      (recipe
+                                                       :fetcher github
+                                                       :repo "wdavew/org-excalidraw"))
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -536,6 +540,9 @@ you should place your code here."
   ;; (add-to-list 'load-path "~/.emacs.d/lisp/")
   (require 'beacon)
   (beacon-mode t)
+
+  (require 'org-excalidraw)
+  (setq org-excalidraw-directory "~/org/excalidraw")
 
   ;; image+
   ;; (eval-after-load 'image '(require 'image+))
