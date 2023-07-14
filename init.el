@@ -596,9 +596,14 @@ you should place your code here."
 
   ;;(setq org-download-image-dir "e:/org/org/images")
   ;;(setq org-download-screenshot-method "D:/Program Files/IrfanViewe/i_view64.exe /capture=4 /convert=%s")
+  ;;(setq-default org-download-method 'attach)
+  (setq-default org-download-method 'directory)
+  (setq-default org-download-display-inline-images 'posframe)
+  (setq-default org-download-image-dir "./img")
+  (setq-default org-download-heading-lvl 'nil)
   (setq org-download-image-attr-list
         '("#+CAPTION: NAME"
-          "#+ATTR_HTML: :width 30% :align center"))
+          "#+ATTR_HTML: :width 100% :align center"))
   ;;(setq org-download-annotate-function 'ignore)  ;;不可用！！！
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
