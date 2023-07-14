@@ -710,6 +710,8 @@ you should place your code here."
              "WAITING(w!)"
              ;; Used to tag an activity that can only be done at the specified time and date, instead of tasks that can be completed at any time.
              "APPT(a!)"
+             ;; review this content.
+             "REVIEW(r!)"
              ;; "NEXT(n!)"
              ;; "DOING-NOW(d!)"
              ;; "BLOCKED(b!)"
@@ -732,6 +734,7 @@ you should place your code here."
             ("IN-PROGRESS" . "OrangeRed")
             ("WAITING" . "LightSkyBlue")
             ("APPT" . "Pink")
+            ("REVIEW" . "Red")
             ;; ("NEXT" . "#008080")
             ;; ("DOING-NOW" . "#E35DBF")
             ;; ("DELEGATED" . "pink")
@@ -739,6 +742,9 @@ you should place your code here."
             ("CANCELED" . "Green")
             ("DEFERRED" . "ForestGreen")
             ))
+
+    ;; DONE不改变Headline的颜色
+    (setq org-fontify-done-headline nil)
 
     ;; 调试好久的颜色，效果超赞！ todo keywords 增加背景色
     ;; (setf org-todo-keyword-faces '(("TODO" . (:foreground "white" :background "#95A5A6"   :weight bold))
