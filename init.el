@@ -557,9 +557,51 @@ you should place your code here."
   (setq dotspacemacs-mode-line-unicode-symbols nil)
   (spacemacs/toggle-mode-line-minor-modes-off)
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;;if there is a #+ATTR.*: width="200", resize to 200, otherwise resize to 400
   (setq org-image-actual-width '(300))
 
+  ;; org-download
+  ;; ﻿(use-package org-download
+  ;;   :after org
+  ;;   :defer nil
+  ;;   :custom
+  ;;   (org-download-method 'directory)
+  ;;   ;;下面这个是设置图片的保存路径,将其替换为你自己的保存路径即可
+  ;;   (org-download-image-dir "e:/org/org/images")
+  ;;   ;;路径e:/IrfanView/i_view64.exe表示截屏软件的位置，将其替换为你自己的IrfanView位置即可.注意后面的/capture=4 /convert=\"%s\"也要写上去，不能缺少
+  ;;   ;;(org-download-screenshot-method "e:/IrfanView/i_view64.exe /capture=4 /convert=\"%s\"")
+  ;;   (org-download-screenshot-method "D:/Program Files/IrfanViewe/i_view64.exe /capture=4 /convert=\"%s\"")
+  ;;   :bind
+  ;;   ("C-S-y" . org-download-screenshot) ;;这个是设置截屏的快捷键为Ctrl+Shift+y
+  ;;   :config
+  ;;   (require 'org-download))
+
+  ;; https://emacs-china.org/t/org-download/1672/7
+  ;; (use-package org-download
+  ;;   :after org
+  ;;   :bind (:map org-mode-map
+  ;;               ("<f2>" . org-download-screenshot))
+  ;;   :ensure nil
+  ;;   :config
+  ;;   (setq org-download-method 'attach)
+  ;;   (setq org-download-display-inline-images 'posframe)
+  ;;   (setq org-download-screenshot-file (concat temporary-file-directory "image.png"))
+  ;;   (setq org-download-image-attr-list
+  ;;         '("#+CAPTION: NAME"
+  ;;           "#+ATTR_HTML: :width 50% :align center"))
+  ;;   (when (eq system-type 'windows-nt)
+  ;;     (setq org-download-screenshot-method "convert clipboard: %s"))
+  ;;   (org-download-enable))
+
+  ;;(setq org-download-image-dir "e:/org/org/images")
+  ;;(setq org-download-screenshot-method "D:/Program Files/IrfanViewe/i_view64.exe /capture=4 /convert=%s")
+  (setq org-download-image-attr-list
+        '("#+CAPTION: NAME"
+          "#+ATTR_HTML: :width 30% :align center"))
+  ;;(setq org-download-annotate-function 'ignore)  ;;不可用！！！
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; evil in compilation mode (from github.com/asok/.emacs.d)
   ;; (add-hook 'compilation-mode-hook
   ;;           '(lambda ()
