@@ -602,7 +602,11 @@ you should place your code here."
   (setq-default org-download-image-dir "./img")
   (setq-default org-download-heading-lvl 'nil)
   (setq org-download-image-attr-list
-        '("#+CAPTION: NAME"
+        '(
+          "#+NAME: fig: NAME"
+          "#+CAPTION: NAME"
+          "#+ATTR_ORG: :width 500px"
+          "#+ATTR_LaTeX: :width 12cm :placement [!htpb]"
           "#+ATTR_HTML: :width 100% :align center"))
   ;;(setq org-download-annotate-function 'ignore)  ;;不可用！！！
 
