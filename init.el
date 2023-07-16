@@ -605,7 +605,7 @@ you should place your code here."
         '(
           "#+NAME: fig: NAME"
           "#+CAPTION: NAME"
-          "#+ATTR_ORG: :width 500px"
+          "#+ATTR_ORG: :width 800px"
           "#+ATTR_LaTeX: :width 12cm :placement [!htpb]"
           "#+ATTR_HTML: :width 100% :align center"))
   ;;(setq org-download-annotate-function 'ignore)  ;;不可用！！！
