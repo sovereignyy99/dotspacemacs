@@ -1276,6 +1276,9 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   ;; fix for the lsp error
   (defvar spacemacs-jump-handlers-fundamental-mode nil)
 
+  ;; v9.4.4 changed org-startup-folded from t to showeverything
+  (setq org-startup-folded t)
+
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (defun locate-current-file-in-explorer ()
     (interactive)
