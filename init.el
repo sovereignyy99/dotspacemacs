@@ -1339,22 +1339,19 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
 
   ;;##########################################################################
   ;;##########################################################################
-  ;;(global-writeroom-mode 1)
-  ;; agenda mode 开启 writeroom
-  ;;(add-hook 'org-agenda-mode-hook (lambda() (writeroom-mode)))
-  ;; telega mode 开启 writeroom
-  ;;(add-hook 'telega-root-mode-hook (lambda () (writeroom-mode 1)))
-  ;; java mode 的时候不要开启 writeoom
-  ;;(add-hook 'java-mode-hook (lambda () (writeroom-mode nil)))
+  (global-writeroom-mode 1)
+  (add-hook 'org-agenda-mode-hook (lambda() (writeroom-mode)))  ;;agenda mode 开启 writeroom
+  (add-hook 'telega-root-mode-hook (lambda () (writeroom-mode 1)))  ;;telega mode 开启 writeroom
+  (add-hook 'java-mode-hook (lambda () (writeroom-mode nil)))  ;;java mode 的时候不要开启 writeoom
 
   (setq writeroom-width 100
-        ;;writeroom-bottom-divider-width 0
-        ;;writeroom-fringes-outside-margins t
-        ;;writeroom-fullscreen-effect nil
-        ;;writeroom-major-modes '(text-mode prog-mode conf-mode special-mode Info-mode dired-mode)
-        ;;writeroom-maximize-window nil
-        ;;writeroom-mode-line t
-        ;;writeroom-mode-line-toggle-position 'mode-line-format
+        writeroom-bottom-divider-width 0
+        writeroom-fringes-outside-margins t
+        writeroom-fullscreen-effect nil
+        writeroom-major-modes '(text-mode prog-mode conf-mode special-mode Info-mode dired-mode)
+        writeroom-maximize-window nil
+        writeroom-mode-line t
+        writeroom-mode-line-toggle-position 'mode-line-format
         )
 
   ;; (with-eval-after-load 'writeroom-mode
