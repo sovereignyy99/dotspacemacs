@@ -861,8 +861,14 @@ you should place your code here."
              :empty-lines 1)
 
             ;; Journal
+            ("J" "Journal"
+             entry (file+datetree "~/org/org/journal/journal.org" "Ideas")
+             ;; "* TODO [#B] %?\n  %i\n %a"
+             (file "~/.spacemacs.d/snippets/todo_nolinks.orgcaptmpl")
+             :empty-lines 1)
+
             ("j" "Journal"
-             entry (file+datetree "~/org/org/journal/journal.org")
+             entry (file+datetree "~/org/org/journal/journal.org" "Ideas")
              (file "~/.spacemacs.d/snippets/journal.orgcaptmpl")
              :empty-lines 1)
 
@@ -1143,7 +1149,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   ;; (setq org-blank-before-new-entry (quote ((heading) (plain-list-item))))
 
   ;; This one is pretty awesome; it forces you to mark all child tasks as “DONE” before you can mark the parent as “DONE.” The agenda view already has the notion of “blocked” tasks (those with incomplete child tasks), which should appear dimmed (that, of course, is also customizable). This makes it even harder to slack off on your work.
-  (setq org-enforce-todo-dependencies t)
+  ;; (setq org-enforce-todo-dependencies t)
 
   ;; I like to know when tasks have changed status. Setting this option causes Org to insert an annotation in a task when it is marked as done including a timestamp of when exactly that happened.
   ;; (setq org-log-done (quote time))
