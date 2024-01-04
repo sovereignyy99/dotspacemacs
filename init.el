@@ -297,7 +297,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 23
+                               :size 27
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -520,7 +520,7 @@ you should place your code here."
   ;; 解决org表格中英文对齐的问题
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and (spacemacs/system-is-mswindows) window-system)
-      (spacemacs//set-monospaced-font "Source Code Pro" "Microsoft YaHei" 23 23)))   ;;14 16
+      (spacemacs//set-monospaced-font "Source Code Pro" "Microsoft YaHei" 27 27)))   ;;14 16
 
   ;; Setting Chinese Font
   (when (and (spacemacs/system-is-mswindows) window-system)
@@ -530,7 +530,7 @@ you should place your code here."
     (dolist (charset '(kana han symbol cjk-misc bopomofo))
       (set-fontset-font (frame-parameter nil 'font)
                         charset
-                        (font-spec :family "Microsoft YaHei" :size 23))));16
+                        (font-spec :family "Microsoft YaHei" :size 27))));16
 
   ;; (add-hook 'evil-normal-state-entry-hook XXX)
 
@@ -930,6 +930,34 @@ you should place your code here."
                   (push file org-agenda-files)))
             (org-projectile-todo-files))
     )
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (defun org-hide-properties ()
+    "Hide org headline's properties using overlay."
+    (interactive)
+    (save-excursion
+      (goto-char (point-min))
+      (while (re-search-forward
+              "^ *:PROPERTIES:\n\\( *:.+?:.*\n\\)+ *:END:\n" nil t)
+        (overlay-put (make-overlay
+                      (match-beginning 0) (match-end 0))
+                     'display ""))))
+
+  (add-hook 'org-mode-hook #'org-hide-properties)
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (defun org-hide-logbook ()
+    "Hide org headline's logbook using overlay."
+    (interactive)
+    (save-excursion
+      (goto-char (point-min))
+      (while (re-search-forward
+              "^ *:LOGBOOK:\n\\( *-.+\n\\)+ *:END:\n" nil t)
+        (overlay-put (make-overlay
+                      (match-beginning 0) (match-end 0))
+                     'display ""))))
+
+  (add-hook 'org-mode-hook #'org-hide-logbook)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (defun air-org-skip-subtree-if-priority (priority)
@@ -1335,6 +1363,8 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   (spacemacs/set-leader-keys "oi" 'helm-org-agenda-files-headings)
   (spacemacs/set-leader-keys "on" 'org-toggle-narrow-to-subtree)
   (spacemacs/set-leader-keys "oy" 'youdao-dictionary-search-at-point+)
+  ;;(spacemacs/set-leader-keys "ohp" 'org-hide-properties)
+  ;;(spacemacs/set-leader-keys "ohk" 'org-hide-logbook)
   ;; (spacemacs/set-leader-keys "or" 'recentf-open-files)
   (spacemacs/set-leader-keys "ow" 'occur-dwin)
   (spacemacs/set-leader-keys "obm" 'bookmark-set)
