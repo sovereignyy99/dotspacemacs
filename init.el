@@ -297,7 +297,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 27
+                               :size 23
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -520,7 +520,7 @@ you should place your code here."
   ;; 解决org表格中英文对齐的问题
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and (spacemacs/system-is-mswindows) window-system)
-      (spacemacs//set-monospaced-font "Source Code Pro" "Microsoft YaHei" 27 27)))   ;;14 16
+      (spacemacs//set-monospaced-font "Source Code Pro" "Microsoft YaHei" 23 23)))   ;;14 16
 
   ;; Setting Chinese Font
   (when (and (spacemacs/system-is-mswindows) window-system)
@@ -530,7 +530,7 @@ you should place your code here."
     (dolist (charset '(kana han symbol cjk-misc bopomofo))
       (set-fontset-font (frame-parameter nil 'font)
                         charset
-                        (font-spec :family "Microsoft YaHei" :size 27))));16
+                        (font-spec :family "Microsoft YaHei" :size 23))));16
 
   ;; (add-hook 'evil-normal-state-entry-hook XXX)
 
@@ -609,6 +609,7 @@ you should place your code here."
           "#+ATTR_LaTeX: :width 12cm :placement [!htpb]"
           "#+ATTR_HTML: :width 100% :align center"))
   ;;(setq org-download-annotate-function 'ignore)  ;;不可用！！！
+ (setq-default org-download-screenshot-method "convert clipboard: %s")
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; evil in compilation mode (from github.com/asok/.emacs.d)
@@ -635,6 +636,7 @@ you should place your code here."
   ;;       undo-tree-history-directory-alist
   ;;       `(("." . ,(concat user-home-directory ".undo"))))
 
+  (setq undo-tree-auto-save-history nil)
 
   ;;##########################################################################
   ;;##########################################################################
@@ -943,7 +945,7 @@ you should place your code here."
                       (match-beginning 0) (match-end 0))
                      'display ""))))
 
-  (add-hook 'org-mode-hook #'org-hide-properties)
+  ;;(add-hook 'org-mode-hook #'org-hide-properties)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (defun org-hide-logbook ()
@@ -957,7 +959,7 @@ you should place your code here."
                       (match-beginning 0) (match-end 0))
                      'display ""))))
 
-  (add-hook 'org-mode-hook #'org-hide-logbook)
+  ;;(add-hook 'org-mode-hook #'org-hide-logbook)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (defun air-org-skip-subtree-if-priority (priority)
@@ -1069,6 +1071,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                 "~/org/learning/qt"
                                 "~/org/learning/rtos"
                                 "~/org/learning/simulation"
+                                "~/org/learning/system_arch_design"
                                 "~/org/learning/tools"
                                 ))
             (org-agenda-text-search-extra-files nil))
@@ -1124,6 +1127,7 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                 "~/org/learning/qt"
                                 "~/org/learning/rtos"
                                 "~/org/learning/simulation"
+                                "~/org/learning/system_arch_design"
                                 "~/org/learning/tools"
                                 ))
             (org-agenda-text-search-extra-files nil))
@@ -1251,10 +1255,18 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   ;; (doom-modeline-init)
   ;;(setq dotspacemacs-mode-line-theme '(doom))
 
+  ;;##########################################################################
+  ;; line num
+  ;;(global-linum-mode t)
+  ;;(with-eval-after-load 'linum
+  ;;  (linum-relative-toggle))
+
+  ;;(global-display-line-numbers-mode 1)
+  ;;(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
   ;;##########################################################################
   ;; better-default
-  (global-linum-mode t)
+  ;;(global-linum-mode t)
   (setq auto-save-default nil)
   (add-hook 'emacs-lisp-mode-hook 'show-paren-mode)
   (delete-selection-mode t)
