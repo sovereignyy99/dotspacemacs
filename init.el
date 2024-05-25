@@ -1380,6 +1380,8 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
   ;; (spacemacs/set-leader-keys "or" 'recentf-open-files)
   (spacemacs/set-leader-keys "ow" 'occur-dwin)
   (spacemacs/set-leader-keys "obm" 'bookmark-set)
+  (spacemacs/set-leader-keys "obd" 'bookmark-delete)
+  (spacemacs/set-leader-keys "obj" 'bookmark-jump)
   (spacemacs/set-leader-keys "obl" 'bookmark-bmenu-list)
   (spacemacs/set-leader-keys "ocl" 'evilnc-comment-or-uncomment-lines)
   ;;(spacemacs/set-leader-keys "oj" 'evilmi-jump-items)
