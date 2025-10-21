@@ -609,6 +609,7 @@ you should place your code here."
           "#+ATTR_LaTeX: :width 12cm :placement [!htpb]"
           "#+ATTR_HTML: :width 100% :align center"))
   ;;(setq org-download-annotate-function 'ignore)  ;;不可用！！！
+  (setq org-download-annotate-function (lambda (_link) ""))
   (setq-default org-download-screenshot-method "convert clipboard: %s")
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
