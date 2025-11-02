@@ -87,7 +87,7 @@ values."
      (org :variables
           org-want-todo-bindings t
           org-enable-sticky-header nil
-          org-log-done t
+          org-log-done nil ;;t
           org-log-state-notes-into-drawer t
           ;;org-enable-epub-support t
           ;;org-enable-github-support t
@@ -739,17 +739,17 @@ you should place your code here."
     (setq org-todo-keywords
           '((sequence
              ;; The item is ready to be done at the earliest opportunity or at the date (and maybe time) indicated in the SCHEDULED tag. Some tasks are given a DEADLINE date which is useful for scheduling the tasks during my daily planning.
-             "TODO(t!)"
+             "TODO(t)"
              ;; I should use this tag when I start on a task, but if I clock in to a TODO item, I don't really need this task.
-             "FIRING(f!)"
+             "FIRING(f)"
              ;; ongoing
-             "IN-PROGRESS(i!)"
+             "IN-PROGRESS(i)"
              ;; I did some work on this task but I am waiting for a response. If I use this task I schedule the task into the future as a reminder to follow up with some notes in the body of the task.
-             "WAITING(w!)"
+             "WAITING(w)"
              ;; Used to tag an activity that can only be done at the specified time and date, instead of tasks that can be completed at any time.
-             "APPT(a!)"
+             "APPT(a)"
              ;; review this content.
-             "REVIEW(r!)"
+             "REVIEW(r)"
              ;; "NEXT(n!)"
              ;; "DOING-NOW(d!)"
              ;; "BLOCKED(b!)"
@@ -758,11 +758,11 @@ you should place your code here."
              ;; "FOLLOW-UP(f!)"
              ;; "TICKLE(T!)"
              "|"
-             "DONE(d!)"
+             "DONE(d)"   ;;"DONE(d!)", !=log, @=note
              ;; I decided not to do this task but have left the task on file with this status.
-             "CANCELLED(c!)"
+             "CANCELLED(c)"
              ;; Used to identify a task that will not be activated just yet. The reason will be included in the task notes.
-             "DEFERRED(D!)")))
+             "DEFERRED(D)")))
 
     (setq org-todo-keyword-faces
           '(
