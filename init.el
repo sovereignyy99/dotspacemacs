@@ -87,7 +87,7 @@ values."
      (org :variables
           org-want-todo-bindings t
           org-enable-sticky-header nil
-          org-log-done time ;;t
+          org-log-done 'time ;;t
           org-log-state-notes-into-drawer t
           ;;org-enable-epub-support t
           ;;org-enable-github-support t
