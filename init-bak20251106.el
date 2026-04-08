@@ -87,7 +87,7 @@ values."
      (org :variables
           org-want-todo-bindings t
           org-enable-sticky-header nil
-          org-log-done 'time ;;t
+          org-log-done time ;;t
           org-log-state-notes-into-drawer t
           ;;org-enable-epub-support t
           ;;org-enable-github-support t
@@ -520,7 +520,7 @@ you should place your code here."
   ;; 解决org表格中英文对齐的问题
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and (spacemacs/system-is-mswindows) window-system)
-      (spacemacs//set-monospaced-font "Source Code Pro" "Microsoft YaHei" 23 23))) ;;14 16
+      (spacemacs//set-monospaced-font "Source Code Pro" "Microsoft YaHei" 23 23)))   ;;14 16
 
   ;; Setting Chinese Font
   (when (and (spacemacs/system-is-mswindows) window-system)
@@ -530,7 +530,7 @@ you should place your code here."
     (dolist (charset '(kana han symbol cjk-misc bopomofo))
       (set-fontset-font (frame-parameter nil 'font)
                         charset
-                        (font-spec :family "Microsoft YaHei" :size 23))))  ;;16
+                        (font-spec :family "Microsoft YaHei" :size 23))));16
 
   ;; (add-hook 'evil-normal-state-entry-hook XXX)
 
