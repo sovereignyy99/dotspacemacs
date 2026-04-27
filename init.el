@@ -828,7 +828,29 @@ you should place your code here."
     ;;                          ))
 
     ;;(setq org-agenda-files (directory-files-recursively "~/org/org" "\\.org$"))
-    (setq org-agenda-files (directory-files-recursively "~/org/org" (rx (or ".org") eos)))
+    ;;(setq org-agenda-files (directory-files-recursively "~/org/org" (rx (or ".org") eos)))
+
+    ;; 1. 把所有需要递归检索的根目录列出来
+    (defvar my-org-agenda-directories
+      '("~/org/org"
+        "~/learning"
+        ;; "~/cpte/project/cpte_2024_mps_Thailand_post"
+        ;; "~/learning/pd/万业名苑出售"
+        ;; "~/learning/pd/市区房产置换"
+        ;; 注意：如果是 Windows 绝对路径，请务必使用正斜杠 /，例如：
+        ;; "D:/Work/Siemens_Project"
+        ;;                     "~/learning/pd/万业名苑出售/test01"
+        ;;                     "~/learning/pd/万业名苑出售/test02"
+        ))
+
+    ;; 2. 自动遍历上述目录，提取所有 .org 文件并合并成一个列表
+    (setq org-agenda-files
+          (apply 'append
+                 (mapcar (lambda (dir)
+                           ;; 安全检查：只有目录真实存在时才去检索，防止报错
+                           (when (file-exists-p (expand-file-name dir))
+                             (directory-files-recursively dir (rx (or ".org") eos))))
+                         my-org-agenda-directories)))
 
     ;;正则应该用(rx (or ".org" ".txt") eos)，因为换行符可以作为文件名一部分
     ;;(setq org-agenda-files (directory-files-recursively "~/org/org" (rx (or ".org" ".txt") eos)))
@@ -1035,43 +1057,44 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                                      (org-agenda-skip-if nil '(scheduled deadline))))
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
            ((org-agenda-compact-blocks nil)
-            (org-agenda-files '(
-                                "~/org/misc"
-                                "~/org/org"
-                                "~/org/org/journal"
-                                "~/org/org/journal/WorkNotes.org"
-                                "~/org/org/life/children"
-                                "~/org/org/life/film"
-                                "~/org/org/life/finance"
-                                "~/org/org/life/history"
-                                "~/org/org/life/job"
-                                "~/org/org/project"
-                                "~/org/org/learning/ai"
-                                "~/org/org/learning/algorithm_and_data_structure"
-                                "~/org/org/learning/android"
-                                "~/org/org/learning/comm_ic"
-                                "~/org/org/learning/circuit_board_design"
-                                "~/org/org/learning/crossbelt_sorter"
-                                "~/org/org/learning/datasheet"
-                                "~/org/org/learning/database"
-                                "~/org/org/learning/deeplearning"
-                                "~/org/org/learning/electric"
-                                "~/org/org/learning/ethernet"
-                                "~/org/org/learning/industrial_fieldbus"
-                                "~/org/org/learning/mcu"
-                                "~/org/org/learning/linux"
-                                "~/org/org/learning/operating_system"
-                                "~/org/org/learning/motor_control"
-                                "~/org/org/learning/parcel_singulator"
-                                "~/org/org/learning/plc"
-                                "~/org/org/learning/program_language"
-                                "~/org/org/learning/project_management"
-                                "~/org/org/learning/qt"
-                                "~/org/org/learning/rtos"
-                                "~/org/org/learning/simulation"
-                                "~/org/org/learning/system_arch_design"
-                                "~/org/org/learning/tools"
-                                ))
+            (org-agenda-tag-filter-preset '("+Work"))
+            ;; (org-agenda-files '(
+            ;;                     "~/org/misc"
+            ;;                     "~/org/org"
+            ;;                     "~/org/org/journal"
+            ;;                     "~/org/org/journal/WorkNotes.org"
+            ;;                     "~/org/org/life/children"
+            ;;                     "~/org/org/life/film"
+            ;;                     "~/org/org/life/finance"
+            ;;                     "~/org/org/life/history"
+            ;;                     "~/org/org/life/job"
+            ;;                     "~/org/org/project"
+            ;;                     "~/org/org/learning/ai"
+            ;;                     "~/org/org/learning/algorithm_and_data_structure"
+            ;;                     "~/org/org/learning/android"
+            ;;                     "~/org/org/learning/comm_ic"
+            ;;                     "~/org/org/learning/circuit_board_design"
+            ;;                     "~/org/org/learning/crossbelt_sorter"
+            ;;                     "~/org/org/learning/datasheet"
+            ;;                     "~/org/org/learning/database"
+            ;;                     "~/org/org/learning/deeplearning"
+            ;;                     "~/org/org/learning/electric"
+            ;;                     "~/org/org/learning/ethernet"
+            ;;                     "~/org/org/learning/industrial_fieldbus"
+            ;;                     "~/org/org/learning/mcu"
+            ;;                     "~/org/org/learning/linux"
+            ;;                     "~/org/org/learning/operating_system"
+            ;;                     "~/org/org/learning/motor_control"
+            ;;                     "~/org/org/learning/parcel_singulator"
+            ;;                     "~/org/org/learning/plc"
+            ;;                     "~/org/org/learning/program_language"
+            ;;                     "~/org/org/learning/project_management"
+            ;;                     "~/org/org/learning/qt"
+            ;;                     "~/org/org/learning/rtos"
+            ;;                     "~/org/org/learning/simulation"
+            ;;                     "~/org/org/learning/system_arch_design"
+            ;;                     "~/org/org/learning/tools"
+            ;;                     ))
             (org-agenda-text-search-extra-files nil))
            )
 
@@ -1091,16 +1114,19 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                                      (org-agenda-skip-if nil '(scheduled deadline))))
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
            ((org-agenda-compact-blocks nil)
-            (org-agenda-files '(
-                                "~/org/org/journal/PulpFiction.org"
-                                "~/org/org/life/children"
-                                "~/org/org/life/film"
-                                "~/org/org/life/finance"
-                                "~/org/org/life/history"
-                                "~/org/org/life/job"
-                                "~/org/org/learning/books"
-                                "~/org/org/learning/knowledge_system"
-                                ))
+            (org-agenda-tag-filter-preset '("+Life"))
+            ;; (org-agenda-files '(
+            ;;                     "~/org/org/journal/PulpFiction.org"
+            ;;                     "~/org/org/life/children"
+            ;;                     "~/org/org/life/film"
+            ;;                     "~/org/org/life/finance"
+            ;;                     "~/org/org/life/history"
+            ;;                     "~/org/org/life/job"
+            ;;                     "~/org/org/learning/books"
+            ;;                     "~/org/org/learning/knowledge_system"
+            ;;                     "~/learning/pd/万业名苑出售/test01"
+            ;;                     "~/learning/pd/万业名苑出售/test02"
+            ;;                     ))
             (org-agenda-text-search-extra-files nil))
            )
 
@@ -1118,7 +1144,11 @@ PRIORITY may be one of the characters ?A, ?B, or ?C."
                                                      (org-agenda-skip-if nil '(scheduled deadline))))
                       (org-agenda-overriding-header "ALL normal priority tasks:"))))
            ((org-agenda-compact-blocks nil)
-            (org-agenda-files '("~/org" "~/org/org/journal/PulpFiction.org" "~/org/org/journal/WorkNotes.org"))
+            (org-agenda-files '(
+                                "~/org"
+                                "~/org/org/journal/PulpFiction.org"
+                                "~/org/org/journal/WorkNotes.org"
+                                ))
             (org-agenda-text-search-extra-files nil))
            )
           ;; #################################################################
